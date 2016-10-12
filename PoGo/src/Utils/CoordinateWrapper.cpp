@@ -1,6 +1,6 @@
 #include "CoordinateWrapper.h"
-#include "KmereMap.h"
-#include "ExistingPeptides.h"
+#include "PeptideMapper\KmereMap.h"
+#include "DataClasses\ExistingPeptides.h"
 
 CoordinateWrapper::CoordinateWrapper(void) :
 	m_map(std::map<std::string, ProteinEntry>()),

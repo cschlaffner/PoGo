@@ -1,7 +1,7 @@
 #ifndef COORDINATEWRAPPER_H
 #define COORDINATEWRAPPER_H
 
-#include "DataClasses\ProteinEntry"
+#include "DataClasses\ProteinEntry.h"
 
 
 //forward declarations to break circular dependencies.

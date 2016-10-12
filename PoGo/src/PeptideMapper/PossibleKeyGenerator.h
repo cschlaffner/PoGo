@@ -1,7 +1,7 @@
 #if !defined	POSSIBLE_KEY_GENERATOR
 #define			POSSIBLE_KEY_GENERATOR
 #include "PeptideMapperUtils.h"
-#include "Globals.h"
+#include "Utils\Globals.h"
 #include <set>
 
 class KmereMap;

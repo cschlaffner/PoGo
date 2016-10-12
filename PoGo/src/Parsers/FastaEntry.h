@@ -1,7 +1,7 @@
 #ifndef FASTAENTRY_H
 #define FASTAENTRY_H
 
-#include "Utils.h"
+#include "Utils\Utils.h"
 
 class FastaEntry {
 public:

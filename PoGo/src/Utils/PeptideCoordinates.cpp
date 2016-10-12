@@ -1,4 +1,4 @@
-#include "PeptideCoordinates.h"
+//#include "PeptideCoordinates.h"
 
 PeptideCoordinates::PeptideCoordinates(void) : m_coordinates(), m_transcript_coordinates(), m_cds_annotation_correct(0) {}
 

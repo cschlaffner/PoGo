@@ -1,7 +1,7 @@
 #ifndef COORDINATES_H
 #define COORDINATES_H
 
-#include "Globals.h"
+//#include "Globals.h"
 
 //possible offsets.
 enum Offset {

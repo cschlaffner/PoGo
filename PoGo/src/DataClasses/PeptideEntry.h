@@ -1,7 +1,7 @@
 #ifndef PEPTIDEENTRY_H
 #define PEPTIDEENTRY_H
 
-#include "PTMEntry.h"
+//#include "PTMEntry.h"
 
 struct transcripts_t;
 

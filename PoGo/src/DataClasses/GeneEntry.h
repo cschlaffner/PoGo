@@ -1,7 +1,7 @@
 #ifndef GENEENTRY_H
 #define GENEENTRY_H
 
-#include "Utils\PeptideCoordinates.h"
+//#include "Utils\PeptideCoordinates.h"
 
 class GeneEntry {
 public:

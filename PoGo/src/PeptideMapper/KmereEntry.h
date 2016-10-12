@@ -1,7 +1,7 @@
 #if !defined	KMERE_ENTRY
 #define			KMERE_ENTRY
 
-#include "DataClass\PeptideEntry.h"
+//#include "DataClass\PeptideEntry.h"
 
 //a kmere Entry holds information on a kmere.
 //it has pointers to the proteinsequence and associated protein to which it belongs, 

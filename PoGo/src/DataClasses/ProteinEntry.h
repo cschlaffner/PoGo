@@ -1,7 +1,7 @@
 #ifndef PROTEINENTRY_H
 #define PROTEINENTRY_H
 
-#include "Parsers\FastaParser.h"
+//#include "Parsers\FastaParser.h"
 struct position_mismatch_t;
 
 class ProteinEntry {

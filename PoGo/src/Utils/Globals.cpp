@@ -1,4 +1,4 @@
-#include "Globals.h"
+//#include "Globals.h"
 
 unsigned int GENOME_MAPPER_GLOBALS::PEPTIDE_MAPPER::KMERE_LENGTH(5);
 unsigned int GENOME_MAPPER_GLOBALS::PEPTIDE_MAPPER::ALLOWED_MISMATCHES(0);

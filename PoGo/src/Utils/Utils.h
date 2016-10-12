@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <iostream>
 #include <stdexcept>
-#include "EnumStringMapper.h"
+//#include "EnumStringMapper.h"
 //---------------------------
 //Utils.h and Utils.cpp hold an abundance of useful functions.
 //---------------------------

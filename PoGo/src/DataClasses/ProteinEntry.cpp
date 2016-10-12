@@ -1,5 +1,5 @@
-#include "ProteinEntry.h"
-#include "PeptideMapper\PeptideMapperUtils.h"
+//#include "ProteinEntry.h"
+//#include "PeptideMapper\PeptideMapperUtils.h"
 
 ProteinEntry::ProteinEntry(void) :
 	m_fasta_header(),

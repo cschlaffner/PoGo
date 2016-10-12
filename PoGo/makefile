@@ -1,6 +1,7 @@
 CXX = g++
 CXXFLAGS = -Wall -g -std=c++0x 
 
+
 all: main clean
 
 main: main.o EnumStringMapper.o Utils.o FastaEntry.o FastaParser.o ProteinEntry.o CoordinateWrapper.o PeptideCoordinates.o GeneEntry.o PTMEntry.o PeptideEntry.o KmereMap.o PeptideMapperUtils.o PossibleKeyGenerator.o MapEntry.o MappedPeptides.o ResultParser.o GTFParser.o Globals.o

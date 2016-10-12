@@ -1,4 +1,4 @@
-#include "FastaParser.h"
+//#include "FastaParser.h"
 
 FastaParser* FastaParser::m_instance = nullptr;
 FastaParser::FastaParser() {}

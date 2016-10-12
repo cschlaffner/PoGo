@@ -1,7 +1,7 @@
 #ifndef PTMENTRY_H
 #define PTMENTRY_H
 
-#include "GeneEntry.h"
+//#include "GeneEntry.h"
 
 //the PTMEntry contains information about post translational modifications like methlation.
 //and at which position they appear.

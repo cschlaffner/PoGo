@@ -1,4 +1,4 @@
-#include "FastaEntry.h"
+//#include "FastaEntry.h"
 
 FastaEntry::FastaEntry(std::string const& header, std::string const&AAsequence)
 	: m_header(header), m_aa_sequence(AAsequence) {}

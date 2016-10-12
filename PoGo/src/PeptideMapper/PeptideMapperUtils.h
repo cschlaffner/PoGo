@@ -1,7 +1,7 @@
 #if !defined	PEPTIDEMAPPERUTILS_H
 #define			PEPTIDEMAPPERUTILS_H
 
-#include <map>
+//#include <map>
 #include <vector>
 #include <string>
 

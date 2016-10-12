@@ -1,6 +1,6 @@
 #if !defined	GLOBALS_H
 #define			GLOBALS_H
-#include <string>
+//#include <string>
 #include <vector>
 
 //this struct and the contained structs hold global variables. some of these can be modified with parameters (e.g. -mm) 

@@ -2,7 +2,7 @@
 #define MAPPEDPEPTIDES_H
 
 
-#include "MapEntry.h"
+//#include "MapEntry.h"
 
 //
 //the mapped peptides class connects the different classes

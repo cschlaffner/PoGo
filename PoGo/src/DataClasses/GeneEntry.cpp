@@ -1,4 +1,4 @@
-#include "GeneEntry.h"
+//#include "GeneEntry.h"
 
 //PUBLIC
 //ctr & dtr

@@ -1,4 +1,4 @@
-#include "MapEntry.h"
+//#include "MapEntry.h"
 
 MapEntry::MapEntry(GeneEntry* geneentry_p) :
 	m_p_gene_entry(geneentry_p),

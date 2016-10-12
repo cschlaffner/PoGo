@@ -3,7 +3,7 @@
 
 #include <iomanip>
 #include <map>
-#include "Coordinates.h"
+//#include "Coordinates.h"
 
 //this static class contains methods to map the Enums in Utils.h 
 //to strings or the other way around.

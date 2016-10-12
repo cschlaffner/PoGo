@@ -1,5 +1,5 @@
-#include "PossibleKeyGenerator.h"
-#include "KmereMap.h"
+//#include "PossibleKeyGenerator.h"
+//#include "KmereMap.h"
 
 PossibleKeyGenerator::PossibleKeyGenerator(KmereMap const* k)
 : m_keys_generated(false), m_kmeres(k) {}

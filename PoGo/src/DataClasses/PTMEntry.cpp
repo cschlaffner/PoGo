@@ -1,4 +1,4 @@
-#include "PTMEntry.h"
+//#include "PTMEntry.h"
 
 PTMEntry::PTMEntry() :
 	m_peptide_start_coord(std::string::npos), m_peptide_end_coord(std::string::npos) {}

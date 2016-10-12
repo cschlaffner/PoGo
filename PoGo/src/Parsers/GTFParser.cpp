@@ -1,4 +1,4 @@
-#include "GTFParser.h"
+//#include "GTFParser.h"
 
 
 GTFParser* GTFParser::m_instance = nullptr;

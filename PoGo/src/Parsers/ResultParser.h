@@ -1,7 +1,7 @@
 #ifndef RESULTPARSER_H
 #define RESULTPARSER_H
 
-#include "Utils\MappedPeptides.h"
+//#include "Utils\MappedPeptides.h"
 
 //this class parses peptide input files and maps them to the genome.
 class ResultParser {

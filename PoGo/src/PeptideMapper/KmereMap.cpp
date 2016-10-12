@@ -1,4 +1,4 @@
-#include "KmereMap.h"
+//#include "KmereMap.h"
 
 KmereMap::match_protein_fun_t			KmereMap::m_match_protein(KmereMap::match_protein);
 KmereMap::match_protein_backwards_fun_t KmereMap::m_match_protein_backwards(KmereMap::match_backwards);

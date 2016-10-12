@@ -1,7 +1,7 @@
 #ifndef GTFPARSER_H
 #define GTFPARSER_H
 
-#include "ResultParser.h"
+//#include "ResultParser.h"
 
 class MappedPeptides;
 

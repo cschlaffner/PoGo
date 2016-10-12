@@ -1,8 +1,8 @@
 #if !defined	KMERE_MAP
 #define			KMERE_MAP
 
-#include "KmereEntry.h"
-#include "PossibleKeyGenerator.h"
+//#include "KmereEntry.h"
+//#include "PossibleKeyGenerator.h"
 #include <unordered_map>
 
 class KmereMap {

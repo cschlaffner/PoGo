@@ -2,7 +2,7 @@
 #define FASTAPARSER_H
 
 #include <fstream>
-#include "FastaEntry.h"
+//#include "FastaEntry.h"
 
 //this fastaparser reads fasta files. 
 //it will convert input sequences into iso-sequences [I, L] will be converted to J

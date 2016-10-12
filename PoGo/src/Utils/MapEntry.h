@@ -1,7 +1,7 @@
 #ifndef MAPENTRY_H
 #define MAPENTRY_H
 
-#include "PeptideMapper\KmereMap.h"
+//#include "PeptideMapper\KmereMap.h"
 
 //a map entry is used to connect a peptide string to all its variations 
 //it maps a peptide to a gene, and the transcripts.

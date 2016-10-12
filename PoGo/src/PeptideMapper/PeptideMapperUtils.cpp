@@ -1,4 +1,4 @@
-#include "PeptideMapperUtils.h"
+//#include "PeptideMapperUtils.h"
 
 position_mismatch_t::position_mismatch_t(int posInProtein, int firstMismatch, int secondMismatch)
 	: m_position_in_protein(posInProtein), m_first_mismatch_positon(firstMismatch), m_second_mismatch_positon(secondMismatch) {}

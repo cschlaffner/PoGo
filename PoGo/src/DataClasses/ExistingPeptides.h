@@ -1,7 +1,7 @@
 #if !defined	EXISTING_PEPTIDES_H
 #define			EXISTING_PEPTIDES_H
 
-#include "PeptideEntry.h"
+//#include "PeptideEntry.h"
 
 class ExistingPeptides {
 public:

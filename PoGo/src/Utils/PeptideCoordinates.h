@@ -1,7 +1,7 @@
 #ifndef PEPTIDECOORDINATES_H
 #define PEPTIDECOORDINATES_H
 
-#include "CoordinateWrapper.h"
+//#include "CoordinateWrapper.h"
 
 
 //in this class all the information will be used to find the 

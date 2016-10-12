@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{6eb9b99c-f703-4726-9853-8a38bb3c376a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Coordinates.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CoordinateWrapper.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EnumStringMapper.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ExistingPeptides.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FastaEntry.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FastaParser.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GeneEntry.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Globals.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GTFParser.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\KmereEntry.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\KmereMap.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main_functions.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MapEntry.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MappedPeptides.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PeptideCoordinates.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PeptideEntry.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PeptideMapperUtils.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PossibleKeyGenerator.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ProteinEntry.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PTMEntry.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ResultParser.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\CoordinateWrapper.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EnumStringMapper.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FastaEntry.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FastaParser.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GeneEntry.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Globals.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GTFParser.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\KmereMap.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MapEntry.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MappedPeptides.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PeptideCoordinates.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PeptideEntry.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PeptideMapperUtils.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PossibleKeyGenerator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ProteinEntry.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PTMEntry.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ResultParser.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\makefile">
+      <Filter>src</Filter>
+    </None>
+    <None Include="src\PoGo">
+      <Filter>src</Filter>
+    </None>
+  </ItemGroup>
+</Project>

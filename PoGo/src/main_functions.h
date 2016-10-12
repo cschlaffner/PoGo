@@ -1,7 +1,7 @@
 #if !defined	MAIN_FUNCTIONS_H
 #define			MAIN_FUNCTIONS_H
 
-//#include "GTFParser.h"
+#include "GTFParser.h"
 
 //------------------------------------------------------
 //this header was intruduced to declutter the main.cpp file.

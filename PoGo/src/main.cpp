@@ -1,5 +1,5 @@
-//#include "main_functions.h"
-//#include "DataClasses\ExistingPeptides.h"
+#include "main_functions.h"
+#include "ExistingPeptides.h"
 
 //exit codes --------------------------------
 const int __GENOME_MAPPER_EXIT_HELP = 1;

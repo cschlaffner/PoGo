@@ -4,8 +4,8 @@ CXXFLAGS = -Wall -g -std=c++0x
 
 all: main clean
 
-main: main.o EnumStringMapper.o Utils.o FastaEntry.o FastaParser.o ProteinEntry.o CoordinateWrapper.o PeptideCoordinates.o GeneEntry.o PTMEntry.o PeptideEntry.o KmereMap.o PeptideMapperUtils.o PossibleKeyGenerator.o MapEntry.o MappedPeptides.o ResultParser.o GTFParser.o Globals.o
-	$(CXX) $(CXXFLAGS) -o PoGo main.o EnumStringMapper.o Utils.o FastaEntry.o FastaParser.o ProteinEntry.o CoordinateWrapper.o PeptideCoordinates.o GeneEntry.o PTMEntry.o PeptideEntry.o KmereMap.o PossibleKeyGenerator.o MapEntry.o MappedPeptides.o ResultParser.o GTFParser.o PeptideMapperUtils.o Globals.o
+main: main.o EnumStringMapper.o Utils.o FastaEntry.o FastaParser.o ProteinEntry.o CoordinateWrapper.o PeptideCoordinates.o GeneEntry.o PTMEntry.o PeptideEntry.o KmerMap.o PeptideMapperUtils.o PossibleKeyGenerator.o MapEntry.o MappedPeptides.o ResultParser.o GTFParser.o Globals.o
+	$(CXX) $(CXXFLAGS) -o PoGo main.o EnumStringMapper.o Utils.o FastaEntry.o FastaParser.o ProteinEntry.o CoordinateWrapper.o PeptideCoordinates.o GeneEntry.o PTMEntry.o PeptideEntry.o KmerMap.o PossibleKeyGenerator.o MapEntry.o MappedPeptides.o ResultParser.o GTFParser.o PeptideMapperUtils.o Globals.o
 
 main.o: main.cpp
 	$(CXX) $(CXXFLAGS) -c main.cpp 
@@ -16,9 +16,9 @@ ResultParser.o: ResultParser.h MappedPeptides.h
 
 MappedPeptides.o: MappedPeptides.h MapEntry.h
 
-MapEntry.o: MapEntry.h KmereMap.h
+MapEntry.o: MapEntry.h KmerMap.h
 
-KmereMap.o: KmereMap.h KmereEntry.h PeptideEntry.h PeptideMapperUtils.h PossibleKeyGenerator.h
+KmerMap.o: KmerMap.h KmerEntry.h PeptideEntry.h PeptideMapperUtils.h PossibleKeyGenerator.h
 
 PeptideEntry.o: PeptideEntry.h PTMEntry.h
 

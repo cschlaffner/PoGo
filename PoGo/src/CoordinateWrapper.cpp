@@ -1,5 +1,5 @@
 #include "CoordinateWrapper.h"
-#include "KmereMap.h"
+#include "KmerMap.h"
 #include "ExistingPeptides.h"
 
 CoordinateWrapper::CoordinateWrapper(void) :
@@ -32,9 +32,9 @@ void CoordinateWrapper::read_fasta_file(std::string file) {
 	FastaParser::get_instance()->close();
 }
 
-void CoordinateWrapper::add_all_proteins_to_kmere_map(KmereMap& kmereMap) {
+void CoordinateWrapper::add_all_proteins_to_kmer_map(KmerMap& kmerMap) {
 	for (std::map<std::string, ProteinEntry>::iterator it = m_map.begin(); it != m_map.end(); ++it) {
-		kmereMap.add_protein(it->second);
+		kmerMap.add_protein(it->second);
 	}
 }
 

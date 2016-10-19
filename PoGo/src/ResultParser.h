@@ -11,7 +11,7 @@ public:
 	//end dtr
 
 	//read function. this reads the peptides input and sets the wheels in motion.
-	void static read(std::string file, CoordinateWrapper& coordwrapper, MappedPeptides& mapping, std::string unmappedoutput, KmereMap& k);
+	void static read(std::string file, CoordinateWrapper& coordwrapper, MappedPeptides& mapping, std::string unmappedoutput, KmerMap& k);
 private:
 	//ctr
 	ResultParser(void);

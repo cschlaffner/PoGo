@@ -4,7 +4,7 @@ ResultParser::ResultParser(void) {}
 ResultParser::~ResultParser(void) {}
 
 //this function will set the wheels in motion to find the peptides in the proteins.
-void ResultParser::read(std::string file, CoordinateWrapper& coordwrapper, MappedPeptides& mapping, std::string unmappedoutput, KmereMap& k) {
+void ResultParser::read(std::string file, CoordinateWrapper& coordwrapper, MappedPeptides& mapping, std::string unmappedoutput, KmerMap& k) {
 	std::vector <std::string>	tokens;
 	std::ifstream	ifs(file.c_str());
 	if (ifs.good()) {

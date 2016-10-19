@@ -8,11 +8,11 @@
 struct GENOME_MAPPER_GLOBALS {
 	//globals for the peptide mapper.
 	struct PEPTIDE_MAPPER {
-		//KMERE_LENGTH holds the size of the kmeres in the KmereMap. 
-		//the default value is 5. tests showed that any other kmeresize slows down 
+		//KMER_LENGTH holds the size of the kmers in the KmerMap. 
+		//the default value is 5. tests showed that any other kmersize slows down 
 		//significantly if the number of mappings is high.
 		//the executable has to be recompiled after changing this.
-		static unsigned int			KMERE_LENGTH;
+		static unsigned int			KMER_LENGTH;
 
 		//allowed mismatches holds the number of allowed mismatches and has to be between 0 and 2. 
 		//this can be modified with the -mm input parameter.
@@ -25,7 +25,7 @@ struct GENOME_MAPPER_GLOBALS {
 
 		//toggles wheter 1 in 5 mode is on. this mode only works with 
 		//two mismatches. if 1 in 5 mode is on, only one mismatch is 
-		//allowed in every 5 amino acids. (this only works if KmereLength == 5)
+		//allowed in every 5 amino acids. (this only works if KmerLength == 5)
 		//can be toggled with the -mmmode switch.
 		static bool					ONE_IN_FIVE_MODE;
 	};

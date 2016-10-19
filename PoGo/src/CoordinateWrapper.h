@@ -5,7 +5,7 @@
 
 
 //forward declarations to break circular dependencies.
-class KmereMap;
+class KmerMap;
 class ExistingPeptides;
 class PeptideEntry;
 
@@ -25,8 +25,8 @@ public:
 	
 	//reads and parses a fasta file and adds all of them to the CoordinateWrapper.
 	void read_fasta_file(std::string file);
-	//adds all previously added proteins to the given KmereMap. 
-	void add_all_proteins_to_kmere_map(KmereMap& kmereMap);
+	//adds all previously added proteins to the given KmerMap. 
+	void add_all_proteins_to_kmer_map(KmerMap& kmerMap);
 	//adds a peptide to the existing peptides list. this is used in the ResultParser so 
 	//that already found peptides dont have to be mapped again.
 	void add_to_existing_peptides(std::string const& peptideSequence, PeptideEntry* peptideEntry) const;

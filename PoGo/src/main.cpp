@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
 	param_list.push_back(std::pair<std::string, std::string>("-format", "Select the output formats from gtf, gct, bed, ptmbed, all or combinations thereof separated by ',' (default all)"));
 	param_list.push_back(std::pair<std::string, std::string>("-source", "Please give a source name which will be used in the second column in the output gtf file (default: PoGo)"));
 	param_list.push_back(std::pair<std::string, std::string>("-mm", "Allowed mismatches (0, 1 or 2; default: 0)"));
-	param_list.push_back(std::pair<std::string, std::string>("-mmmode", "Mismatch mode (true or false): if true mismatching with two mismaches will only allow 1 mismatch every kmeresize (default: 5) positions. (default: false)"));
+	param_list.push_back(std::pair<std::string, std::string>("-mmmode", "Mismatch mode (true or false): if true mismatching with two mismaches will only allow 1 mismatch every kmersize (default: 5) positions. (default: false)"));
 
 	std::vector<std::pair<std::string, std::string>> param_list_back_sorted = param_list;
 
@@ -181,11 +181,11 @@ int main(int argc, char* argv[]) {
 		coordinate_wrapper.read_fasta_file(fasta_file_path);
 
 		std::cout << "Fasta done: " << coordinate_wrapper.size() << " proteins read." << std::endl
-			<< "building KmereMap..." << std::endl;
-		KmereMap kmere_map;
-		coordinate_wrapper.add_all_proteins_to_kmere_map(kmere_map);
+			<< "building KmerMap..." << std::endl;
+		KmerMap kmer_map;
+		coordinate_wrapper.add_all_proteins_to_kmer_map(kmer_map);
 
-		std::cout << "KmereMap done: " << kmere_map.size() << " unique " << GENOME_MAPPER_GLOBALS::PEPTIDE_MAPPER::KMERE_LENGTH << "-meres created." << std::endl
+		std::cout << "KmerMap done: " << kmer_map.size() << " unique " << GENOME_MAPPER_GLOBALS::PEPTIDE_MAPPER::KMER_LENGTH << "-mers created." << std::endl
 			<< "reading GTF: " << gtf_file_path << std::endl;
 
 		MappedPeptides mapped_peptides = MappedPeptides();
@@ -202,7 +202,7 @@ int main(int argc, char* argv[]) {
 
 		std::string path6 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_unmapped.txt";
 
-		ResultParser::read(curr_input_file_path, coordinate_wrapper, mapped_peptides, path6, kmere_map);
+		ResultParser::read(curr_input_file_path, coordinate_wrapper, mapped_peptides, path6, kmer_map);
 		std::cout << "Results done! (" << peptide_input_file_paths.at(i) << ")" << std::endl
 			<< "writing output files" << std::endl;
 

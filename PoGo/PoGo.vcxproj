@@ -85,8 +85,8 @@
     <ClInclude Include="src\GeneEntry.h" />
     <ClInclude Include="src\Globals.h" />
     <ClInclude Include="src\GTFParser.h" />
-    <ClInclude Include="src\KmereEntry.h" />
-    <ClInclude Include="src\KmereMap.h" />
+    <ClInclude Include="src\KmerEntry.h" />
+    <ClInclude Include="src\KmerMap.h" />
     <ClInclude Include="src\main_functions.h" />
     <ClInclude Include="src\MapEntry.h" />
     <ClInclude Include="src\MappedPeptides.h" />
@@ -107,7 +107,7 @@
     <ClCompile Include="src\GeneEntry.cpp" />
     <ClCompile Include="src\Globals.cpp" />
     <ClCompile Include="src\GTFParser.cpp" />
-    <ClCompile Include="src\KmereMap.cpp" />
+    <ClCompile Include="src\KmerMap.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MapEntry.cpp" />
     <ClCompile Include="src\MappedPeptides.cpp" />

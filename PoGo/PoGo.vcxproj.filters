@@ -33,12 +33,6 @@
     <ClInclude Include="src\GTFParser.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\KmereEntry.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\KmereMap.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\main_functions.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -72,6 +66,12 @@
     <ClInclude Include="src\Utils.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\KmerEntry.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\KmerMap.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CoordinateWrapper.cpp">
@@ -93,9 +93,6 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\GTFParser.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\KmereMap.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp">
@@ -129,6 +126,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\Utils.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\KmerMap.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

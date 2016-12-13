@@ -8,6 +8,9 @@ std::string remove_ptms(const std::string& sequence) {
 		tmp.erase(tmp.begin() + start, tmp.begin() + end + 1);
 		start = tmp.find_first_of("(");
 	}
+
+	std::transform(tmp.begin(), tmp.end(), tmp.begin(), ::toupper);
+
 	return tmp;
 }
 
@@ -148,7 +151,7 @@ std::string coordinates_to_string(const GenomeCoordinates& coords) {
 	} else {
 		ss << EnumStringMapper::enum_to_string(coords.chr);
 	}
-	ss << ":" << coords.start << "-" << coords.end << " " << EnumStringMapper::enum_to_string(coords.strand);// << " " << coords.frame;
+	ss << ":" << coords.start << "-" << coords.end << " " << EnumStringMapper::enum_to_string(coords.strand, false);// << " " << coords.frame;
 	return ss.str();
 }
 
@@ -170,7 +173,7 @@ std::string coordinates_to_gtf_string(const GenomeCoordinates& coords, const std
 	} else {
 		ss << EnumStringMapper::enum_to_string(coords.chr);
 	}
-	ss << "\t" << source << "\t" << type << "\t" << coords.start << "\t" << coords.end << "\t.\t" << EnumStringMapper::enum_to_string(coords.strand);
+	ss << "\t" << source << "\t" << type << "\t" << coords.start << "\t" << coords.end << "\t.\t" << EnumStringMapper::enum_to_string(coords.strand, false);
 	if (frameinclude == true) {
 		ss << "\t" << coords.frame << "\t";
 	} else {

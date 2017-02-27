@@ -4,7 +4,7 @@
 In proteogenomic analyses it is essential to know the loci giving rise to peptides in order to improve genomic annotation and the functional characterization of protein products in their biological context. With next-generation sequencing of DNA and RNA for each sample studied by proteomic mass spectrometry integration and visualisation in a common coordinate system, i.e. the genome, is vital for systems biology. Advances in technology in mass spectrometry now allow almost complete quantification of the sample proteome. With research moving to protein quantitative trait loci (pQTL) to identify genomic alterations with functional effects on the proteome and the high complexity of combinations thereof integration and visualisation of protein and peptide quantification on genomic loci is paramount for this type of analysis. Furthermore, moving towards more personal multi-omics studies comparative visualisation of proteomic data on a genome has been lacking. Not only genomic variation affecting proteins have come into focus of functional integration studies but also post-translational modifications (PTM), the effect of single nucleotide variants and other alterations on PTMs and alternative modification loci, and the effects of alternative PTMs on protein abundance have become more a centre of attention for researchers. To facilitate this type of integration not only the genomic locations of modified peptides but specifically the genomic loci of associated with these modifications is required. Here, we provide a mapping tool, PoGo, to quickly and efficiently identify genomic loci of peptides and post-translational modifications and couple these mappings with associated quantitative values over multiple samples. Using reference gene annotation and an associated transcript translations our tool identifies the genomic loci of peptides given as input and generates output in different formats borrowed from genomics and transcriptomics which can be loaded in various genome browsers such as UCSC Genome Browser, Ensembl Genome Browser, BioDalliance, and the Integrative Genomics Viewer.
 
 ## Download and Instiallation
-PoGo source code is written to support compilation on Windows, Mac and Linux systems. Executables can be downloaded [here](ftp://ftp.sanger.ac.uk/pub/teams/17/software/PoGo/). 
+PoGo source code is written to support compilation on Windows, Mac and Linux systems. Executables can be downloaded here: ftp://ftp.sanger.ac.uk/pub/teams/17/software/PoGo/. 
 
 ## Learn and Support
 PoGo uses transcript translations and reference gene annotations to identify the genomic loci of peptides and post-translational modifications. Multiple occurrences of peptides in the input data resulting in the same genomic loci will be collapsed as a single occurrence in the output.
@@ -148,14 +148,14 @@ Optional arguments:
 </td><td>Set TRUE to restrict number of mismatch in kmer to 1. DEFAULT = FALSE</td></tr></tbody></table>
 
 ### Step by step
-<ol><li>Download annotation and translated sequences for human from GENCODE, e.g. release 25. Go to <a href="http://www.gencodegenes.org/release/25.html">www.gencodegenes.org/release/25.html</a> and download the GTF file containing 'Comprehensive gene annotation' and the 'Protein-coding transcript translation sequences' as Fasta file. Store and unzip both files into a folder, e.g. ${POGO_DIR}/input/</li><li>Navigate to the folder that contains the PoGo executable (cd ${POGO})</li><li>Execute the following command to generate gtf, gct, bed and ptmbed output for of the your input file referred to as ${Peptides.txt}<br><newline>Linux/Unix</newline>
+<ol><li>Download annotation and translated sequences for human from GENCODE, e.g. release 25. Go to www.gencodegenes.org/release/25.html and download the GTF file containing 'Comprehensive gene annotation' and the 'Protein-coding transcript translation sequences' as Fasta file. Store and unzip both files into a folder, e.g. ${POGO_DIR}/input/</li><li>Navigate to the folder that contains the PoGo executable (cd ${POGO})</li><li>Execute the following command to generate gtf, gct, bed and ptmbed output for of the your input file referred to as ${Peptides.txt}<br><newline>Linux/Unix</newline>
 
 <pre>./PoGo -fasta ./input/gencode.v25.pc_translations.fa -gtf ./input/gencode.v25.annotation.gtf -in /PATH/TO/${Peptides.txt}</pre>
 <newline>Windows</newline>
 
 <pre>.\PoGo.exe -fasta .\input\gencode.v25.pc_translations.fa -gtf .\input\gencode.v25.annotation.gtf -in \PATH\TO\${Peptides.txt}</pre>
-</li><li>You can load the generated BED and/or GTF files into a genome browser or create an web accessible track hub for your data through <a hfre="http://www.sanger.ac.uk/science/tools/trackhub-generator">TrackHub Generator</a>. Here the example is shown for visualisation in the UCSC genome browser.<br><newline>To load the data into the browser please follow these steps:</newline>
-<ol type='a'><li>Go to <a href="https://genome.ucsc.edu">https://genome.ucsc.edu</a> and navigate to 'My Data' -&gt; 'Custom Tracks'.</li><li>After clicking 'Choose File' select the file you want to upload and submit via the 'Submit' button.</li><li>You will be redirected to the 'Manage Custom Tracks' webpage.</li><li>Proceed from the 'Manage Custom Tracks' page by selecting 'Genome Browser' and confirm ('go').</li><li>Now you can browse the peptides mapped to their genomic loci on the reference genome.</li></ol></li></ol>
+</li><li>You can load the generated BED and/or GTF files into a genome browser or create an web accessible track hub for your data through the TrackHub Generator (http://www.sanger.ac.uk/science/tools/trackhub-generator). Here the example is shown for visualisation in the UCSC genome browser.<br><newline>To load the data into the browser please follow these steps:</newline>
+<ol type='a'><li>Go to https://genome.ucsc.edu and navigate to 'My Data' -&gt; 'Custom Tracks'.</li><li>After clicking 'Choose File' select the file you want to upload and submit via the 'Submit' button.</li><li>You will be redirected to the 'Manage Custom Tracks' webpage.</li><li>Proceed from the 'Manage Custom Tracks' page by selecting 'Genome Browser' and confirm ('go').</li><li>Now you can browse the peptides mapped to their genomic loci on the reference genome.</li></ol></li></ol>
 
 ### Runtime and Memory Estimation
 Runtime and required memory (RAM) for PoGo execution across different settings for inclusion of mismatches and depending on number of peptides in the input file.
@@ -170,7 +170,7 @@ Runtime and required memory (RAM) for PoGo execution across different settings f
 </td><td>~ 1.5 h / min 64 GB</td><td>~ 2 h / min 160 GB</td></tr></tbody></table>
 
 ### Test Examples
-Test examples, requirement specifications and time estimations are available [here](ftp://ftp.sanger.ac.uk/pub/teams/17/software/PoGo/PoGo_Testprocedures.zip).
+Test examples, requirement specifications and time estimations are available here: ftp://ftp.sanger.ac.uk/pub/teams/17/software/PoGo/PoGo_Testprocedures.zip.
 
 ## Contact
 Christoph Schlaffner (christoph.schlaffner@sanger.ac.uk)

@@ -1,0 +1,51 @@
+﻿Build started 13/12/2016 10:42:46.
+     1>Project "P:\cs25\VisualStudioGit\PoGo\PoGo\PoGo.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\CoordinateWrapper.cpp src\EnumStringMapper.cpp src\FastaEntry.cpp src\FastaParser.cpp src\GeneEntry.cpp src\Globals.cpp src\GTFParser.cpp src\KmerMap.cpp src\main.cpp src\MapEntry.cpp src\MappedPeptides.cpp src\PeptideCoordinates.cpp src\PeptideEntry.cpp src\PeptideMapperUtils.cpp src\PossibleKeyGenerator.cpp src\ProteinEntry.cpp src\PTMEntry.cpp src\ResultParser.cpp src\Utils.cpp
+         CoordinateWrapper.cpp
+         EnumStringMapper.cpp
+         FastaEntry.cpp
+         FastaParser.cpp
+         GeneEntry.cpp
+         Globals.cpp
+         GTFParser.cpp
+         KmerMap.cpp
+         main.cpp
+         MapEntry.cpp
+         MappedPeptides.cpp
+         PeptideCoordinates.cpp
+         PeptideEntry.cpp
+         PeptideMapperUtils.cpp
+         PossibleKeyGenerator.cpp
+         ProteinEntry.cpp
+         PTMEntry.cpp
+         ResultParser.cpp
+         Utils.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"P:\cs25\VisualStudioGit\PoGo\PoGo\Release\PoGo.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"P:\cs25\VisualStudioGit\PoGo\PoGo\Release\PoGo.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"P:\cs25\VisualStudioGit\PoGo\PoGo\Release\PoGo.lib" /MACHINE:X86 /SAFESEH Release\CoordinateWrapper.obj
+         Release\EnumStringMapper.obj
+         Release\FastaEntry.obj
+         Release\FastaParser.obj
+         Release\GeneEntry.obj
+         Release\Globals.obj
+         Release\GTFParser.obj
+         Release\KmerMap.obj
+         Release\main.obj
+         Release\MapEntry.obj
+         Release\MappedPeptides.obj
+         Release\PeptideCoordinates.obj
+         Release\PeptideEntry.obj
+         Release\PeptideMapperUtils.obj
+         Release\PossibleKeyGenerator.obj
+         Release\ProteinEntry.obj
+         Release\PTMEntry.obj
+         Release\ResultParser.obj
+         Release\Utils.obj
+         Generating code
+         Finished generating code
+         PoGo.vcxproj -> P:\cs25\VisualStudioGit\PoGo\PoGo\Release\PoGo.exe
+     1>Done Building Project "P:\cs25\VisualStudioGit\PoGo\PoGo\PoGo.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:01:01.94

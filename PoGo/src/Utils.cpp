@@ -115,6 +115,7 @@ CoordinateMapType::value_type get_coordinates(Coordinates const& proteinCoords, 
 
 	GenomeCoordinates genome_coordinates;
 	genome_coordinates.chr = genomeCoords.chr;
+	genome_coordinates.chrscaf = genomeCoords.chrscaf;
 	genome_coordinates.strand = genomeCoords.strand;
 	genome_coordinates.frame = genomeCoords.frame;
 	genome_coordinates.start = start_genomic_coord;

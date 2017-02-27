@@ -189,7 +189,7 @@ int main(int argc, char* argv[]) {
 			<< "reading GTF: " << gtf_file_path << std::endl;
 
 		MappedPeptides mapped_peptides = MappedPeptides();
-		GTFParser::get_instance()->read(gtf_file_path, coordinate_wrapper, mapped_peptides);
+		assembly assem = GTFParser::get_instance()->read(gtf_file_path, coordinate_wrapper, mapped_peptides);
 		std::cout << "GTF done!\nComputing genomic coordinates for: " << std::endl;
 
 	
@@ -212,18 +212,31 @@ int main(int argc, char* argv[]) {
 			std::string path5 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + ".bed";
 			std::string path7 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + ".gct";
 			std::string path8 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_ptm.bed";
-
+			std::string path9 = "";
+			std::string path10 = "";
+			std::string path11 = "";
+			std::string path12 = "";
+			if (assem == patchhaploscaff) {
+				path9 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_patch_hapl_scaff_out.gtf";
+				path10 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_patch_hapl_scaff.bed";
+				path11 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_patch_hapl_scaff.gct";
+				path12 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_patch_hapl_scaff_ptm.bed";
+			}
 			if (gtfout == true) {
 				mapped_peptides.to_gtf(path4, source);
+				mapped_peptides.to_gtf(path9, source, assem);
 			}
 			if (bedout == true) {
 				mapped_peptides.to_bed(path5);
+				mapped_peptides.to_bed(path10, assem);
 			}
 			if (gctout == true) {
 				mapped_peptides.to_gct(path7);
+				mapped_peptides.to_gct(path11, assem);
 			}
 			if (ptmbedout == true) {
 				mapped_peptides.to_ptmbed(path8);
+				mapped_peptides.to_ptmbed(path12, assem);
 			}
 			mapped_peptides.remove_all_peptides();
 		}
@@ -235,19 +248,33 @@ int main(int argc, char* argv[]) {
 		std::string path4 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_merged.gtf";
 		std::string path5 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_merged.bed";
 		std::string path7 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_merged.gct";
-		std::string path8 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_mapped_ptm.bed";
+		std::string path8 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_merged_ptm.bed";
+		std::string path9 = "";
+		std::string path10 = "";
+		std::string path11 = "";
+		std::string path12 = "";
+		if (assem == patchhaploscaff) {
+			path9 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_patch_hapl_scaff_merged.gtf";
+			path10 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_patch_hapl_scaff_merged.bed";
+			path11 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_patch_hapl_scaff_merged.gct";
+			path12 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_patch_hapl_scaff_merged_ptm.bed";
+		}
 
 		if (gtfout == true) {
 			mapped_peptides.to_gtf(path4, source);
+			mapped_peptides.to_gtf(path9, source, assem);
 		}
 		if (bedout == true) {
 			mapped_peptides.to_bed(path5);
+			mapped_peptides.to_bed(path10, assem);
 		}
 		if (gctout == true) {
 			mapped_peptides.to_gct(path7);
+			mapped_peptides.to_gct(path11, assem);
 		}
 		if (ptmbedout == true) {
 			mapped_peptides.to_ptmbed(path8);
+			mapped_peptides.to_ptmbed(path12, assem);
 		}
 	}
 	//if there is a problem with the reading of crucial files the program will end prematurely.

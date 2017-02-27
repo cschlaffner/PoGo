@@ -12,7 +12,7 @@ public:
 	//singleton get_instance method.
 	static GTFParser* get_instance();
 	//reads a gtf file and parses it into CoordinateWrapper and MappedPeptides.
-	void read(const std::string& file, CoordinateWrapper& coordwrapper, MappedPeptides& mapping);
+	assembly read(const std::string& file, CoordinateWrapper& coordwrapper, MappedPeptides& mapping);
 private:
 	//inputstream
 	std::ifstream m_ifstream;

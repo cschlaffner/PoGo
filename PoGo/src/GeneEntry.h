@@ -29,6 +29,11 @@ public:
 	//converts a gene into a gtf line and prints it to the given outputstream.
 	std::ostream& to_gtf(const std::string& source, std::ostream& os = std::cout);
 
+	//check if gene entry maps to chromosomes (e.g. chr1, chrX, 10, etc.)
+	bool is_primary();
+	//check if gene entry maps to patch, haplotype or scaffold
+	bool is_patchhaploscaff();
+
 	//looks for the text specified in GENOME_MAPPER_GLOBALS::ID::GENE_ID and returns the ID (including the trailing number of length GENOME_MAPPER_GLOBALS::ID::LENGTH - GENOME_MAPPER_GLOBALS::ID::GENE_ID.length()).
 	std::string static extract_gene_id(std::string gtfgeneline);
 	//looks for the text specified in GENOME_MAPPER_GLOBALS::ID::TRANSCRIPT_ID and returns the ID (including the trailing number of length GENOME_MAPPER_GLOBALS::ID::LENGTH - GENOME_MAPPER_GLOBALS::ID::TRANSCRIPT_ID.length()).

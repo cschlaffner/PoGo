@@ -46,7 +46,7 @@ bool GTFParser::is_next_gene(std::vector<std::string> const& tokens) {
 	return tokens.at(2).compare("gene") == 0;
 }
 
-void GTFParser::read(const std::string& file, CoordinateWrapper& coordwrapper, MappedPeptides& mapping) {
+assembly GTFParser::read(const std::string& file, CoordinateWrapper& coordwrapper, MappedPeptides& mapping) {
 	if (!open(file)) {
 		throw GTFParser__file_not_found_exception();
 	}
@@ -55,14 +55,19 @@ void GTFParser::read(const std::string& file, CoordinateWrapper& coordwrapper, M
 	CoordinateMapType coordinates_map = CoordinateMapType();
 	Coordinates protein_coordinates = Coordinates();
 	Coordinates prev_proteint_coordinates = Coordinates();
-
+	assembly assem = none;
 	std::vector<std::string> tokens;
 	while (std::getline(m_ifstream, m_line)) {
 		if ((m_line[0] != '#')) {
 			tokenize(m_line, tokens, "\t");
 
 			if (is_next_gene(tokens)) {
-				mapping.add_gene_from_gtf(m_line);
+				assembly assemtemp = mapping.add_gene_from_gtf(m_line);
+				if (assem == none) {
+					if (assemtemp == patchhaploscaff) {
+						assem = assemtemp;
+					}
+				}
 			}
 			if (is_next_transcript(tokens)) {
 				mapping.add_transcript_id_to_gene(m_line);
@@ -173,4 +178,5 @@ void GTFParser::read(const std::string& file, CoordinateWrapper& coordwrapper, M
 		p_protein_entry->set_coordinate_map(coordinates_map);
 	}
 	close();
+	return assem;
 }

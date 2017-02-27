@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LocalDebuggerCommandArguments>-gtf /fastnfs/t17_project/cs25/GENCODE/gencode.v25.red.annotation.gtf -fasta /fastnfs/t17_project/cs25/GENCODE/Homo_sapiens.GRCh38.pep.red.fa -format bed -in /fastnfs/t17_project/cs25/GENCODE/Testfile.txt</LocalDebuggerCommandArguments>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LocalDebuggerCommandArguments>-gtf //fastnfs/t17_project/cs25/GENCODE/gencode.v25.chr_patch_hapl_scaff.annotation.removed.gtf -fasta //fastnfs/t17_project/cs25/GENCODE/Homo_sapiens.GRCh38.pep.patch_hapl_scaff.fa -format bed -in //fastnfs/t17_project/cs25/GENCODE/Testfile.txt</LocalDebuggerCommandArguments>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+</Project>

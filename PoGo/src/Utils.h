@@ -70,4 +70,10 @@ struct byIntValue {
 	bool operator()(const std::pair<std::string, unsigned int>& lhs, const std::pair<std::string, unsigned int>& rhs) const;
 };
 
+enum assembly {
+	none = 0, 
+	primary = 1,
+	patchhaploscaff = 2
+};
+
 #endif

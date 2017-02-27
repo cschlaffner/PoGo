@@ -48,6 +48,14 @@ std::ostream& GeneEntry::to_gtf(const std::string& source, std::ostream& os) {
 	return os;
 }
 
+bool GeneEntry::is_primary() {
+	return m_coord.chr != chrNA && m_coord.chr != scaffold&& m_coord.chr != chrXY;
+}
+
+bool GeneEntry::is_patchhaploscaff() {
+	return m_coord.chr == scaffold && m_coord.chrscaf != "";
+}
+
 std::string GeneEntry::extract_gene_id(std::string gtfGeneLine) {
 	std::size_t start = gtfGeneLine.find(GENOME_MAPPER_GLOBALS::ID::GENE_ID);
 	std::string value = "";

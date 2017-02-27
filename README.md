@@ -12,19 +12,105 @@ PoGo uses transcript translations and reference gene annotations to identify the
 ### Input format
 The input format required by PoGo is a tab delimited file with four columns.
 
-<table border="1"><thead><tr><th scope="col">Column</th><th scope="col">Column header</th><th scope="col">Description</th></tr></thead><tbody><tr><td>1</td><td>Sample</td><td>Name of sample or experiment</td></tr><tr><td>2</td><td>Peptide</td><td>Peptide sequence with PSI-MS nodification names in round brackets following the mpdified amino acid, e.g. PEPT(Phopsho)IDE for a phosphorylated threonine</td></tr><tr><td>3</td><td>PSMs</td><td>Number of peptide-spectrum matches (PSMs) for the given peptide</td></tr><tr><td>4</td><td>Quant</td><td>Quantitative value for the given peptide in the given sample</td></tr></tbody></table>
+<table border="0" width="100%"><thead><tr><th scope="col">Column</th><th scope="col">Column header</th><th scope="col">Description</th></tr></thead><tbody><tr><td>1</td><td>Sample</td><td>Name of sample or experiment</td></tr><tr><td>2</td><td>Peptide</td><td>Peptide sequence with PSI-MS nodification names in round brackets following the mpdified amino acid, e.g. PEPT(Phopsho)IDE for a phosphorylated threonine</td></tr><tr><td>3</td><td>PSMs</td><td>Number of peptide-spectrum matches (PSMs) for the given peptide</td></tr><tr><td>4</td><td>Quant</td><td>Quantitative value for the given peptide in the given sample</td></tr></tbody></table>
 
 ### Output formats
 
 #### BED
 This format contains the genomic loci for peptides, the exon-structure, the peptide sequence, as well as a colour code for uniqueness of peptides within the genome.
 
-<table align="left" border="0" width="100%"><thead><tr><th scope="col" width="20%">Colour</th><th scope="col" width="80%">Description</th></tr></thead><tbody><tr><td bgcolor="#F00000">&nbsp;</td><td>Peptide is unique to single gene AND single transcript</td></tr><tr></tr><tr><td bgcolor="#000000">&nbsp;</td><td bgcolor="#F2F2F2">Peptide is unique to single gene BUT shared between multiple transcripts</td></tr><tr></tr><tr><td bgcolor="#808080">&nbsp;</td><td>Peptide is shared between multiple genes</td></tr></tbody></table>
+<table align="left" border="0" width="100%">
+	<thead>
+		<tr>
+			<th scope="col" width="20%">Colour</th>
+			<th scope="col" width="80%">Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td bgcolor="#F00000">![#f00000](https://placehold.it/15/f00000/000000?text=+)</td>
+			<td>Peptide is unique to single gene AND single transcript</td>
+		</tr>
+		<tr></tr>
+		<tr>
+			<td bgcolor="#000000">![#000000](https://placehold.it/15/000000/000000?text=+)</td>
+			<td>Peptide is unique to single gene BUT shared between multiple transcripts</td>
+		</tr>
+		<tr></tr>
+		<tr>
+			<td bgcolor="#808080">![#808080](https://placehold.it/15/808080/000000?text=+)</td>
+			<td>Peptide is shared between multiple genes</td>
+		</tr>
+	</tbody>
+</table>
 
 #### PTMBED
 Like BED but containing the location of the post-translational modification on the genome. Thick parts of the peptide blocks indicate the position of the post-translational modification on a single amino acid (short thick block) while longer blocks indicate the occurrence of the first and last post-translational modification and residues in between. In the PTMBED the colour code is changed to indicate the type of modification.
 
-<table border="0" width="100%"><thead><tr><th scope="col" width="20%">Colour</th><th scope="col" width="80%">Post-translational Modification</th></tr></thead><tbody><tr><td bgcolor="#FF3333">&nbsp;</td><td>Phosphorylation (phospho)</td></tr><tr></tr><tr><td bgcolor="#CC6600">&nbsp;</td><td bgcolor="#F2F2F2">Acetylation (acetyl)</td></tr><tr></tr><tr><td bgcolor="#FF9933">&nbsp;</td><td>Amidation (amidated)</td></tr><tr></tr><tr><td bgcolor="#CCCC00">&nbsp;</td><td bgcolor="#F2F2F2">Oxidation (oxidation)</td></tr><tr></tr><tr><td bgcolor="#00CC00">&nbsp;</td><td>Methylation (methyl)</td></tr><tr></tr><tr><td bgcolor="#33FF33">&nbsp;</td><td bgcolor="#F2F2F2">Ubiquitinylation (glygly; gg)</td></tr><tr></tr><tr><td bgcolor="#00CCCC">&nbsp;</td><td>Sulfation (sulfo)</td></tr><tr></tr><tr><td bgcolor="#3399FF">&nbsp;</td><td bgcolor="#F2F2F2">Palmitoylation (palmitoyl)</td></tr><tr></tr><tr><td bgcolor="#0000CC">&nbsp;</td><td>Formylation (formyl)</td></tr><tr></tr><tr><td bgcolor="#3333FF">&nbsp;</td><td bgcolor="#F2F2F2">Deamidation (deamidated)</td></tr><tr></tr><tr><td bgcolor="#FF3399">&nbsp;</td><td>Any other post-translational modification</td></tr></tbody></table>
+<table border="0" width="100%">
+	<thead>
+		<tr>
+			<th scope="col" width="20%">Colour</th>
+			<th scope="col" width="80%">Post-translational Modification</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td bgcolor="#FF3333">![#ff3333](https://placehold.it/15/ff3333/000000?text=+)</td>
+			<td>Phosphorylation (phospho)</td>
+		</tr>
+		<tr></tr>
+		<tr>
+			<td bgcolor="#CC6600">![#cc6600](https://placehold.it/15/cc6600/000000?text=+)</td>
+			<td>Acetylation (acetyl)</td>
+		</tr>
+		<tr></tr>
+		<tr>
+			<td bgcolor="#FF9933">![#ff9933](https://placehold.it/15/ff9933/000000?text=+)</td>
+			<td>Amidation (amidated)</td>
+		</tr>
+		<tr></tr>
+		<tr>
+			<td bgcolor="#CCCC00">![#cccc00](https://placehold.it/15/cccc00/000000?text=+)</td>
+			<td>Oxidation (oxidation)</td>
+		</tr>
+		<tr></tr>
+		<tr>
+			<td bgcolor="#00CC00">![#00cc00](https://placehold.it/15/00cc00/000000?text=+)</td>
+			<td>Methylation (methyl)</td>
+		</tr>
+		<tr></tr>
+		<tr>
+			<td bgcolor="#33FF33">![#33ff33](https://placehold.it/15/33ff33/000000?text=+)</td>
+			<td>Ubiquitinylation (glygly; gg)</td>
+		</tr>
+		<tr></tr>
+		<tr>
+			<td bgcolor="#00CCCC">![#00cccc](https://placehold.it/15/00cccc/000000?text=+)</td>
+			<td>Sulfation (sulfo)</td>
+		</tr>
+		<tr></tr>
+		<tr>
+			<td bgcolor="#3399FF">![#3399ff](https://placehold.it/15/3399ff/000000?text=+)</td>
+			<td>Palmitoylation (palmitoyl)</td>
+		</tr>
+		<tr></tr>
+		<tr>
+			<td bgcolor="#0000CC">![#0000cc](https://placehold.it/15/0000cc/000000?text=+)</td>
+			<td>Formylation (formyl)</td>
+		</tr>
+		<tr></tr>
+		<tr>
+			<td bgcolor="#3333FF">![#3333ff](https://placehold.it/15/3333ff/000000?text=+)</td>
+			<td>Deamidation (deamidated)</td>
+		</tr>
+		<tr></tr>
+		<tr>
+			<td bgcolor="#FF3399">![#ff3399](https://placehold.it/15/ff3399/000000?text=+)</td>
+			<td>Any other post-translational modification</td>
+		</tr>
+	</tbody>
+</table>
 
 #### GTF
 This output format contains besides the genomic loci the annotated information for the genes giving rise to each peptide sequence including status and biotype. For each mapped peptide the sample, number of peptide-spectrum matches and associated quantitative value as tags.
@@ -42,7 +128,7 @@ Full usage:
 `PoGo/PoGo.exe -fasta TRANSL -gtf ANNO -in *.tsv[,*.tsv] [-format OUTF] [-merge TRUE/FALSE] [-source SRC] [-mm NUM] [-mmmode TRUE/FALSE]`
 
 Required arguments:
-<table border="0"><tbody><tr><td width="20%">
+<table border="0" widht="100%"><tbody><tr><td width="20%">
 <pre>-fasta TRANSL</pre>
 </td><td>Filepath for file containing protein sequences in FASTA format</td></tr><tr><td>
 <pre>-gtf ANNO</pre>
@@ -51,7 +137,7 @@ Required arguments:
 </td><td>Path to single input file or comma separated list of paths to input files containing peptides to be mapped with associated number of peptide to spectrum matches, sample name and quantitative value (see input file format)</td></tr></tbody></table>
 
 Optional arguments:
-<table border="0"><tbody><tr><td width="20%">
+<table border="0" width="100%"><tbody><tr><td width="20%">
 <pre>-format OUTF</pre>
 </td><td width="80%">Set output format GTF, GCT, BED, PTMBED or ALL. Comma separated combination possible. Default = ALL</td></tr><tr><td>
 <pre>-merge TRUE/FALSE</pre>
@@ -64,12 +150,12 @@ Optional arguments:
 ### Step by step
 <ol><li>Download annotation and translated sequences for human from GENCODE, e.g. release 25. Go to <a href="http://www.gencodegenes.org/release/25.html">www.gencodegenes.org/release/25.html</a> and download the GTF file containing 'Comprehensive gene annotation' and the 'Protein-coding transcript translation sequences' as Fasta file. Store and unzip both files into a folder, e.g. ${POGO_DIR}/input/</li><li>Navigate to the folder that contains the PoGo executable (cd ${POGO})</li><li>Execute the following command to generate gtf, gct, bed and ptmbed output for of the your input file referred to as ${Peptides.txt}<br><newline>Linux/Unix</newline>
 
-<pre>./PoGo –fasta ./input/gencode.v25.pc_translations.fa –gtf ./input/gencode.v25.annotation.gtf –in /PATH/TO/${Peptides.txt}</pre>
+<pre>./PoGo -fasta ./input/gencode.v25.pc_translations.fa -gtf ./input/gencode.v25.annotation.gtf -in /PATH/TO/${Peptides.txt}</pre>
 <newline>Windows</newline>
 
-<pre>.\PoGo.exe –fasta .\input\gencode.v25.pc_translations.fa –gtf .\input\gencode.v25.annotation.gtf –in \PATH\TO\${Peptides.txt}</pre>
+<pre>.\PoGo.exe -fasta .\input\gencode.v25.pc_translations.fa -gtf .\input\gencode.v25.annotation.gtf -in \PATH\TO\${Peptides.txt}</pre>
 </li><li>You can load the generated BED and/or GTF files into a genome browser or create an web accessible track hub for your data through <a hfre="http://www.sanger.ac.uk/science/tools/trackhub-generator">TrackHub Generator</a>. Here the example is shown for visualisation in the UCSC genome browser.<br><newline>To load the data into the browser please follow these steps:</newline>
-<ol type="a"><li>Go to <a href="https://genome.ucsc.edu">https://genome.ucsc.edu</a> and navigate to ‘My Data’ -&gt; ‘Custom Tracks’.</li><li>After clicking ‘Choose File’ select the file you want to upload and submit via the ‘Submit’ button.</li><li>You will be redirected to the ‘Manage Custom Tracks’ webpage.</li><li>Proceed from the ‘Manage Custom Tracks’ page by selecting ‘Genome Browser’ and confirm (‘go’).</li><li>Now you can browse the peptides mapped to their genomic loci on the reference genome.</li></ol></li></ol>
+<ol type='a'><li>Go to <a href="https://genome.ucsc.edu">https://genome.ucsc.edu</a> and navigate to 'My Data' -&gt; 'Custom Tracks'.</li><li>After clicking 'Choose File' select the file you want to upload and submit via the 'Submit' button.</li><li>You will be redirected to the 'Manage Custom Tracks' webpage.</li><li>Proceed from the 'Manage Custom Tracks' page by selecting 'Genome Browser' and confirm ('go').</li><li>Now you can browse the peptides mapped to their genomic loci on the reference genome.</li></ol></li></ol>
 
 ### Runtime and Memory Estimation
 Runtime and required memory (RAM) for PoGo execution across different settings for inclusion of mismatches and depending on number of peptides in the input file.

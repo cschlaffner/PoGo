@@ -28,17 +28,17 @@ This format contains the genomic loci for peptides, the exon-structure, the pept
 	</thead>
 	<tbody>
 		<tr>
-			<td bgcolor="#F00000">![#f00000](https://placehold.it/15/f00000/000000?text=+)</td>
+			<td bgcolor="#F00000">[#f00000](https://placehold.it/15/f00000/000000?text=+)</td>
 			<td>Peptide is unique to single gene AND single transcript</td>
 		</tr>
 		<tr></tr>
 		<tr>
-			<td bgcolor="#000000">![#000000](https://placehold.it/15/000000/000000?text=+)</td>
+			<td bgcolor="#000000">[#000000](https://placehold.it/15/000000/000000?text=+)</td>
 			<td>Peptide is unique to single gene BUT shared between multiple transcripts</td>
 		</tr>
 		<tr></tr>
 		<tr>
-			<td bgcolor="#808080">![#808080](https://placehold.it/15/808080/000000?text=+)</td>
+			<td bgcolor="#808080">[#808080](https://placehold.it/15/808080/000000?text=+)</td>
 			<td>Peptide is shared between multiple genes</td>
 		</tr>
 	</tbody>
@@ -56,57 +56,57 @@ Like BED but containing the location of the post-translational modification on t
 	</thead>
 	<tbody>
 		<tr>
-			<td bgcolor="#FF3333">![#ff3333](https://placehold.it/15/ff3333/000000?text=+)</td>
+			<td bgcolor="#FF3333">[#ff3333](https://placehold.it/15/ff3333/000000?text=+)</td>
 			<td>Phosphorylation (phospho)</td>
 		</tr>
 		<tr></tr>
 		<tr>
-			<td bgcolor="#CC6600">![#cc6600](https://placehold.it/15/cc6600/000000?text=+)</td>
+			<td bgcolor="#CC6600">[#cc6600](https://placehold.it/15/cc6600/000000?text=+)</td>
 			<td>Acetylation (acetyl)</td>
 		</tr>
 		<tr></tr>
 		<tr>
-			<td bgcolor="#FF9933">![#ff9933](https://placehold.it/15/ff9933/000000?text=+)</td>
+			<td bgcolor="#FF9933">[#ff9933](https://placehold.it/15/ff9933/000000?text=+)</td>
 			<td>Amidation (amidated)</td>
 		</tr>
 		<tr></tr>
 		<tr>
-			<td bgcolor="#CCCC00">![#cccc00](https://placehold.it/15/cccc00/000000?text=+)</td>
+			<td bgcolor="#CCCC00">[#cccc00](https://placehold.it/15/cccc00/000000?text=+)</td>
 			<td>Oxidation (oxidation)</td>
 		</tr>
 		<tr></tr>
 		<tr>
-			<td bgcolor="#00CC00">![#00cc00](https://placehold.it/15/00cc00/000000?text=+)</td>
+			<td bgcolor="#00CC00">[#00cc00](https://placehold.it/15/00cc00/000000?text=+)</td>
 			<td>Methylation (methyl)</td>
 		</tr>
 		<tr></tr>
 		<tr>
-			<td bgcolor="#33FF33">![#33ff33](https://placehold.it/15/33ff33/000000?text=+)</td>
+			<td bgcolor="#33FF33">[#33ff33](https://placehold.it/15/33ff33/000000?text=+)</td>
 			<td>Ubiquitinylation (glygly; gg)</td>
 		</tr>
 		<tr></tr>
 		<tr>
-			<td bgcolor="#00CCCC">![#00cccc](https://placehold.it/15/00cccc/000000?text=+)</td>
+			<td bgcolor="#00CCCC">[#00cccc](https://placehold.it/15/00cccc/000000?text=+)</td>
 			<td>Sulfation (sulfo)</td>
 		</tr>
 		<tr></tr>
 		<tr>
-			<td bgcolor="#3399FF">![#3399ff](https://placehold.it/15/3399ff/000000?text=+)</td>
+			<td bgcolor="#3399FF">[#3399ff](https://placehold.it/15/3399ff/000000?text=+)</td>
 			<td>Palmitoylation (palmitoyl)</td>
 		</tr>
 		<tr></tr>
 		<tr>
-			<td bgcolor="#0000CC">![#0000cc](https://placehold.it/15/0000cc/000000?text=+)</td>
+			<td bgcolor="#0000CC">[#0000cc](https://placehold.it/15/0000cc/000000?text=+)</td>
 			<td>Formylation (formyl)</td>
 		</tr>
 		<tr></tr>
 		<tr>
-			<td bgcolor="#3333FF">![#3333ff](https://placehold.it/15/3333ff/000000?text=+)</td>
+			<td bgcolor="#3333FF">[#3333ff](https://placehold.it/15/3333ff/000000?text=+)</td>
 			<td>Deamidation (deamidated)</td>
 		</tr>
 		<tr></tr>
 		<tr>
-			<td bgcolor="#FF3399">![#ff3399](https://placehold.it/15/ff3399/000000?text=+)</td>
+			<td bgcolor="#FF3399">[#ff3399](https://placehold.it/15/ff3399/000000?text=+)</td>
 			<td>Any other post-translational modification</td>
 		</tr>
 	</tbody>

@@ -56,7 +56,9 @@ Like BED but containing the location of the post-translational modification on t
 	</thead>
 	<tbody>
 		<tr>
-			<td bgcolor="#FF3333">[#ff3333](https://placehold.it/15/ff3333/000000?text=+)</td>
+			<td bgcolor="#FF3333"><svg width50" height="25">
+  <rect width="50" height="25" style="fill:#FF3333;stroke-width:0;stroke:#FF3333" />
+</svg></td>
 			<td>Phosphorylation (phospho)</td>
 		</tr>
 		<tr></tr>
@@ -141,7 +143,7 @@ Optional arguments:
 <pre>-format OUTF</pre>
 </td><td width="80%">Set output format GTF, GCT, BED, PTMBED or ALL. Comma separated combination possible. Default = ALL</td></tr><tr><td>
 <pre>-merge TRUE/FALSE</pre>
-</td><td>Set TRUE to merge output of multiple input files (output will be named after last input file *_merged). Default = FALSE</td></tr><tr><td>-source SRC</td><td>Set TRUE to merge output of multiple input files (output will be named after last input file *_merged). Default = FALSE</td></tr><tr><td>
+</td><td>Set TRUE to merge output of multiple input files (output will be named after last input file *_merged). Default = FALSE</td></tr><tr><td><pre>-source SRC</pre></td><td>Set TRUE to merge output of multiple input files (output will be named after last input file *_merged). Default = FALSE</td></tr><tr><td>
 <pre>-mm NUM</pre>
 </td><td>Number of mismatches allowed in mapping (0, 1 or 2). DEFAULT = 0</td></tr><tr><td>
 <pre>-mmmode TRUE/FALSE</pre>

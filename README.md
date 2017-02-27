@@ -56,7 +56,7 @@ Like BED but containing the location of the post-translational modification on t
 	</thead>
 	<tbody>
 		<tr>
-			<td bgcolor="#FF3333"><a><img src="<?xml version="1.0" encoding="utf-8"?><!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  --><svg width="50" height="25"><rect width="50" height="25" style="fill:#FF3333;stroke-width:3;stroke:#FF3333" /></svg>" /></a>
+			<td bgcolor="#FF3333"><a><img src="<?xml version="1.0" encoding="utf-8"?><!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  --><svg width="50" height="25"><rect width="50" height="25" style="fill:#FF3333;stroke-width:3;stroke:#FF3333" /></svg>"></a>
 			</td>
 			<td>Phosphorylation (phospho)</td>
 		</tr>

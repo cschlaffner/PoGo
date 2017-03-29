@@ -64,12 +64,18 @@ private:
 	//this map holds the different PTMs for a peptide.
 	std::map<std::string, std::map<std::string, PTMEntry>> m_pepforms;
 
+	std::set<std::string> m_transcriptids;
+	std::set<std::string> m_exonids;
+
 	//this function is used to generate a date for a gct line.
 	std::string tissue_quant_to_string(std::vector<std::string> const& tissueVector);
 	//generates a mep that holds all PTMs in the given sequence.
 	static std::map<std::string, PTMEntry> ptm_set(std::string sequence);
 	//this function creates a coordinate_map_type and works similar to a CoordinateMapTypeConstructor.
 	static CoordinateMapType create_coordinate_map_type(std::vector<GenomeCoordinates> const& genomeCoords);
+
+	std::string transcriptids_to_string();
+	std::string exonids_to_string();
 };
 
 //this comparator lets you compare PeptideEntry pointers.

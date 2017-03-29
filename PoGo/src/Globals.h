@@ -36,9 +36,13 @@ struct GENOME_MAPPER_GLOBALS {
 		//the executable has to be recompiled after changing this.
 		static std::string		GENE_ID;
 		
-		//the gene id is the prefix (e. g. ENST or ENSMUST) used for the transcript identifier.
+		//the transcript id is the prefix (e. g. ENST or ENSMUST) used for the transcript identifier.
 		//the executable has to be recompiled after changing this.
 		static std::string		TRANSCRIPT_ID;
+
+		//the exon id is the prefix (e. g. ENSE or ENSMUSE) used for the exon identifier.
+		//the executable has to be recompiled after changing this.
+		static std::string		EXON_ID;
 		
 		//LENGTH holds the combined length of the prefix (see above) and the number. 
 		//(a default length of 11 is assumed for the number making for example ensembl numbers 15 characters long. (ENSG+11))

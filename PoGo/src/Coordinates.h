@@ -82,6 +82,10 @@ struct Coordinates {
 
 //extension of coordinates, holds genomic coordinates.
 struct GenomeCoordinates : Coordinates {
+
+	std::string transcriptid;
+	std::string exonid;
+
 	//holds the chromosome.
 	Chromosome chr;
 	//holds the scaffolding.

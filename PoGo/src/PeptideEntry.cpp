@@ -14,7 +14,10 @@ m_tissuetags(std::map<std::string, std::pair<std::vector<unsigned int>, std::vec
 m_startcoord(0),
 m_endcoord(0),
 m_associatedgene(associatedgene),
-m_pepforms(std::map<std::string, std::map<std::string, PTMEntry>>()) {}
+m_pepforms(std::map<std::string, std::map<std::string, PTMEntry>>()),
+m_transcriptids(std::set<std::string>()),
+m_exonids(std::set<std::string>()) {}
+
 PeptideEntry::~PeptideEntry(void) {}
 
 std::map<std::string, PTMEntry> PeptideEntry::ptm_set(std::string sequence) {
@@ -67,6 +70,7 @@ std::ostream& PeptideEntry::to_gtf(const std::string& source, std::ostream& os) 
 		os << "gene_id \"" << m_associatedgene->get_id() << "\"; transcript_id \"" << m_associatedgene->get_id() << "." << m_sequence << sequence_add << "\"; gene_type \"" << m_associatedgene->get_type() << "\"; gene_status \"" << m_associatedgene->get_status() << "\"; gene_name \"" << m_associatedgene->get_name();
 		os << "\"; transcript_type \"protein_coding\"; transcript_status \"KNOWN\"; transcript_name \"" << m_associatedgene->get_name() << "." << m_sequence << sequence_add << "\";";
 		os << " tag \"Transcripts:" << m_numtranscripts << "\";";
+		os << " tag \"TranscriptIDs:" << transcriptids_to_string() << "\";" << " tag \"ExonIDs:" << exonids_to_string() << "\";";
 
 		for (std::map<std::string, std::pair<std::vector<unsigned int>, std::vector<double>>>::iterator it_tissue = m_tissuetags.begin(); it_tissue != m_tissuetags.end(); ++it_tissue) {
 			os << " tag \"" << it_tissue->first << ":";
@@ -98,6 +102,7 @@ std::ostream& PeptideEntry::to_gtf(const std::string& source, std::ostream& os) 
 			os << "gene_id \"" << m_associatedgene->get_id() << "\"; transcript_id \"" << m_associatedgene->get_id() << "." << m_sequence << sequence_add << "\"; gene_type \"" << m_associatedgene->get_type() << "\"; gene_status \"" << m_associatedgene->get_status() << "\"; gene_name \"" << m_associatedgene->get_name();
 			os << "\"; transcript_type \"protein_coding\"; transcript_status \"KNOWN\"; transcript_name \"" << m_associatedgene->get_name() << "." << m_sequence << sequence_add << "\";";
 			os << " exon_number " << exon_count << "; exon_id \"" << m_associatedgene->get_id() << "." << m_sequence << sequence_add << exon_add << "\";";
+			os << " tag \"TranscriptIDs:" << transcriptids_to_string() << "\";" << " tag \"ExonIDs:" << exonids_to_string() << "\";";
 		}
 	}
 	return os;
@@ -353,6 +358,10 @@ void PeptideEntry::add_peptide(CoordinateWrapper& coordwrapper, const std::strin
 		for (size_t pep_it = 0; pep_it < genomic_coordinates.size(); ++pep_it) {
 			//creates PetideCoordinates
 			PeptideCoordinates* pep_coord = new PeptideCoordinates(create_coordinate_map_type(genomic_coordinates.at(pep_it)), CDS_annotation_correct);
+			std::set<std::string> transcriptids = pep_coord->get_trasncript_ids();
+			m_transcriptids.insert(transcriptids.begin(), transcriptids.end());
+			std::set<std::string> exonids = pep_coord->get_exon_ids();
+			m_exonids.insert(exonids.begin(), exonids.end());
 			if (genomic_coordinates.at(pep_it).size() != 0) {
 				//and saves them. 
 				m_pepcoordinates.insert(pep_coord);
@@ -380,6 +389,30 @@ void PeptideEntry::add_peptide(std::string const& ptmsequence, std::string const
 		add_ptm(ptmsequence);
 	}
 	add_tags(tag, sigPSMs, quant);
+}
+
+std::string PeptideEntry::transcriptids_to_string() {
+	std::string transcriptid_string = "";
+	for (std::set<std::string>::iterator it = m_transcriptids.begin(); it != m_transcriptids.end(); ++it)
+	{
+		if (transcriptid_string != "") {
+			transcriptid_string = transcriptid_string + "|";
+		}
+		transcriptid_string = transcriptid_string + (*it);
+	}
+	return transcriptid_string;
+}
+
+std::string PeptideEntry::exonids_to_string() {
+	std::string exonid_string = "";
+	for (std::set<std::string>::iterator it = m_exonids.begin(); it != m_exonids.end(); ++it)
+	{
+		if (exonid_string != "") {
+			exonid_string = exonid_string + "|";
+		}
+		exonid_string = exonid_string + (*it);
+	}
+	return exonid_string;
 }
 
 bool peptideentry_p_compare::operator()(const PeptideEntry* lhs, const PeptideEntry* rhs) const {

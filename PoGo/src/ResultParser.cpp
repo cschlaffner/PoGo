@@ -23,7 +23,7 @@ void ResultParser::read(std::string file, CoordinateWrapper& coordwrapper, Mappe
 		gene_id_map_t gene_id_map;
 
 		while (std::getline(ifs, line)) {
-			if (line.substr(0, 10).compare("Experiment") != 0) {
+			if (line.substr(0, 10).compare("Experiment") != 0 && line.substr(0, 6).compare("Sample") != 0) {
 				tokenize(line, tokens, "\t", false);
 				//using only the tokens needed.
 				tissue = tokens.at(0);

@@ -88,6 +88,8 @@ assembly GTFParser::read(const std::string& file, CoordinateWrapper& coordwrappe
 				coordinates_map = CoordinateMapType();
 			} else if (is_cds(tokens)) {
 				GenomeCoordinates genCoord = extract_coordinates_from_gtf_line(tokens);
+				genCoord.transcriptid = GeneEntry::extract_transcript_id(m_line);
+				genCoord.exonid = GeneEntry::extract_exon_id(m_line);
 				protein_coordinates = Coordinates();
 				// get nterm from prev exon
 				if (genCoord.frame != unknown) {

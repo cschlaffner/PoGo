@@ -1,11 +1,14 @@
 #include "PeptideCoordinates.h"
 
-PeptideCoordinates::PeptideCoordinates(void) : m_coordinates(), m_transcript_coordinates(), m_cds_annotation_correct(0) {}
+PeptideCoordinates::PeptideCoordinates(void) : m_coordinates(), m_transcript_coordinates(), m_cds_annotation_correct(0), m_transcriptids(std::set<std::string>()), m_exonids(std::set<std::string>()) {}
 
 PeptideCoordinates::PeptideCoordinates(CoordinateMapType const&coordinates, unsigned int CDSannotationcorrect) :
 	m_coordinates(coordinates), m_cds_annotation_correct(CDSannotationcorrect) {
 	get_exon_coordinates();
 	m_transcript_coordinates = get_transcript_coordinates();
+	m_transcriptids = std::set<std::string>();
+	m_exonids = std::set<std::string>();
+	add_ids();
 }
 PeptideCoordinates::~PeptideCoordinates(void) {}
 
@@ -75,6 +78,22 @@ GenomeCoordinates PeptideCoordinates::get_transcript_coordinates() {
 		}
 	}
 	return transcript_coordinates;
+}
+
+std::set<std::string> PeptideCoordinates::get_trasncript_ids() {
+	return m_transcriptids;
+}
+
+std::set<std::string> PeptideCoordinates::get_exon_ids() {
+	return m_exonids;
+}
+
+void PeptideCoordinates::add_ids() {
+	for (CoordinateMapType::iterator it = m_coordinates.begin(); it != m_coordinates.end(); ++it) {
+		GenomeCoordinates coord = it->second;
+		m_transcriptids.insert(it->second.transcriptid);
+		m_exonids.insert(it->second.exonid);
+	}
 }
 
 bool PeptideCoordinates::operator<(const PeptideCoordinates& rhs) const {

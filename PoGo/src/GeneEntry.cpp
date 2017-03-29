@@ -79,6 +79,17 @@ std::string GeneEntry::extract_transcript_id(std::string gtfGeneLine) {
 	return value;
 }
 
+std::string GeneEntry::extract_exon_id(std::string gtfGeneLine) {
+	std::size_t index = gtfGeneLine.find(GENOME_MAPPER_GLOBALS::ID::EXON_ID);
+	std::string value = "";
+	if (index != std::string::npos) {
+		if ((index + GENOME_MAPPER_GLOBALS::ID::LENGTH) < gtfGeneLine.length()) {
+			value = gtfGeneLine.substr(index, GENOME_MAPPER_GLOBALS::ID::LENGTH);
+		}
+	}
+	return value;
+}
+
 //PRIVATE
 void GeneEntry::init(const std::string& gtfgeneline) {
 	std::vector<std::string> tokens;

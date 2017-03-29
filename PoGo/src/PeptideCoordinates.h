@@ -25,6 +25,9 @@ public:
 	//otherwise returns compare_genome_coordinate_sets_ascending(this, other)
 	bool operator<(const PeptideCoordinates& rhs) const;
 
+	std::set<std::string> get_trasncript_ids();
+	std::set<std::string> get_exon_ids();
+
 private:
 	//holds the found coordinates.
 	std::vector<GenomeCoordinates>	m_coordinate_vector;
@@ -36,6 +39,11 @@ private:
 	//tests if the annotation of the coding sequence is dividable by 3bp and not offset 
 	//due to incomplete transcript annotation.
 	unsigned int					m_cds_annotation_correct;
+
+	std::set<std::string> m_transcriptids;
+	std::set<std::string> m_exonids;
+
+	void add_ids();
 };
 
 //allows for the comparision of two peptide coordinate pointers.

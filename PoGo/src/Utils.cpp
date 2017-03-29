@@ -120,6 +120,8 @@ CoordinateMapType::value_type get_coordinates(Coordinates const& proteinCoords, 
 	genome_coordinates.frame = genomeCoords.frame;
 	genome_coordinates.start = start_genomic_coord;
 	genome_coordinates.end = end_genomic_coord;
+	genome_coordinates.transcriptid = genomeCoords.transcriptid;
+	genome_coordinates.exonid = genomeCoords.exonid;
 
 	//flip start and end if coding from reverse strand
 	if (genome_coordinates.strand == rev) {

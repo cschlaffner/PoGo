@@ -38,6 +38,8 @@ public:
 	std::string static extract_gene_id(std::string gtfgeneline);
 	//looks for the text specified in GENOME_MAPPER_GLOBALS::ID::TRANSCRIPT_ID and returns the ID (including the trailing number of length GENOME_MAPPER_GLOBALS::ID::LENGTH - GENOME_MAPPER_GLOBALS::ID::TRANSCRIPT_ID.length()).
 	std::string static extract_transcript_id(std::string gtfgeneline);
+	//looks for the text specified in GENOME_MAPPER_GLOBALS::ID::EXON_ID and returns the ID (including the trailing number of length GENOME_MAPPER_GLOBALS::ID::LENGTH - GENOME_MAPPER_GLOBALS::ID::EXON_ID.length()).
+	std::string static extract_exon_id(std::string gtfgeneline);
 
 private:
 	//the genomic coordinates for a gene are stored here.

@@ -270,3 +270,7 @@ bool compare_coordinates_ascending_whole(const GenomeCoordinates& lhs, const Gen
 bool byIntValue::operator()(const std::pair<std::string, unsigned>& lhs, const std::pair<std::string, unsigned>& rhs) const {
 	return lhs.second <= rhs.second;
 }
+
+bool isInLastPosition(std::string nameFile, std::string extension){
+	return nameFile.rfind(extension) == (nameFile.size() - extension.size());
+}

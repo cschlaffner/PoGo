@@ -54,6 +54,8 @@ bool compare_coordinates_ascending(const GenomeCoordinates& lhs, const GenomeCoo
 //otherwise returns false.
 bool compare_coordinates_ascending_whole(const GenomeCoordinates& lhs, const GenomeCoordinates& rhs);
 
+bool isInLastPosition(std::string nameFile, std::string extension);
+
 //general conveniance to_string method.
 template <typename T> std::string to_string(T value) {
 	//create an output string stream

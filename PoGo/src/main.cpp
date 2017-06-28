@@ -70,8 +70,8 @@ int main(int argc, char* argv[]) {
 		std::cout << "Please provide valid input for -gtf. The input filename has to end with .gtf" << std::endl;
 		exit_wrong_args = true;
 	}
-	if (in_it == args.end() || ((in_it->second.find(".txt") == std::string::npos) && (in_it->second.find(".tsv") == std::string::npos))) {
-		std::cout << "Please provide valid input for -in. Allowed file extentions are .txt and .tsv Allowed inputs are either filename.txt or filename1.txt,filename2.txt" << std::endl;
+	if (in_it == args.end() || (!(isInLastPosition(in_it->second, ".txt")) && !(isInLastPosition(in_it->second,".tsv")) && !(isInLastPosition(in_it->second,".pogo")))) {
+		std::cout << "Please provide valid input for -in. Allowed file extentions are .txt, .tsv or .pogo (e.g. filename.txt or filename1.txt,filename2.txt)" << std::endl;
 		exit_wrong_args = true;
 	}
 	//exiting if the user enters the wrong number or invalid parameters
@@ -287,3 +287,4 @@ int main(int argc, char* argv[]) {
 	std::cout << "done, cleaning up..." << std::endl;
 	return 0;
 }
+

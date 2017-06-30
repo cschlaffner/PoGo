@@ -271,6 +271,26 @@ bool byIntValue::operator()(const std::pair<std::string, unsigned>& lhs, const s
 	return lhs.second <= rhs.second;
 }
 
+/**
+ * This function check that the filename ends on the String name.
+ * @param nameFile name of the file
+ * @param extension extension of the file
+ * @return return true if the exntension is the externsion of the file.
+ */
 bool isInLastPosition(std::string nameFile, std::string extension){
 	return nameFile.rfind(extension) == (nameFile.size() - extension.size());
+}
+
+/**
+ * This function remove the extension of the file if is found, if the extension is not found, it will keep
+ * the original value.
+ * @param nameFile Name of the file.
+ * @param extension Extension to be removed
+ * @return new File Name
+ */
+std::string removeExtensionOutput(std::string nameFile, std::string extension){
+	unsigned long lastIndex = nameFile.find_last_of(extension);
+	if(lastIndex != -1)
+		return nameFile.substr(0, lastIndex);
+	return nameFile;
 }

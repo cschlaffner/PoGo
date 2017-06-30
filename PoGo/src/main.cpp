@@ -197,10 +197,17 @@ int main(int argc, char* argv[]) {
 		std::cout << peptide_input_file_paths.at(i) << std::endl;
 		std::string curr_input_file_path = peptide_input_file_paths.at(i);
 
+        std::string final_peptide_path_results = curr_input_file_path;
+		if(isInLastPosition(curr_input_file_path, ".txt")){
+			final_peptide_path_results = removeExtensionOutput(final_peptide_path_results, ".txt");
+		}else if(isInLastPosition(curr_input_file_path, ".tsv")){
+            final_peptide_path_results = removeExtensionOutput(final_peptide_path_results, ".tsv");
+        }
+
 		std::vector<std::string> tokens;
 		tokenize(curr_input_file_path, tokens, ".");
 
-		std::string path6 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_unmapped.txt";
+		std::string path6 = final_peptide_path_results+ "_unmapped.txt";
 
 		ResultParser::read(curr_input_file_path, coordinate_wrapper, mapped_peptides, path6, kmer_map);
 		std::cout << "Results done! (" << peptide_input_file_paths.at(i) << ")" << std::endl
@@ -208,19 +215,19 @@ int main(int argc, char* argv[]) {
 
 		if (merge == false) {
 			//the gtf overwrites the input gtf if they are in the same folder
-			std::string path4 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_out.gtf";
-			std::string path5 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + ".bed";
-			std::string path7 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + ".gct";
-			std::string path8 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_ptm.bed";
+			std::string path4 = final_peptide_path_results + "_out.gtf";
+			std::string path5 = final_peptide_path_results + ".bed";
+			std::string path7 = final_peptide_path_results + ".gct";
+			std::string path8 = final_peptide_path_results + "_ptm.bed";
 			std::string path9 = "";
 			std::string path10 = "";
 			std::string path11 = "";
 			std::string path12 = "";
 			if (assem == patchhaploscaff) {
-				path9 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_patch_hapl_scaff_out.gtf";
-				path10 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_patch_hapl_scaff.bed";
-				path11 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_patch_hapl_scaff.gct";
-				path12 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_patch_hapl_scaff_ptm.bed";
+				path9 = final_peptide_path_results  + "_patch_hapl_scaff_out.gtf";
+				path10 = final_peptide_path_results + "_patch_hapl_scaff.bed";
+				path11 = final_peptide_path_results + "_patch_hapl_scaff.gct";
+				path12 = final_peptide_path_results + "_patch_hapl_scaff_ptm.bed";
 			}
 			if (gtfout == true) {
 				mapped_peptides.to_gtf(path4, source);
@@ -245,19 +252,26 @@ int main(int argc, char* argv[]) {
 		std::vector<std::string> tokens;
 		tokenize(peptide_input_file_paths.at(0), tokens, ".");
 
-		std::string path4 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_merged.gtf";
-		std::string path5 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_merged.bed";
-		std::string path7 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_merged.gct";
-		std::string path8 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_merged_ptm.bed";
+        std::string final_peptide_path_results = peptide_input_file_paths.at(0);
+        if(isInLastPosition(final_peptide_path_results, ".txt")){
+            final_peptide_path_results = removeExtensionOutput(final_peptide_path_results, ".txt");
+        }else if(isInLastPosition(final_peptide_path_results, ".tsv")){
+            final_peptide_path_results = removeExtensionOutput(final_peptide_path_results, ".tsv");
+        }
+
+		std::string path4 = final_peptide_path_results  + "_merged.gtf";
+		std::string path5 = final_peptide_path_results  + "_merged.bed";
+		std::string path7 = final_peptide_path_results  + "_merged.gct";
+		std::string path8 = final_peptide_path_results  + "_merged_ptm.bed";
 		std::string path9 = "";
 		std::string path10 = "";
 		std::string path11 = "";
 		std::string path12 = "";
 		if (assem == patchhaploscaff) {
-			path9 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_patch_hapl_scaff_merged.gtf";
-			path10 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_patch_hapl_scaff_merged.bed";
-			path11 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_patch_hapl_scaff_merged.gct";
-			path12 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_patch_hapl_scaff_merged_ptm.bed";
+			path9 = final_peptide_path_results  + "_patch_hapl_scaff_merged.gtf";
+			path10 = final_peptide_path_results + "_patch_hapl_scaff_merged.bed";
+			path11 = final_peptide_path_results + "_patch_hapl_scaff_merged.gct";
+			path12 = final_peptide_path_results + "_patch_hapl_scaff_merged_ptm.bed";
 		}
 
 		if (gtfout == true) {

@@ -47,5 +47,5 @@ EnumStringMapper.o: EnumStringMapper.h Coordinates.h Globals.h
 Globals.o: Globals.h
 
 clean:
-	rm -f *.o
+	rm -f *.o $(objects) PoGo
 

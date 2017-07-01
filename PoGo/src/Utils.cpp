@@ -289,8 +289,9 @@ bool isInLastPosition(std::string nameFile, std::string extension){
  * @return new File Name
  */
 std::string removeExtensionOutput(std::string nameFile, std::string extension){
-	unsigned long lastIndex = nameFile.find_last_of(extension);
-	if(lastIndex != -1)
-		return nameFile.substr(0, lastIndex);
+	std::size_t found = nameFile.rfind(extension);
+	if (found!=std::string::npos)
+		nameFile.replace(found,extension.length(),"");
+
 	return nameFile;
 }

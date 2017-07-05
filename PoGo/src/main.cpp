@@ -21,6 +21,7 @@ int main(int argc, char* argv[]) {
 	param_list.push_back(std::pair<std::string, std::string>("-source", "Please give a source name which will be used in the second column in the output gtf file (default: PoGo)"));
 	param_list.push_back(std::pair<std::string, std::string>("-mm", "Allowed mismatches (0, 1 or 2; default: 0)"));
 	param_list.push_back(std::pair<std::string, std::string>("-mmmode", "Mismatch mode (true or false): if true mismatching with two mismaches will only allow 1 mismatch every kmersize (default: 5) positions. (default: false)"));
+	param_list.push_back(std::pair<std::string, std::string>("-species", "Please give species using common or scientific name (default human). For a full list of supported species please go to https://github.com/cschlaffner/PoGo"));
 
 	std::vector<std::pair<std::string, std::string>> param_list_back_sorted = param_list;
 
@@ -157,6 +158,19 @@ int main(int argc, char* argv[]) {
 				}
 			} else {
 				std::cout << "-mmmode: invalid input. default (F) assumed" << std::endl;
+			}
+		} else if (key == "-species") {
+			std::string tmpparam = param;
+			std::transform(tmpparam.begin(), tmpparam.end(), tmpparam.begin(), ::tolower);
+			if (GENOME_MAPPER_GLOBALS::TAX.count(tmpparam) > 0) {
+				GENOME_MAPPER_GLOBALS::ID::GENE_ID = GENOME_MAPPER_GLOBALS::TAX[tmpparam]->GENE_ID;
+				GENOME_MAPPER_GLOBALS::ID::TRANSCRIPT_ID = GENOME_MAPPER_GLOBALS::TAX[tmpparam]->TRANSCRIPT_ID;
+				GENOME_MAPPER_GLOBALS::ID::EXON_ID = GENOME_MAPPER_GLOBALS::TAX[tmpparam]->EXON_ID;
+				GENOME_MAPPER_GLOBALS::ID::LENGTH = GENOME_MAPPER_GLOBALS::TAX[tmpparam]->LENGTH;
+			}
+			else {
+				std::cout << "Error: Species not in list. For a full list of suppoerted species please go to https://github.com/cschlaffner/PoGo \n";
+				return 1;
 			}
 		} else {
 			std::cout << "Error: Could not assign parameter: " + key + "!\n"; //just in case of modifications of the param list

@@ -145,7 +145,39 @@ Optional arguments:
 <pre>-mm NUM</pre>
 </td><td>Number of mismatches allowed in mapping (0, 1 or 2). DEFAULT = 0</td></tr><tr><td>
 <pre>-mmmode TRUE/FALSE</pre>
-</td><td>Set TRUE to restrict number of mismatch in kmer to 1. DEFAULT = FALSE</td></tr></tbody></table>
+</td><td>Set TRUE to restrict number of mismatch in kmer to 1. DEFAULT = FALSE</td></tr><tr><td>
+<pre>-species SPECIES</pre>
+</td><td>Set species using common or scientific name or taxonomy ID. Default is Human (Homo sapiens, 9606).</td></tr></tbody></table>
+
+Table of supported species
+<table border="0" width="100%"><thead>
+<tr><th>Common name</th><th>Scientific name</th><th>Taxon ID</th></tr></thead><tbody>
+<tr><td>C.intestinalis</td><td>Ciona intestinalis</td><td>7719</td></tr>
+<tr><td>Cat</td><td>Felis catus</td><td>9685</td></tr>
+<tr><td>Chicken</td><td>Gallus gallus</td><td>9031</td></tr>
+<tr><td>Chimpanzee</td><td>Pan troglodytes</td><td>9598</td></tr>
+<tr><td>Cow</td><td>Bos taurus</td><td>9913</td></tr>
+<tr><td>Dog</td><td>Canis lupus familiaris</td><td>9615</td></tr>
+<tr><td>Gorilla</td><td>Gorilla gorilla gorilla</td><td>9595</td></tr>
+<tr><td>Horse</td><td>Equus caballus</td><td>9796</td></tr>
+<tr><td>Human</td><td>Homo sapiens</td><td>9606</td></tr>
+<tr><td>Macaque</td><td>Macaca mulatta</td><td>9544</td></tr>
+<tr><td>Marmoset</td><td>Callithrix jacchus</td><td>9483</td></tr>
+<tr><td>Medaka</td><td>Oryzias latipes</td><td>8090</td></tr>
+<tr><td>Mouse</td><td>Mus musculus</td><td>10090</td></tr>
+<tr><td>Olive baboon</td><td>Papio anubis</td><td>9555</td></tr>
+<tr><td>Opossum</td><td>Monodelphis domestica</td><td>13616</td></tr>
+<tr><td>Orangutan</td><td>Pongo abelii</td><td>9601</td></tr>
+<tr><td>Pig</td><td>Sus scrofa</td><td>9823</td></tr>
+<tr><td>Platypus</td><td>Ornithorhynchus anatinus</td><td>9258</td></tr>
+<tr><td>Rabbit</td><td>Oryctolagus cuniculus</td><td>9986</td></tr>
+<tr><td>Rat</td><td>Rattus norvegicus</td><td>10116</td></tr>
+<tr><td>Sheep</td><td>Ovis aries</td><td>9940</td></tr>
+<tr><td>Tetraodon</td><td>Tetraodon nigroviridis</td><td>99883</td></tr>
+<tr><td>Turkey</td><td>Meleagris gallopavo</td><td>9103</td></tr>
+<tr><td>Vervet-AGM</td><td>Chlorocebus sabaeus</td><td>60711</td></tr>
+<tr><td>Zebra Finch</td><td>Taeniopygia guttata</td><td>59729</td></tr></tbody>
+</table>
 
 ### Step by step
 <ol><li>Download annotation and translated sequences for human from GENCODE, e.g. release 25. Go to www.gencodegenes.org/release/25.html and download the GTF file containing 'Comprehensive gene annotation' and the 'Protein-coding transcript translation sequences' as Fasta file. Store and unzip both files into a folder, e.g. ${POGO_DIR}/input/</li><li>Navigate to the folder that contains the PoGo executable (cd ${POGO})</li><li>Execute the following command to generate gtf, gct, bed and ptmbed output for of the your input file referred to as ${Peptides.txt}<br><newline>Linux/Unix</newline>

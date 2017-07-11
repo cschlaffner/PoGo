@@ -28,7 +28,7 @@ public:
 	//calls the PeptideEntry::to_gct metod for every peptide.
 	std::ostream& to_gct(std::vector<std::string> const& tissuevector, std::ostream& os = std::cout);
 	//calls the PeptideEntry::to_ptmbed metod for every peptide.
-	std::ostream& to_ptmbed(std::ostream& os = std::cout);
+	std::ostream& to_ptmbed(std::ostream& os = std::cout, std::ostream&os2 = std::cout);
 private:
 	//pointer to the associated GeneEntry
 	GeneEntry* m_p_gene_entry;

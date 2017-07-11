@@ -263,8 +263,15 @@ Chromosome EnumStringMapper::string_to_chromosome(const std::string& string) {
 	if (substr.compare("M") == 0 || substr.compare("MT") == 0) {
 		return chrM;
 	}
-	if (substr.substr(0, 2).compare("GL") == 0 || substr.substr(0, 2).compare("KI") == 0 || substr.substr(0, 2).compare("JH") == 0 || substr.substr(0, 2).compare("KB") == 0 || substr.substr(0, 2).compare("GJ") == 0 || substr.substr(0, 2).compare("HT") == 0 || substr.substr(0, 2).compare("KL") == 0 || substr.substr(0, 2).compare("KE") == 0 || substr.substr(0, 2).compare("Un") == 0 || substr.substr(0, 2).compare("un") == 0 || substr.substr(0, 2).compare("cu") == 0 || substr.substr(0, 2).compare("KQ") == 0 || substr.substr(0, 2).compare("sc") == 0 || substr.substr(0, 2).compare("ul") == 0 || substr.substr(0, 4).compare("ACFV") == 0 || substr.substr(0, 4).compare("AAEX") == 0 || substr.substr(0, 4).compare("AQIB") == 0 || substr.substr(0, 4).compare("JSUE") == 0 || substr.substr(0, 4).compare("AAGW") == 0 || substr.substr(0, 4).compare("AMGL") == 0 || substr.substr(0, 4).compare("AACZ") == 0 || substr.substr(0, 4).compare("AHZZ") == 0 || substr.substr(0, 4).compare("AABR") == 0 || substr.substr(0, 4).compare("AAND") == 0 || substr.substr(0, 2).compare("Co") == 0 || substr.substr(0, 2).compare("Ul") == 0 || substr.substr(substr.size() - 4, 4).compare("hap1") == 0 || substr.substr(substr.size() - 4, 4).compare("hap2") == 0 || substr.substr(substr.size() - 4, 4).compare("ndom") == 0) {
-		return scaffold;
+	if (substr.length() >= 2) {
+		if (substr.substr(0, 2).compare("GL") == 0 || substr.substr(0, 2).compare("KI") == 0 || substr.substr(0, 2).compare("JH") == 0 || substr.substr(0, 2).compare("KB") == 0 || substr.substr(0, 2).compare("GJ") == 0 || substr.substr(0, 2).compare("HT") == 0 || substr.substr(0, 2).compare("KL") == 0 || substr.substr(0, 2).compare("KE") == 0 || substr.substr(0, 2).compare("Un") == 0 || substr.substr(0, 2).compare("un") == 0 || substr.substr(0, 2).compare("cu") == 0 || substr.substr(0, 2).compare("KQ") == 0 || substr.substr(0, 2).compare("sc") == 0 || substr.substr(0, 2).compare("ul") == 0 || substr.substr(0, 2).compare("Co") == 0 || substr.substr(0, 2).compare("Ul") == 0) {
+			return scaffold;
+		}
+	}
+	if (substr.length() >= 4) {
+		if (substr.substr(0, 4).compare("ACFV") == 0 || substr.substr(0, 4).compare("AAEX") == 0 || substr.substr(0, 4).compare("AQIB") == 0 || substr.substr(0, 4).compare("JSUE") == 0 || substr.substr(0, 4).compare("AAGW") == 0 || substr.substr(0, 4).compare("AMGL") == 0 || substr.substr(0, 4).compare("AACZ") == 0 || substr.substr(0, 4).compare("AHZZ") == 0 || substr.substr(0, 4).compare("AABR") == 0 || substr.substr(0, 4).compare("AAND") == 0 || substr.substr(substr.size() - 4, 4).compare("hap1") == 0 || substr.substr(substr.size() - 4, 4).compare("hap2") == 0 || substr.substr(substr.size() - 4, 4).compare("ndom") == 0) {
+			return scaffold;
+		}
 	}
 	int chrom_num = atoi(substr.c_str());
 	if (chrom_num == 2) {

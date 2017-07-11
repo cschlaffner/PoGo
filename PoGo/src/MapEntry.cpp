@@ -58,7 +58,7 @@ std::ostream& MapEntry::to_gct(std::vector<std::string> const& tissuevector, std
 	return os;
 }
 
-std::ostream& MapEntry::to_ptmbed(std::ostream& os) {
+std::ostream& MapEntry::to_ptmbed(std::ostream& os, std::ostream& os2) {
 	if (m_peptide_entries.size() > 0) {
 		std::set<PeptideEntry*, peptideentry_p_compare> peptide_entries_set = std::set<PeptideEntry*, peptideentry_p_compare>();
 		for (std::map<std::string, PeptideEntry*>::iterator it = m_peptide_entries.begin(); it != m_peptide_entries.end(); ++it) {
@@ -67,6 +67,9 @@ std::ostream& MapEntry::to_ptmbed(std::ostream& os) {
 
 		for (std::set<PeptideEntry*, peptideentry_p_compare>::iterator it = peptide_entries_set.begin(); it != peptide_entries_set.end(); ++it) {
 			(*it)->to_ptmbed(os);
+			if ((*it)->noPTM()) {
+				(*it)->to_bed(os2, true);
+			}
 		}
 	}
 	return os;

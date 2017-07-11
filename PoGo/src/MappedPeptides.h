@@ -31,8 +31,8 @@ public:
 	void to_gct(std::string filename, assembly assem = primary);
 	void to_gct(assembly assem, std::ostream& os = std::cout);
 	//converts all peptides to _ptm.bed lines
-	void to_ptmbed(std::string filename, assembly assem = primary);
-	void to_ptmbed(assembly assem, std::ostream& os = std::cout);
+	void to_ptmbed(std::string filename, std::string filename2, assembly assem = primary);
+	void to_ptmbed(assembly assem, std::ostream& os = std::cout, std::ostream& os2 = std::cout);
 	//removes all peptides from the MappedPeptides.
 	void remove_all_peptides();
 private:

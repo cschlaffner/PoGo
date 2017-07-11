@@ -2,6 +2,15 @@
 #define			GLOBALS_H
 #include <string>
 #include <vector>
+#include <map>
+
+
+struct TAXONOMY_IDENTIFIERS {
+	std::string	GENE_ID;
+	std::string	TRANSCRIPT_ID;
+	std::string	EXON_ID;
+	int			LENGTH;
+};
 
 //this struct and the contained structs hold global variables. some of these can be modified with parameters (e.g. -mm) 
 //others can only be modified in the Globals.cpp file, and the executable has to be recompiled after that.
@@ -50,6 +59,7 @@ struct GENOME_MAPPER_GLOBALS {
 		static int				LENGTH;
 	};
 
+	static std::map<std::string, TAXONOMY_IDENTIFIERS*> TAX;
 };
 
 #endif

@@ -42,14 +42,27 @@ inline void to_lowercase(std::string& str) {
 inline std::vector<std::pair<std::string, std::string>> get_argument_list(int argc, char* argv[]) {
 	std::vector<std::pair<std::string, std::string>> arguments = std::vector<std::pair<std::string, std::string>>();
 	std::string key = "";
+	std::string param = "";
+	int count = 0;
 	for (int i(1); i < argc; ++i) {
-		if (i % 2 == 1) { // key which contains usually -command like -q, -lib, -o, ...
+		std::string tmp = argv[i];
+		if (tmp.substr(0,1).compare("-")==0) { // key which contains usually -command like -q, -lib, -o, ...
+			if (key.compare("") != 0) {
+				arguments.push_back(std::pair<std::string, std::string>(key, param));
+				count = 0;
+			}
 			key = argv[i];
 			to_lowercase(key); //converts the keys to lower case, i.e.: MSMSTolerance to msmstolerance
 		} else { // value like settings or filepaths
-			arguments.push_back(std::pair<std::string, std::string>(key, argv[i]));
+			if (count == 0) {
+				param = argv[i];
+			} else {
+				param = param + " " + argv[i];
+			}
+			count += 1;
 		}
 	}
+	arguments.push_back(std::pair<std::string, std::string>(key, param));
 	return arguments;
 }
 

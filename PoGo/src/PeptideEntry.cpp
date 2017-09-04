@@ -128,9 +128,9 @@ std::ostream& PeptideEntry::to_bed(std::ostream& os) {
 			exon_lengths << exon_length;
 		}
 		std::string colour = "128,128,128";
-		if (m_geneunique == true && m_transcriptunique == false) {
+		if (m_geneunique == true && !m_transcriptunique) {
 			colour = "0,0,0";
-		} else if (m_geneunique == true && m_transcriptunique == true) {
+		} else if (m_geneunique && m_transcriptunique == true) {
 			colour = "204,0,0";
 		}
 

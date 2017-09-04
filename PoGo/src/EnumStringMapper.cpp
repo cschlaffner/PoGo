@@ -16,7 +16,7 @@ std::map<std::string, std::string> EnumStringMapper::m_ptm_to_colours(
 	}));
 
 std::string EnumStringMapper::enum_to_string(const Strand& strand, bool numeric) {
-	if (numeric == true) {
+	if (numeric) {
 		switch (strand) {
 		case fwd: return "1";
 		case rev: return "-1";

@@ -229,7 +229,7 @@ int main(int argc, char* argv[]) {
 				path11 = final_peptide_path_results + "_patch_hapl_scaff.gct";
 				path12 = final_peptide_path_results + "_patch_hapl_scaff_ptm.bed";
 			}
-			if (gtfout == true) {
+			if (gtfout) {
 				mapped_peptides.to_gtf(path4, source);
 				mapped_peptides.to_gtf(path9, source, assem);
 			}
@@ -237,7 +237,7 @@ int main(int argc, char* argv[]) {
 				mapped_peptides.to_bed(path5);
 				mapped_peptides.to_bed(path10, assem);
 			}
-			if (gctout == true) {
+			if (gctout) {
 				mapped_peptides.to_gct(path7);
 				mapped_peptides.to_gct(path11, assem);
 			}
@@ -248,7 +248,7 @@ int main(int argc, char* argv[]) {
 			mapped_peptides.remove_all_peptides();
 		}
 	}
-	if (merge == true) {
+	if (merge) {
 		std::vector<std::string> tokens;
 		tokenize(peptide_input_file_paths.at(0), tokens, ".");
 
@@ -278,7 +278,7 @@ int main(int argc, char* argv[]) {
 			mapped_peptides.to_gtf(path4, source);
 			mapped_peptides.to_gtf(path9, source, assem);
 		}
-		if (bedout == true) {
+		if (bedout) {
 			mapped_peptides.to_bed(path5);
 			mapped_peptides.to_bed(path10, assem);
 		}
@@ -286,7 +286,7 @@ int main(int argc, char* argv[]) {
 			mapped_peptides.to_gct(path7);
 			mapped_peptides.to_gct(path11, assem);
 		}
-		if (ptmbedout == true) {
+		if (ptmbedout) {
 			mapped_peptides.to_ptmbed(path8);
 			mapped_peptides.to_ptmbed(path12, assem);
 		}

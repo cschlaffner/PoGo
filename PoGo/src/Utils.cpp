@@ -34,7 +34,7 @@ void tokenize(const std::string& str, std::vector<std::string>& tokens, const st
 			pos = str.length();
 
 			if (pos != last_pos || !trimEmpty) {
-				tokens.push_back(value_type(str.data() + last_pos, size_type(pos) - last_pos));
+				tokens.push_back(value_type(str.data() + last_pos, pos - last_pos));
 			}
 			break;
 		}
@@ -177,7 +177,7 @@ std::string coordinates_to_gtf_string(const GenomeCoordinates& coords, const std
 		ss << EnumStringMapper::enum_to_string(coords.chr);
 	}
 	ss << "\t" << source << "\t" << type << "\t" << coords.start << "\t" << coords.end << "\t.\t" << EnumStringMapper::enum_to_string(coords.strand, false);
-	if (frameinclude == true) {
+	if (frameinclude) {
 		ss << "\t" << coords.frame << "\t";
 	} else {
 		ss << "\t.\t";

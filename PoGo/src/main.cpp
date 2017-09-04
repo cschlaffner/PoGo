@@ -21,7 +21,8 @@ int main(int argc, char* argv[]) {
 	param_list.push_back(std::pair<std::string, std::string>("-source", "Please give a source name which will be used in the second column in the output gtf file (default: PoGo)"));
 	param_list.push_back(std::pair<std::string, std::string>("-mm", "Allowed mismatches (0, 1 or 2; default: 0)"));
 	param_list.push_back(std::pair<std::string, std::string>("-mmmode", "Mismatch mode (true or false): if true mismatching with two mismaches will only allow 1 mismatch every kmersize (default: 5) positions. (default: false)"));
-
+	param_list.push_back(std::pair<std::string, std::string>("-species", "Please give species using common or scientific name (default human). For a full list of supported species please go to https://github.com/cschlaffner/PoGo"));
+	
 	std::vector<std::pair<std::string, std::string>> param_list_back_sorted = param_list;
 
 	//sorting the parameter list alphabetically
@@ -158,6 +159,19 @@ int main(int argc, char* argv[]) {
 			} else {
 				std::cout << "-mmmode: invalid input. default (F) assumed" << std::endl;
 			}
+		} else if (key == "-species") {
+			std::string tmpparam = param;
+			std::transform(tmpparam.begin(), tmpparam.end(), tmpparam.begin(), ::tolower);
+			if (GENOME_MAPPER_GLOBALS::TAX.count(tmpparam) > 0) {
+				GENOME_MAPPER_GLOBALS::ID::GENE_ID = GENOME_MAPPER_GLOBALS::TAX[tmpparam]->GENE_ID;
+				GENOME_MAPPER_GLOBALS::ID::TRANSCRIPT_ID = GENOME_MAPPER_GLOBALS::TAX[tmpparam]->TRANSCRIPT_ID;
+				GENOME_MAPPER_GLOBALS::ID::EXON_ID = GENOME_MAPPER_GLOBALS::TAX[tmpparam]->EXON_ID;
+				GENOME_MAPPER_GLOBALS::ID::LENGTH = GENOME_MAPPER_GLOBALS::TAX[tmpparam]->LENGTH;
+			}
+			else {
+				std::cout << "Error: Species not in list. For a full list of suppoerted species please go to https://github.com/cschlaffner/PoGo \n";
+				return 1;
+			}
 		} else {
 			std::cout << "Error: Could not assign parameter: " + key + "!\n"; //just in case of modifications of the param list
 			return 1;
@@ -213,27 +227,32 @@ int main(int argc, char* argv[]) {
 		std::cout << "Results done! (" << peptide_input_file_paths.at(i) << ")" << std::endl
 			<< "writing output files" << std::endl;
 
-		if (merge == false) {
+		if (!merge) {
 			//the gtf overwrites the input gtf if they are in the same folder
-			std::string path4 = final_peptide_path_results + "_out.gtf";
-			std::string path5 = final_peptide_path_results + ".bed";
-			std::string path7 = final_peptide_path_results + ".gct";
-			std::string path8 = final_peptide_path_results + "_ptm.bed";
+
+			std::string path4  = final_peptide_path_results + "_out.gtf";
+			std::string path5  = final_peptide_path_results + ".bed";
+			std::string path7  = final_peptide_path_results + ".gct";
+			std::string path8  = final_peptide_path_results + "_ptm.bed";
+			std::string path81 = final_peptide_path_results +"_no-ptm.bed";
 			std::string path9 = "";
 			std::string path10 = "";
 			std::string path11 = "";
 			std::string path12 = "";
+			std::string path121 = "";
+
 			if (assem == patchhaploscaff) {
-				path9 = final_peptide_path_results  + "_patch_hapl_scaff_out.gtf";
-				path10 = final_peptide_path_results + "_patch_hapl_scaff.bed";
-				path11 = final_peptide_path_results + "_patch_hapl_scaff.gct";
-				path12 = final_peptide_path_results + "_patch_hapl_scaff_ptm.bed";
+				path9   =  final_peptide_path_results  + "_patch_hapl_scaff_out.gtf";
+				path10  = final_peptide_path_results + "_patch_hapl_scaff.bed";
+				path11  = final_peptide_path_results + "_patch_hapl_scaff.gct";
+				path12  = final_peptide_path_results + "_patch_hapl_scaff_ptm.bed";
+				path121 = final_peptide_path_results + "_patch_hapl_scaff_no-ptm.bed";
 			}
 			if (gtfout) {
 				mapped_peptides.to_gtf(path4, source);
 				mapped_peptides.to_gtf(path9, source, assem);
 			}
-			if (bedout == true) {
+			if (bedout) {
 				mapped_peptides.to_bed(path5);
 				mapped_peptides.to_bed(path10, assem);
 			}
@@ -241,9 +260,9 @@ int main(int argc, char* argv[]) {
 				mapped_peptides.to_gct(path7);
 				mapped_peptides.to_gct(path11, assem);
 			}
-			if (ptmbedout == true) {
-				mapped_peptides.to_ptmbed(path8);
-				mapped_peptides.to_ptmbed(path12, assem);
+			if (ptmbedout) {
+				mapped_peptides.to_ptmbed(path8,path81);
+				mapped_peptides.to_ptmbed(path12, path121, assem);
 			}
 			mapped_peptides.remove_all_peptides();
 		}
@@ -263,18 +282,23 @@ int main(int argc, char* argv[]) {
 		std::string path5 = final_peptide_path_results  + "_merged.bed";
 		std::string path7 = final_peptide_path_results  + "_merged.gct";
 		std::string path8 = final_peptide_path_results  + "_merged_ptm.bed";
+		std::string path81 = final_peptide_path_results + "_merged_no-ptm.bed";
 		std::string path9 = "";
 		std::string path10 = "";
 		std::string path11 = "";
 		std::string path12 = "";
+		std::string path121 = "";
+
 		if (assem == patchhaploscaff) {
-			path9 = final_peptide_path_results  + "_patch_hapl_scaff_merged.gtf";
-			path10 = final_peptide_path_results + "_patch_hapl_scaff_merged.bed";
-			path11 = final_peptide_path_results + "_patch_hapl_scaff_merged.gct";
-			path12 = final_peptide_path_results + "_patch_hapl_scaff_merged_ptm.bed";
+
+			path9   = final_peptide_path_results   + "_patch_hapl_scaff_merged.gtf";
+			path10  = final_peptide_path_results  + "_patch_hapl_scaff_merged.bed";
+			path11  = final_peptide_path_results  + "_patch_hapl_scaff_merged.gct";
+			path12  = final_peptide_path_results  + "_patch_hapl_scaff_merged_ptm.bed";
+			path121 = final_peptide_path_results + "_patch_hapl_scaff_merged_no-ptm.bed";
 		}
 
-		if (gtfout == true) {
+		if (gtfout) {
 			mapped_peptides.to_gtf(path4, source);
 			mapped_peptides.to_gtf(path9, source, assem);
 		}
@@ -282,13 +306,13 @@ int main(int argc, char* argv[]) {
 			mapped_peptides.to_bed(path5);
 			mapped_peptides.to_bed(path10, assem);
 		}
-		if (gctout == true) {
+		if (gctout) {
 			mapped_peptides.to_gct(path7);
 			mapped_peptides.to_gct(path11, assem);
 		}
 		if (ptmbedout) {
-			mapped_peptides.to_ptmbed(path8);
-			mapped_peptides.to_ptmbed(path12, assem);
+			mapped_peptides.to_ptmbed(path8, path81);
+			mapped_peptides.to_ptmbed(path12, path121, assem);
 		}
 	}
 	//if there is a problem with the reading of crucial files the program will end prematurely.

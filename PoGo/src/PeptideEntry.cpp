@@ -29,7 +29,7 @@ std::map<std::string, PTMEntry> PeptideEntry::ptm_set(std::string sequence) {
 	while (start_b != std::string::npos && end_b != std::string::npos) {
 		name = sequence.substr(start_b + 1, (end_b - start_b - 1));
 		sequence.erase(sequence.begin() + start_b, sequence.begin() + end_b + 1);
-		if (EnumStringMapper::ptm_to_colour(name).compare("255,51,153") != 0) {
+		//if (EnumStringMapper::ptm_to_colour(name).compare("255,51,153") != 0) {
 			if (start_b != 0) {
 				start_b = start_b - 1;
 			}
@@ -40,7 +40,7 @@ std::map<std::string, PTMEntry> PeptideEntry::ptm_set(std::string sequence) {
 					map.at(name).add_coord(start_b);
 				}
 			}
-		}
+		//}
 		start_b = sequence.find_first_of("(");
 		end_b = sequence.find_first_of(")");
 	}
@@ -108,7 +108,7 @@ std::ostream& PeptideEntry::to_gtf(const std::string& source, std::ostream& os) 
 	return os;
 }
 
-std::ostream& PeptideEntry::to_bed(std::ostream& os) {
+std::ostream& PeptideEntry::to_bed(std::ostream& os, bool noptm) {
 	for (std::set<PeptideCoordinates*, peptidecoords_p_compare>::iterator it = m_pepcoordinates.begin(); it != m_pepcoordinates.end(); ++it) {
 		os << coordinates_to_bed_string((*it)->get_transcript_coordinates(), m_sequence);
 
@@ -128,10 +128,14 @@ std::ostream& PeptideEntry::to_bed(std::ostream& os) {
 			exon_lengths << exon_length;
 		}
 		std::string colour = "128,128,128";
-		if (m_geneunique == true && !m_transcriptunique) {
-			colour = "0,0,0";
-		} else if (m_geneunique && m_transcriptunique == true) {
-			colour = "204,0,0";
+
+		if (noptm == false) {
+			if (m_geneunique == true && m_transcriptunique == false) {
+				colour = "0,0,0";
+			}
+			else if (m_geneunique == true && m_transcriptunique == true) {
+				colour = "204,0,0";
+			}
 		}
 
 		os << colour << "\t" << exon_count << "\t" << exon_lengths.str() << "\t" << exon_starts.str() << "\n";
@@ -413,6 +417,10 @@ std::string PeptideEntry::exonids_to_string() {
 		exonid_string = exonid_string + (*it);
 	}
 	return exonid_string;
+}
+
+bool PeptideEntry::noPTM() {
+	return m_pepforms.count(m_sequence) == 1;
 }
 
 bool peptideentry_p_compare::operator()(const PeptideEntry* lhs, const PeptideEntry* rhs) const {

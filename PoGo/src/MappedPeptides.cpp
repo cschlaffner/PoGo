@@ -58,11 +58,14 @@ void MappedPeptides::to_gct(std::string filename, assembly assem) {
 	ofs.close();
 }
 
-void MappedPeptides::to_ptmbed(std::string filename, assembly assem) {
+void MappedPeptides::to_ptmbed(std::string filename, std::string filename2, assembly assem) {
 	std::ofstream ofs;
+	std::ofstream ofs2;
 	ofs.open(filename.c_str());
-	to_ptmbed(assem, ofs);
+	ofs2.open(filename2.c_str());
+	to_ptmbed(assem, ofs, ofs2);
 	ofs.close();
+	ofs2.close();
 }
 
 void MappedPeptides::to_gtf(assembly assem, std::string source, std::ostream& os) {
@@ -142,7 +145,7 @@ void MappedPeptides::to_gct(assembly assem, std::ostream& os) {
 	}
 }
 
-void MappedPeptides::to_ptmbed(assembly assem, std::ostream& os) {
+void MappedPeptides::to_ptmbed(assembly assem, std::ostream& os, std::ostream& os2) {
 	std::set<MapEntry*, mapentry_p_compare> mapping_set;
 
 	if (assem == primary) {
@@ -157,7 +160,7 @@ void MappedPeptides::to_ptmbed(assembly assem, std::ostream& os) {
 	}
 
 	for (std::set<MapEntry*, mapentry_p_compare>::iterator it = mapping_set.begin(); it != mapping_set.end(); ++it) {
-		(*it)->to_ptmbed(os);
+		(*it)->to_ptmbed(os, os2);
 	}
 }
 

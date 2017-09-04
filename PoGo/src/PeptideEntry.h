@@ -31,7 +31,7 @@ public:
 	//generates a string in the gtf format and writes it to the specified ostream.
 	std::ostream& to_gtf(const std::string& source, std::ostream& os = std::cout);
 	//generates a bed line and writes it to the specified ostream.
-	std::ostream& to_bed(std::ostream& os = std::cout);
+	std::ostream& to_bed(std::ostream& os = std::cout, bool noptm = false);
 	//generates a gct line and writes it to the specified ostream.
 	std::ostream& to_gct(const std::string& geneID, std::vector<std::string> const& tissuevector, std::ostream& os = std::cout);
 	//generates a bed line with ptms and writes it to the specified ostream.
@@ -41,6 +41,8 @@ public:
 	void add_tags(std::string const& tag, unsigned int sigPSMs, double quant);
 	//adds ptms if a sequence matches another with ptms.
 	void add_ptm(std::string const& ptmSequence);
+	//checks whether the peptide entry has a modified form. Returns true if m_pepforms only contains peptide without PTM (size==1)
+	bool noPTM();
 
 private:
 	//holds the peptide sequence.

@@ -129,11 +129,11 @@ std::ostream& PeptideEntry::to_bed(std::ostream& os, bool noptm) {
 		}
 		std::string colour = "128,128,128";
 
-		if (noptm == false) {
-			if (m_geneunique == true && m_transcriptunique == false) {
+		if (!noptm) {
+			if (m_geneunique && !m_transcriptunique) {
 				colour = "0,0,0";
 			}
-			else if (m_geneunique == true && m_transcriptunique == true) {
+			else if (m_geneunique && m_transcriptunique) {
 				colour = "204,0,0";
 			}
 		}

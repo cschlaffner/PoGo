@@ -169,11 +169,11 @@ int main(int argc, char* argv[]) {
 				GENOME_MAPPER_GLOBALS::ID::LENGTH = GENOME_MAPPER_GLOBALS::TAX[tmpparam]->LENGTH;
 			}
 			else {
-				std::cout << "Error: Species not in list. For a full list of suppoerted species please go to https://github.com/cschlaffner/PoGo \n";
+				std::cerr << "ERROR: Species/Taxonomy: " << tmpparam << " is not supported. For a full list of supported species please go to https://github.com/cschlaffner/PoGo \n";
 				return 1;
 			}
 		} else {
-			std::cout << "Error: Could not assign parameter: " + key + "!\n"; //just in case of modifications of the param list
+			std::cerr << "ERROR: Could not assign parameter: " + key + "!\n"; //just in case of modifications of the param list
 			return 1;
 		}
 	}

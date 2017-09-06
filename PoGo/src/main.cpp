@@ -180,7 +180,7 @@ int main(int argc, char* argv[]) {
 
 	//files cannot be merged if there is only one input file
 	if (merge && peptide_input_file_paths.size() == 1) {
-		std::cout << "cannot merge output files for one input file, default (-merge false) assumed" << std::endl;
+		std::cerr << "cannot merge output files for one input file, default (-merge false) assumed" << std::endl;
 		merge = false;
 	}
 
@@ -317,9 +317,9 @@ int main(int argc, char* argv[]) {
 	}
 	//if there is a problem with the reading of crucial files the program will end prematurely.
 	} 
-	catch (FastaParser__file_not_found_exception) {	std::cout << "FASTA file could not be opened." << std::endl; }
-	catch (GTFParser__file_not_found_exception) { std::cout << "GTF file could not be opened." << std::endl; }
-	catch (ResultParser__output_file_exception) { std::cout << "An error occured when trying to write a file" << std::endl; }
+	catch (FastaParser__file_not_found_exception) {std::cerr << "FASTA file could not be opened." << std::endl; }
+	catch (GTFParser__file_not_found_exception)   { std::cerr << "GTF file could not be opened." << std::endl; }
+	catch (ResultParser__output_file_exception)   { std::cerr << "An error obscured when trying to write a file" << std::endl; }
 	
 
 	std::cout << "done, cleaning up..." << std::endl;

@@ -22,13 +22,13 @@ public:
 	//compares two MapEntry objects. returns true if the lhs' GeneEntry is lesser than rhs' 
 	bool operator<(const MapEntry& rhs) const;
 	//calls the PeptideEntry::to_gtf metod for every peptide.
-	std::ostream& to_gtf(const std::string& source, std::ostream& os = std::cout);
+	std::ostream& to_gtf(const std::string& source, std::ostream& os = std::cout, bool chrincluded = true);
 	//calls the PeptideEntr::to_bed metod for every peptide.
-	std::ostream& to_bed(std::ostream& os = std::cout);
+	std::ostream& to_bed(std::ostream& os = std::cout, bool chrincluded = true);
 	//calls the PeptideEntry::to_gct metod for every peptide.
-	std::ostream& to_gct(std::vector<std::string> const& tissuevector, std::ostream& os = std::cout);
+	std::ostream& to_gct(std::vector<std::string> const& tissuevector, std::ostream& os = std::cout, bool chrincluded = true);
 	//calls the PeptideEntry::to_ptmbed metod for every peptide.
-	std::ostream& to_ptmbed(std::ostream& os = std::cout, std::ostream&os2 = std::cout);
+	std::ostream& to_ptmbed(std::ostream& os = std::cout, std::ostream&os2 = std::cout, bool chrincluded = true);
 private:
 	//pointer to the associated GeneEntry
 	GeneEntry* m_p_gene_entry;

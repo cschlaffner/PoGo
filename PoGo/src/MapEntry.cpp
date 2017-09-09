@@ -14,7 +14,7 @@ bool MapEntry::operator<(const MapEntry& rhs) const {
 	return (*m_p_gene_entry) < (*(rhs.m_p_gene_entry));
 }
 
-std::ostream& MapEntry::to_gtf(const std::string& source, std::ostream& os) {
+std::ostream& MapEntry::to_gtf(const std::string& source, std::ostream& os, bool chrincluded) {
 	if (m_peptide_entries.size() > 0) {
 		m_p_gene_entry->to_gtf(source, os) << "\n";
 
@@ -30,7 +30,7 @@ std::ostream& MapEntry::to_gtf(const std::string& source, std::ostream& os) {
 	return os;
 }
 
-std::ostream& MapEntry::to_bed(std::ostream& os) {
+std::ostream& MapEntry::to_bed(std::ostream& os, bool chrincluded) {
 	if (m_peptide_entries.size() > 0) {
 		std::set<PeptideEntry*, peptideentry_p_compare> peptide_entries_set = std::set<PeptideEntry*, peptideentry_p_compare>();
 		for (std::map<std::string, PeptideEntry*>::iterator it = m_peptide_entries.begin(); it != m_peptide_entries.end(); ++it) {
@@ -44,7 +44,7 @@ std::ostream& MapEntry::to_bed(std::ostream& os) {
 	return os;
 }
 
-std::ostream& MapEntry::to_gct(std::vector<std::string> const& tissuevector, std::ostream& os) {
+std::ostream& MapEntry::to_gct(std::vector<std::string> const& tissuevector, std::ostream& os, bool chrincluded) {
 	if (m_peptide_entries.size() > 0) {
 		std::set<PeptideEntry*, peptideentry_p_compare> peptide_entries_set = std::set<PeptideEntry*, peptideentry_p_compare>();
 		for (std::map<std::string, PeptideEntry*>::iterator it = m_peptide_entries.begin(); it != m_peptide_entries.end(); ++it) {
@@ -58,7 +58,7 @@ std::ostream& MapEntry::to_gct(std::vector<std::string> const& tissuevector, std
 	return os;
 }
 
-std::ostream& MapEntry::to_ptmbed(std::ostream& os, std::ostream& os2) {
+std::ostream& MapEntry::to_ptmbed(std::ostream& os, std::ostream& os2, bool chrincluded) {
 	if (m_peptide_entries.size() > 0) {
 		std::set<PeptideEntry*, peptideentry_p_compare> peptide_entries_set = std::set<PeptideEntry*, peptideentry_p_compare>();
 		for (std::map<std::string, PeptideEntry*>::iterator it = m_peptide_entries.begin(); it != m_peptide_entries.end(); ++it) {

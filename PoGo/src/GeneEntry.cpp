@@ -37,8 +37,8 @@ bool GeneEntry::operator<(const GeneEntry& rhs) const {
 	return false;
 }
 
-std::ostream& GeneEntry::to_gtf(const std::string& source, std::ostream& os) {
-	os << coordinates_to_gtf_string(m_coord, "gene", false, source);
+std::ostream& GeneEntry::to_gtf(const std::string& source, std::ostream& os, bool chrincluded) {
+	os << coordinates_to_gtf_string(m_coord, "gene", false, source, chrincluded);
 	os << "gene_id \"" << m_id << "\"; transcript_id \"" << m_id << "\"; gene_type \"" << m_type << "\"; gene_status \"" << m_status << "\"; gene_name \"" << m_gene_name;
 	os << "\"; transcript_type \"" << m_type << "\"; transcript_status \"" << m_status << "\"; transcript_name \"" << m_gene_name << "\";";
 

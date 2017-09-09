@@ -22,17 +22,17 @@ public:
 
 	//print functions
 	//converts all peptides to gtf lines
-	void to_gtf(const std::string& filename, const std::string& source, assembly assem = primary);
-	void to_gtf(assembly assem, std::string source, std::ostream& os = std::cout);
+	void to_gtf(const std::string& filename, const std::string& source, assembly assem = primary, bool chrincluded = true);
+	void to_gtf(assembly assem, std::string source, std::ostream& os = std::cout, bool chrincluded = true);
 	//converts all peptides to bed lines
-	void to_bed(std::string filename, assembly assem = primary);
-	void to_bed(assembly assem, std::ostream& os = std::cout);
+	void to_bed(std::string filename, assembly assem = primary, bool chrincluded = true);
+	void to_bed(assembly assem, std::ostream& os = std::cout, bool chrincluded = true);
 	//converts all peptides to gct lines
-	void to_gct(std::string filename, assembly assem = primary);
-	void to_gct(assembly assem, std::ostream& os = std::cout);
+	void to_gct(std::string filename, assembly assem = primary, bool chrincluded = true);
+	void to_gct(assembly assem, std::ostream& os = std::cout, bool chrincluded = true);
 	//converts all peptides to _ptm.bed lines
-	void to_ptmbed(std::string filename, std::string filename2, assembly assem = primary);
-	void to_ptmbed(assembly assem, std::ostream& os = std::cout, std::ostream& os2 = std::cout);
+	void to_ptmbed(std::string filename, std::string filename2, assembly assem = primary, bool chrincluded = true);
+	void to_ptmbed(assembly assem, std::ostream& os = std::cout, std::ostream& os2 = std::cout, bool chrincluded = true);
 	//removes all peptides from the MappedPeptides.
 	void remove_all_peptides();
 private:

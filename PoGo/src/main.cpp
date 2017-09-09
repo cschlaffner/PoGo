@@ -22,13 +22,15 @@ int main(int argc, char* argv[]) {
 	param_list.push_back(std::pair<std::string, std::string>("-mm", "Allowed mismatches (0, 1 or 2; default: 0)"));
 	param_list.push_back(std::pair<std::string, std::string>("-mmmode", "Mismatch mode (true or false): if true mismatching with two mismaches will only allow 1 mismatch every kmersize (default: 5) positions. (default: false)"));
 	param_list.push_back(std::pair<std::string, std::string>("-species", "Please give species using common or scientific name (default human). For a full list of supported species please go to https://github.com/cschlaffner/PoGo"));
-	
+	param_list.push_back(std::pair<std::string, std::string>("-chr", "Export chr prefix Allowed (0, 1  default: 0)"));
 	std::vector<std::pair<std::string, std::string>> param_list_back_sorted = param_list;
 
 	//sorting the parameter list alphabetically
 	std::sort(param_list.begin(), param_list.end());
 	//keeping the -fasta -gtf and -in commands at the top of the list.
 	std::sort(param_list_back_sorted.begin() + 3, param_list_back_sorted.end());
+
+	bool chrincluded = false;
 
 	//help option
 	if (cmd_option_exists(argv, argv + argc, "-h")) {
@@ -72,7 +74,7 @@ int main(int argc, char* argv[]) {
 		exit_wrong_args = true;
 	}
 	if (in_it == args.end() || (!(isInLastPosition(in_it->second, ".txt")) && !(isInLastPosition(in_it->second,".tsv")) && !(isInLastPosition(in_it->second,".pogo")))) {
-		std::cout << "Please provide valid input for -in. Allowed file extentions are .txt, .tsv or .pogo (e.g. filename.txt or filename1.txt,filename2.txt)" << std::endl;
+		std::cout << "Please provide valid input for -in. Allowed file extensions are .txt, .tsv or .pogo (e.g. filename.txt or filename1.txt,filename2.txt)" << std::endl;
 		exit_wrong_args = true;
 	}
 	//exiting if the user enters the wrong number or invalid parameters
@@ -154,10 +156,10 @@ int main(int argc, char* argv[]) {
 				if (GENOME_MAPPER_GLOBALS::PEPTIDE_MAPPER::ALLOWED_MISMATCHES > 1) {
 					GENOME_MAPPER_GLOBALS::PEPTIDE_MAPPER::ONE_IN_FIVE_MODE = true;
 				} else {
-					std::cout << "-mmmode: cannot use mode with less than 2 mismatches. default (false) assumed." << std::endl;
+					std::cerr << "-mmmode: cannot use mode with less than 2 mismatches. default (false) assumed." << std::endl;
 				}
 			} else {
-				std::cout << "-mmmode: invalid input. default (F) assumed" << std::endl;
+				std::cerr << "-mmmode: invalid input. default (F) assumed" << std::endl;
 			}
 		} else if (key == "-species") {
 			std::string tmpparam = param;
@@ -172,6 +174,14 @@ int main(int argc, char* argv[]) {
 				std::cerr << "ERROR: Species/Taxonomy: " << tmpparam << " is not supported. For a full list of supported species please go to https://github.com/cschlaffner/PoGo \n";
 				return 1;
 			}
+		}else if( key == "-chr"){
+			unsigned int par = atoi(param.c_str());
+			if(par == 1){
+				chrincluded = true;
+			}else if(par != 0 && par != 1){
+				std::cerr << "ERROR: The Chromosome prefix is not valid " << par << ". Export chr prefix Allowed (0, 1  default: 0)\n";
+			}
+
 		} else {
 			std::cerr << "ERROR: Could not assign parameter: " + key + "!\n"; //just in case of modifications of the param list
 			return 1;
@@ -253,11 +263,11 @@ int main(int argc, char* argv[]) {
 				mapped_peptides.to_gtf(path9, source, assem);
 			}
 			if (bedout) {
-				mapped_peptides.to_bed(path5);
-				mapped_peptides.to_bed(path10, assem);
+				mapped_peptides.to_bed(path5, primary, chrincluded);
+				mapped_peptides.to_bed(path10, assem, chrincluded);
 			}
 			if (gctout) {
-				mapped_peptides.to_gct(path7);
+				mapped_peptides.to_gct(path7, primary, chrincluded);
 				mapped_peptides.to_gct(path11, assem);
 			}
 			if (ptmbedout) {

@@ -29,13 +29,13 @@ public:
 	//otherwise returns false.
 	bool operator<(const PeptideEntry& rhs) const;
 	//generates a string in the gtf format and writes it to the specified ostream.
-	std::ostream& to_gtf(const std::string& source, std::ostream& os = std::cout);
+	std::ostream& to_gtf(const std::string& source, std::ostream& os = std::cout, bool chrincluded = true);
 	//generates a bed line and writes it to the specified ostream.
-	std::ostream& to_bed(std::ostream& os = std::cout, bool noptm = false);
+	std::ostream& to_bed(std::ostream& os = std::cout, bool noptm = false, bool chrincluded = true);
 	//generates a gct line and writes it to the specified ostream.
-	std::ostream& to_gct(const std::string& geneID, std::vector<std::string> const& tissuevector, std::ostream& os = std::cout);
+	std::ostream& to_gct(const std::string& geneID, std::vector<std::string> const& tissuevector, std::ostream& os = std::cout, bool chrincluded = true);
 	//generates a bed line with ptms and writes it to the specified ostream.
-	std::ostream& to_ptmbed(std::ostream& os = std::cout);
+	std::ostream& to_ptmbed(std::ostream& os = std::cout, bool chrincluded = true);
 
 	//adds new tissuetags if they havent existed before.
 	void add_tags(std::string const& tag, unsigned int sigPSMs, double quant);

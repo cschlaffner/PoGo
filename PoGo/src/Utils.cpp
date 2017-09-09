@@ -147,34 +147,46 @@ bool compare_coordinates_ascending(const GenomeCoordinates& lhs, const GenomeCoo
 	return lhs.start < rhs.start;
 }
 
-std::string coordinates_to_string(const GenomeCoordinates& coords) {
+std::string coordinates_to_string(const GenomeCoordinates& coords, bool chrincluded) {
 	std::stringstream ss;
-	if (coords.chr == scaffold) {
+	if (coords.chr == scaffold && !chrincluded) {
 		ss << coords.chrscaf;
-	} else {
+	}else if(coords.chr == scaffold && chrincluded){
+		ss << "scaffold" << coords.chrscaf;
+	} else if(!chrincluded){
 		ss << EnumStringMapper::enum_to_string(coords.chr);
+	} else if(chrincluded){
+		ss << EnumStringMapper::enum_to_chr_string(coords.chr);
 	}
 	ss << ":" << coords.start << "-" << coords.end << " " << EnumStringMapper::enum_to_string(coords.strand, false);// << " " << coords.frame;
 	return ss.str();
 }
 
-std::string coordinates_to_short_string(const GenomeCoordinates& coords, unsigned int offset) {
+std::string coordinates_to_short_string(const GenomeCoordinates& coords, unsigned int offset, bool chrincluded) {
 	std::stringstream ss;
-	if (coords.chr == scaffold) {
+	if (coords.chr == scaffold && !chrincluded) {
 		ss << coords.chrscaf;
-	} else {
+	}else if(coords.chr == scaffold && chrincluded){
+		ss << "scaffold" << coords.chrscaf;
+	} else if(!chrincluded){
 		ss << EnumStringMapper::enum_to_string(coords.chr);
+	} else if(chrincluded){
+		ss << EnumStringMapper::enum_to_chr_string(coords.chr);
 	}
 	ss << ":" << (coords.start - offset) << "-" << coords.end;
 	return ss.str();
 }
 
-std::string coordinates_to_gtf_string(const GenomeCoordinates& coords, const std::string& type, bool frameinclude, const std::string& source) {
+std::string coordinates_to_gtf_string(const GenomeCoordinates& coords, const std::string& type, bool frameinclude, const std::string& source, bool chrincluded) {
 	std::stringstream ss;
-	if (coords.chr == scaffold) {
+	if (coords.chr == scaffold && !chrincluded) {
 		ss << coords.chrscaf;
-	} else {
+	}else if(coords.chr == scaffold && chrincluded){
+		ss << "scaffold" << coords.chrscaf;
+	} else if(!chrincluded){
 		ss << EnumStringMapper::enum_to_string(coords.chr);
+	} else if(chrincluded){
+		ss << EnumStringMapper::enum_to_chr_string(coords.chr);
 	}
 	ss << "\t" << source << "\t" << type << "\t" << coords.start << "\t" << coords.end << "\t.\t" << EnumStringMapper::enum_to_string(coords.strand, false);
 	if (frameinclude) {
@@ -185,35 +197,44 @@ std::string coordinates_to_gtf_string(const GenomeCoordinates& coords, const std
 	return ss.str();
 }
 
-std::string coordinates_to_bed_string(const GenomeCoordinates& coords, const std::string& name, unsigned int score) {
+std::string coordinates_to_bed_string(const GenomeCoordinates& coords, const std::string& name, unsigned int score, bool chrincluded) {
 	std::stringstream ss;
-	if (coords.chr == scaffold) {
+	if (coords.chr == scaffold && !chrincluded) {
 		ss << coords.chrscaf;
-	} else {
+	}else if(coords.chr == scaffold && chrincluded){
+		ss << "scaffold" << coords.chrscaf;
+	} else if(!chrincluded){
 		ss << EnumStringMapper::enum_to_string(coords.chr);
+	} else if(chrincluded){
+		ss << EnumStringMapper::enum_to_chr_string(coords.chr);
 	}
 	ss << "\t" << (coords.start - 1) << "\t" << coords.end << "\t" << name << "\t" << score << "\t" << EnumStringMapper::enum_to_string(coords.strand, false) << "\t" << (coords.start - 1) << "\t" << (coords.start - 1) << "\t";
 	return ss.str();
 }
 
-std::string coordinates_to_short_bed_string(const GenomeCoordinates& coords, const std::string& name, unsigned int score) {
+std::string coordinates_to_short_bed_string(const GenomeCoordinates& coords, const std::string& name, unsigned int score, bool chrincluded) {
 	std::stringstream ss;
-	if (coords.chr == scaffold) {
+	if (coords.chr == scaffold && !chrincluded) {
 		ss << coords.chrscaf;
-	} else {
+	}else if(coords.chr == scaffold && chrincluded){
+		ss << "scaffold" << coords.chrscaf;
+	} else if(!chrincluded){
 		ss << EnumStringMapper::enum_to_string(coords.chr);
+	} else if(chrincluded){
+		ss << EnumStringMapper::enum_to_chr_string(coords.chr);
 	}
+
 	ss << "\t" << (coords.start - 1) << "\t" << coords.end << "\t" << name << "\t" << score << "\t" << EnumStringMapper::enum_to_string(coords.strand, false) << "\t";
 	return ss.str();
 }
 
-std::string coordinates_to_gct_string(std::vector<GenomeCoordinates> const& coords) {
+std::string coordinates_to_gct_string(std::vector<GenomeCoordinates> const& coords, bool chrincluded) {
 	std::stringstream ss;
 	for (size_t i(0); i < coords.size(); ++i) {
 		if (i > 0) {
 			ss << ",";
 		}
-		ss << coordinates_to_short_string(coords.at(i), 1);
+		ss << coordinates_to_short_string(coords.at(i), 1, chrincluded);
 	}
 	return ss.str();
 }

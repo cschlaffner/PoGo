@@ -37,38 +37,38 @@ void MappedPeptides::add_transcript_id_to_gene(std::string const& gtftranscriptl
 	}
 }
 
-void MappedPeptides::to_gtf(const std::string& filename, const std::string& source, assembly assem) {
+void MappedPeptides::to_gtf(const std::string& filename, const std::string& source, assembly assem, bool chrincluded) {
 	std::ofstream ofs;
 	ofs.open(filename.c_str());
 	to_gtf(assem, source, ofs);
 	ofs.close();
 }
 
-void MappedPeptides::to_bed(std::string filename, assembly assem) {
+void MappedPeptides::to_bed(std::string filename, assembly assem, bool chrincluded) {
 	std::ofstream ofs;
 	ofs.open(filename.c_str());
-	to_bed(assem, ofs);
+	to_bed(assem, ofs, chrincluded);
 	ofs.close();
 }
 
-void MappedPeptides::to_gct(std::string filename, assembly assem) {
+void MappedPeptides::to_gct(std::string filename, assembly assem, bool chrincluded) {
 	std::ofstream ofs;
 	ofs.open(filename.c_str());
-	to_gct(assem, ofs);
+	to_gct(assem, ofs, chrincluded);
 	ofs.close();
 }
 
-void MappedPeptides::to_ptmbed(std::string filename, std::string filename2, assembly assem) {
+void MappedPeptides::to_ptmbed(std::string filename, std::string filename2, assembly assem, bool chrincluded) {
 	std::ofstream ofs;
 	std::ofstream ofs2;
 	ofs.open(filename.c_str());
 	ofs2.open(filename2.c_str());
-	to_ptmbed(assem, ofs, ofs2);
+	to_ptmbed(assem, ofs, ofs2, chrincluded);
 	ofs.close();
 	ofs2.close();
 }
 
-void MappedPeptides::to_gtf(assembly assem, std::string source, std::ostream& os) {
+void MappedPeptides::to_gtf(assembly assem, std::string source, std::ostream& os, bool chrincluded) {
 	std::set<MapEntry*, mapentry_p_compare> mapping_set;
 
 	if (assem == primary) {
@@ -83,11 +83,11 @@ void MappedPeptides::to_gtf(assembly assem, std::string source, std::ostream& os
 	}
 
 	for (std::set<MapEntry*, mapentry_p_compare>::iterator it = mapping_set.begin(); it != mapping_set.end(); ++it) {
-		(*it)->to_gtf(source, os);
+		(*it)->to_gtf(source, os, chrincluded);
 	}
 }
 
-void MappedPeptides::to_bed(assembly assem, std::ostream& os) {
+void MappedPeptides::to_bed(assembly assem, std::ostream& os, bool chrincluded) {
 	std::set<MapEntry*, mapentry_p_compare> mapping_set;
 
 	if (assem == primary) {
@@ -102,11 +102,11 @@ void MappedPeptides::to_bed(assembly assem, std::ostream& os) {
 	}
 
 	for (std::set<MapEntry*, mapentry_p_compare>::iterator it = mapping_set.begin(); it != mapping_set.end(); ++it) {
-		(*it)->to_bed(os);
+		(*it)->to_bed(os, chrincluded);
 	}
 }
 
-void MappedPeptides::to_gct(assembly assem, std::ostream& os) {
+void MappedPeptides::to_gct(assembly assem, std::ostream& os, bool chrincluded) {
 	std::set<MapEntry*, mapentry_p_compare> mapping_set;
 
 	os << "#1.2\t";
@@ -141,11 +141,11 @@ void MappedPeptides::to_gct(assembly assem, std::ostream& os) {
 	}
 
 	for (std::set<MapEntry*, mapentry_p_compare>::iterator it = mapping_set.begin(); it != mapping_set.end(); ++it) {
-		(*it)->to_gct(tokens, os);
+		(*it)->to_gct(tokens, os, chrincluded);
 	}
 }
 
-void MappedPeptides::to_ptmbed(assembly assem, std::ostream& os, std::ostream& os2) {
+void MappedPeptides::to_ptmbed(assembly assem, std::ostream& os, std::ostream& os2, bool chrincluded) {
 	std::set<MapEntry*, mapentry_p_compare> mapping_set;
 
 	if (assem == primary) {
@@ -160,7 +160,7 @@ void MappedPeptides::to_ptmbed(assembly assem, std::ostream& os, std::ostream& o
 	}
 
 	for (std::set<MapEntry*, mapentry_p_compare>::iterator it = mapping_set.begin(); it != mapping_set.end(); ++it) {
-		(*it)->to_ptmbed(os, os2);
+		(*it)->to_ptmbed(os, os2, chrincluded);
 	}
 }
 

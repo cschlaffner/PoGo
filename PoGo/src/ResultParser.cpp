@@ -28,6 +28,7 @@ void ResultParser::read(std::string file, CoordinateWrapper& coordwrapper, Mappe
 				//using only the tokens needed.
 				tissue = tokens.at(0);
 				peptide_string = tokens.at(1);
+				//std::cout << "Mapping following peptide: " << peptide_string << std::endl;
 				sig_PSMs = atoi(tokens.at(2).c_str());
 				quant = atof(tokens.at(3).c_str());
 

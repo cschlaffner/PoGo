@@ -16,7 +16,7 @@ std::map<std::string, std::string> EnumStringMapper::m_ptm_to_colours(
 	}));
 
 std::string EnumStringMapper::enum_to_string(const Strand& strand, bool numeric) {
-	if (numeric == true) {
+	if (numeric) {
 		switch (strand) {
 		case fwd: return "1";
 		case rev: return "-1";
@@ -112,6 +112,91 @@ std::string EnumStringMapper::enum_to_string(const Chromosome& chr) {
 	case chrM: return "MT";
 	case scaffold: return "";
 	default: return "unknown";
+	}
+}
+
+std::string EnumStringMapper::enum_to_chr_string(const Chromosome& chr) {
+	switch (chr) {
+		case chr1: return "chr1";
+		case chr1A: return "chr1A";
+		case chr1B: return "chr1B";
+		case chr2: return "chr2";
+		case chr2A: return "chr2A";
+		case chr2a: return "chr2a";
+		case chr2B: return "chr2B";
+		case chr2b: return "chr2b";
+		case chr3: return "chr3";
+		case chr4: return "chr4";
+		case chr4A: return "chr4A";
+		case chr5: return "chr5";
+		case chr6: return "chr6";
+		case chr7: return "chr7";
+		case chr8: return "chr8";
+		case chr9: return "chr9";
+		case chr10: return "chr10";
+		case chr11: return "chr11";
+		case chr12: return "chr12";
+		case chr13: return "chr13";
+		case chr14: return "chr14";
+		case chr15: return "chr15";
+		case chr16: return "chr16";
+		case chr17: return "chr17";
+		case chr18: return "chr18";
+		case chr19: return "chr19";
+		case chr20: return "chr20";
+		case chr21: return "chr21";
+		case chr22: return "chr22";
+		case chr23: return "chr23";
+		case chr24: return "chr24";
+		case chr25: return "chr25";
+		case chr26: return "chr26";
+		case chr27: return "chr27";
+		case chr28: return "chr28";
+		case chr29: return "chr29";
+		case chr30: return "chr30";
+		case chr31: return "chr31";
+		case chr32: return "chr32";
+		case chr33: return "chr33";
+		case chr34: return "chr34";
+		case chr35: return "chr35";
+		case chr36: return "chr36";
+		case chr37: return "chr37";
+		case chr38: return "chr38";
+		case chr39: return "chr39";
+		case chr40: return "chr40";
+		case chrX: return "chrX";
+		case chrY: return "chrY";
+		case chrXY: return "chrXY";
+		case chrX1: return "chrX1";
+		case chrX2: return "chrX2";
+		case chrX3: return "chrX3";
+		case chrX5: return "chrX5";
+		case chrA1: return "chrA1";
+		case chrA2: return "chrA2";
+		case chrA3: return "chrA3";
+		case chrB1: return "chrB1";
+		case chrB2: return "chrB2";
+		case chrB3: return "chrB3";
+		case chrB4: return "chrB4";
+		case chrC1: return "chrC1";
+		case chrC2: return "chrC2";
+		case chrD1: return "chrD1";
+		case chrD2: return "chrD2";
+		case chrD3: return "chrD3";
+		case chrD4: return "chrD4";
+		case chrE1: return "chrE1";
+		case chrE2: return "chrE2";
+		case chrE3: return "chrE3";
+		case chrF1: return "chrF1";
+		case chrF2: return "chrF2";
+		case chrLG2: return "chrLG2";
+		case chrLG5: return "chrLG5";
+		case chrLGE22: return "chrLGE22";
+		case chrW: return "chrW";
+		case chrZ: return "chrZ";
+		case chrM: return "chrM";
+		case scaffold: return "scaffold";
+		default: return "unknown";
 	}
 }
 

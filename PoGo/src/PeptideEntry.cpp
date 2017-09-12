@@ -52,7 +52,7 @@ bool PeptideEntry::operator<(const PeptideEntry& rhs) const {
 		|| (m_startcoord == rhs.m_startcoord && m_endcoord == rhs.m_endcoord && m_sequence.compare(rhs.m_sequence) < 0);
 }
 
-std::ostream& PeptideEntry::to_gtf(const std::string& source, std::ostream& os) {
+std::ostream& PeptideEntry::to_gtf(const std::string& source, std::ostream& os, bool chrincluded) {
 	std::string sequence_add = "";
 	unsigned int count = 0;
 	for (std::set<PeptideCoordinates*, peptidecoords_p_compare>::iterator it = m_pepcoordinates.begin(); it != m_pepcoordinates.end(); ++it) {
@@ -108,9 +108,10 @@ std::ostream& PeptideEntry::to_gtf(const std::string& source, std::ostream& os) 
 	return os;
 }
 
-std::ostream& PeptideEntry::to_bed(std::ostream& os, bool noptm) {
+std::ostream& PeptideEntry::to_bed(std::ostream& os, bool noptm, bool chrincluded) {
 	for (std::set<PeptideCoordinates*, peptidecoords_p_compare>::iterator it = m_pepcoordinates.begin(); it != m_pepcoordinates.end(); ++it) {
 		os << coordinates_to_bed_string((*it)->get_transcript_coordinates(), m_sequence);
+		//std::cout << coordinates_to_bed_string((*it)->get_transcript_coordinates(), m_sequence) << std::endl;
 
 		std::stringstream exon_starts;
 		std::stringstream exon_lengths;
@@ -128,11 +129,12 @@ std::ostream& PeptideEntry::to_bed(std::ostream& os, bool noptm) {
 			exon_lengths << exon_length;
 		}
 		std::string colour = "128,128,128";
-		if (noptm == false) {
-			if (m_geneunique == true && m_transcriptunique == false) {
+
+		if (!noptm) {
+			if (m_geneunique && !m_transcriptunique) {
 				colour = "0,0,0";
 			}
-			else if (m_geneunique == true && m_transcriptunique == true) {
+			else if (m_geneunique && m_transcriptunique) {
 				colour = "204,0,0";
 			}
 		}
@@ -142,7 +144,7 @@ std::ostream& PeptideEntry::to_bed(std::ostream& os, bool noptm) {
 	return os;
 }
 
-std::ostream& PeptideEntry::to_gct(const std::string& geneID, std::vector<std::string> const& tissuevector, std::ostream& os) {
+std::ostream& PeptideEntry::to_gct(const std::string& geneID, std::vector<std::string> const& tissuevector, std::ostream& os, bool chrincluded) {
 	std::string sequence_add = "";
 	unsigned int count = 0;
 	for (std::set<PeptideCoordinates*, peptidecoords_p_compare>::iterator it = m_pepcoordinates.begin(); it != m_pepcoordinates.end(); ++it) {
@@ -176,7 +178,7 @@ std::string PeptideEntry::tissue_quant_to_string(std::vector<std::string> const&
 	return ss.str();
 }
 
-std::ostream& PeptideEntry::to_ptmbed(std::ostream& os) {
+std::ostream& PeptideEntry::to_ptmbed(std::ostream& os, bool chrincluded) {
 	for (std::map<std::string, std::map<std::string, PTMEntry>>::iterator ptm_it = m_pepforms.begin(); ptm_it != m_pepforms.end(); ++ptm_it) {
 		for (std::map<std::string, PTMEntry>::iterator ptm_single_it = ptm_it->second.begin(); ptm_single_it != ptm_it->second.end(); ++ptm_single_it) {
 			std::vector<std::pair<PeptideCoordinates*, GenomeCoordinates>> coord = ptm_single_it->second.get_genome_coordinates();

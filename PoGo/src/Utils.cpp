@@ -34,7 +34,7 @@ void tokenize(const std::string& str, std::vector<std::string>& tokens, const st
 			pos = str.length();
 
 			if (pos != last_pos || !trimEmpty) {
-				tokens.push_back(value_type(str.data() + last_pos, size_type(pos) - last_pos));
+				tokens.push_back(value_type(str.data() + last_pos, pos - last_pos));
 			}
 			break;
 		}
@@ -147,37 +147,49 @@ bool compare_coordinates_ascending(const GenomeCoordinates& lhs, const GenomeCoo
 	return lhs.start < rhs.start;
 }
 
-std::string coordinates_to_string(const GenomeCoordinates& coords) {
+std::string coordinates_to_string(const GenomeCoordinates& coords, bool chrincluded) {
 	std::stringstream ss;
-	if (coords.chr == scaffold) {
+	if (coords.chr == scaffold && !chrincluded) {
 		ss << coords.chrscaf;
-	} else {
+	}else if(coords.chr == scaffold && chrincluded){
+		ss << "scaffold" << coords.chrscaf;
+	} else if(!chrincluded){
 		ss << EnumStringMapper::enum_to_string(coords.chr);
+	} else if(chrincluded){
+		ss << EnumStringMapper::enum_to_chr_string(coords.chr);
 	}
 	ss << ":" << coords.start << "-" << coords.end << " " << EnumStringMapper::enum_to_string(coords.strand, false);// << " " << coords.frame;
 	return ss.str();
 }
 
-std::string coordinates_to_short_string(const GenomeCoordinates& coords, unsigned int offset) {
+std::string coordinates_to_short_string(const GenomeCoordinates& coords, unsigned int offset, bool chrincluded) {
 	std::stringstream ss;
-	if (coords.chr == scaffold) {
+	if (coords.chr == scaffold && !chrincluded) {
 		ss << coords.chrscaf;
-	} else {
+	}else if(coords.chr == scaffold && chrincluded){
+		ss << "scaffold" << coords.chrscaf;
+	} else if(!chrincluded){
 		ss << EnumStringMapper::enum_to_string(coords.chr);
+	} else if(chrincluded){
+		ss << EnumStringMapper::enum_to_chr_string(coords.chr);
 	}
 	ss << ":" << (coords.start - offset) << "-" << coords.end;
 	return ss.str();
 }
 
-std::string coordinates_to_gtf_string(const GenomeCoordinates& coords, const std::string& type, bool frameinclude, const std::string& source) {
+std::string coordinates_to_gtf_string(const GenomeCoordinates& coords, const std::string& type, bool frameinclude, const std::string& source, bool chrincluded) {
 	std::stringstream ss;
-	if (coords.chr == scaffold) {
+	if (coords.chr == scaffold && !chrincluded) {
 		ss << coords.chrscaf;
-	} else {
+	}else if(coords.chr == scaffold && chrincluded){
+		ss << "scaffold" << coords.chrscaf;
+	} else if(!chrincluded){
 		ss << EnumStringMapper::enum_to_string(coords.chr);
+	} else if(chrincluded){
+		ss << EnumStringMapper::enum_to_chr_string(coords.chr);
 	}
 	ss << "\t" << source << "\t" << type << "\t" << coords.start << "\t" << coords.end << "\t.\t" << EnumStringMapper::enum_to_string(coords.strand, false);
-	if (frameinclude == true) {
+	if (frameinclude) {
 		ss << "\t" << coords.frame << "\t";
 	} else {
 		ss << "\t.\t";
@@ -185,35 +197,44 @@ std::string coordinates_to_gtf_string(const GenomeCoordinates& coords, const std
 	return ss.str();
 }
 
-std::string coordinates_to_bed_string(const GenomeCoordinates& coords, const std::string& name, unsigned int score) {
+std::string coordinates_to_bed_string(const GenomeCoordinates& coords, const std::string& name, unsigned int score, bool chrincluded) {
 	std::stringstream ss;
-	if (coords.chr == scaffold) {
+	if (coords.chr == scaffold && !chrincluded) {
 		ss << coords.chrscaf;
-	} else {
+	}else if(coords.chr == scaffold && chrincluded){
+		ss << "scaffold" << coords.chrscaf;
+	} else if(!chrincluded){
 		ss << EnumStringMapper::enum_to_string(coords.chr);
+	} else if(chrincluded){
+		ss << EnumStringMapper::enum_to_chr_string(coords.chr);
 	}
 	ss << "\t" << (coords.start - 1) << "\t" << coords.end << "\t" << name << "\t" << score << "\t" << EnumStringMapper::enum_to_string(coords.strand, false) << "\t" << (coords.start - 1) << "\t" << (coords.start - 1) << "\t";
 	return ss.str();
 }
 
-std::string coordinates_to_short_bed_string(const GenomeCoordinates& coords, const std::string& name, unsigned int score) {
+std::string coordinates_to_short_bed_string(const GenomeCoordinates& coords, const std::string& name, unsigned int score, bool chrincluded) {
 	std::stringstream ss;
-	if (coords.chr == scaffold) {
+	if (coords.chr == scaffold && !chrincluded) {
 		ss << coords.chrscaf;
-	} else {
+	}else if(coords.chr == scaffold && chrincluded){
+		ss << "scaffold" << coords.chrscaf;
+	} else if(!chrincluded){
 		ss << EnumStringMapper::enum_to_string(coords.chr);
+	} else if(chrincluded){
+		ss << EnumStringMapper::enum_to_chr_string(coords.chr);
 	}
+
 	ss << "\t" << (coords.start - 1) << "\t" << coords.end << "\t" << name << "\t" << score << "\t" << EnumStringMapper::enum_to_string(coords.strand, false) << "\t";
 	return ss.str();
 }
 
-std::string coordinates_to_gct_string(std::vector<GenomeCoordinates> const& coords) {
+std::string coordinates_to_gct_string(std::vector<GenomeCoordinates> const& coords, bool chrincluded) {
 	std::stringstream ss;
 	for (size_t i(0); i < coords.size(); ++i) {
 		if (i > 0) {
 			ss << ",";
 		}
-		ss << coordinates_to_short_string(coords.at(i), 1);
+		ss << coordinates_to_short_string(coords.at(i), 1, chrincluded);
 	}
 	return ss.str();
 }
@@ -271,6 +292,27 @@ bool byIntValue::operator()(const std::pair<std::string, unsigned>& lhs, const s
 	return lhs.second <= rhs.second;
 }
 
+/**
+ * This function check that the filename ends on the String name.
+ * @param nameFile name of the file
+ * @param extension extension of the file
+ * @return return true if the exntension is the externsion of the file.
+ */
 bool isInLastPosition(std::string nameFile, std::string extension){
 	return nameFile.rfind(extension) == (nameFile.size() - extension.size());
+}
+
+/**
+ * This function remove the extension of the file if is found, if the extension is not found, it will keep
+ * the original value.
+ * @param nameFile Name of the file.
+ * @param extension Extension to be removed
+ * @return new File Name
+ */
+std::string removeExtensionOutput(std::string nameFile, std::string extension){
+	std::size_t found = nameFile.rfind(extension);
+	if (found!=std::string::npos)
+		nameFile.replace(found,extension.length(),"");
+
+	return nameFile;
 }

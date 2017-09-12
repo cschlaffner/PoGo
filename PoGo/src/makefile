@@ -2,7 +2,7 @@ CXX = g++
 CXXFLAGS = -Wall -g -std=c++0x 
 
 
-all: main clean
+all: main
 
 main: main.o EnumStringMapper.o Utils.o FastaEntry.o FastaParser.o ProteinEntry.o CoordinateWrapper.o PeptideCoordinates.o GeneEntry.o PTMEntry.o PeptideEntry.o KmerMap.o PeptideMapperUtils.o PossibleKeyGenerator.o MapEntry.o MappedPeptides.o ResultParser.o GTFParser.o Globals.o
 	$(CXX) $(CXXFLAGS) -o PoGo main.o EnumStringMapper.o Utils.o FastaEntry.o FastaParser.o ProteinEntry.o CoordinateWrapper.o PeptideCoordinates.o GeneEntry.o PTMEntry.o PeptideEntry.o KmerMap.o PossibleKeyGenerator.o MapEntry.o MappedPeptides.o ResultParser.o GTFParser.o PeptideMapperUtils.o Globals.o
@@ -47,5 +47,5 @@ EnumStringMapper.o: EnumStringMapper.h Coordinates.h Globals.h
 Globals.o: Globals.h
 
 clean:
-	rm -f *.o
+	rm -f *.o $(objects) PoGo
 

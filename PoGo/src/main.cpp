@@ -22,13 +22,15 @@ int main(int argc, char* argv[]) {
 	param_list.push_back(std::pair<std::string, std::string>("-mm", "Allowed mismatches (0, 1 or 2; default: 0)"));
 	param_list.push_back(std::pair<std::string, std::string>("-mmmode", "Mismatch mode (true or false): if true mismatching with two mismaches will only allow 1 mismatch every kmersize (default: 5) positions. (default: false)"));
 	param_list.push_back(std::pair<std::string, std::string>("-species", "Please give species using common or scientific name (default human). For a full list of supported species please go to https://github.com/cschlaffner/PoGo"));
-	
+	param_list.push_back(std::pair<std::string, std::string>("-chr", "Export chr prefix Allowed (0, 1  default: 0)"));
 	std::vector<std::pair<std::string, std::string>> param_list_back_sorted = param_list;
 
 	//sorting the parameter list alphabetically
 	std::sort(param_list.begin(), param_list.end());
 	//keeping the -fasta -gtf and -in commands at the top of the list.
 	std::sort(param_list_back_sorted.begin() + 3, param_list_back_sorted.end());
+
+	bool chrincluded = false;
 
 	//help option
 	if (cmd_option_exists(argv, argv + argc, "-h")) {
@@ -72,7 +74,7 @@ int main(int argc, char* argv[]) {
 		exit_wrong_args = true;
 	}
 	if (in_it == args.end() || (!(isInLastPosition(in_it->second, ".txt")) && !(isInLastPosition(in_it->second,".tsv")) && !(isInLastPosition(in_it->second,".pogo")))) {
-		std::cout << "Please provide valid input for -in. Allowed file extentions are .txt, .tsv or .pogo (e.g. filename.txt or filename1.txt,filename2.txt)" << std::endl;
+		std::cout << "Please provide valid input for -in. Allowed file extensions are .txt, .tsv or .pogo (e.g. filename.txt or filename1.txt,filename2.txt)" << std::endl;
 		exit_wrong_args = true;
 	}
 	//exiting if the user enters the wrong number or invalid parameters
@@ -154,10 +156,10 @@ int main(int argc, char* argv[]) {
 				if (GENOME_MAPPER_GLOBALS::PEPTIDE_MAPPER::ALLOWED_MISMATCHES > 1) {
 					GENOME_MAPPER_GLOBALS::PEPTIDE_MAPPER::ONE_IN_FIVE_MODE = true;
 				} else {
-					std::cout << "-mmmode: cannot use mode with less than 2 mismatches. default (false) assumed." << std::endl;
+					std::cerr << "-mmmode: cannot use mode with less than 2 mismatches. default (false) assumed." << std::endl;
 				}
 			} else {
-				std::cout << "-mmmode: invalid input. default (F) assumed" << std::endl;
+				std::cerr << "-mmmode: invalid input. default (F) assumed" << std::endl;
 			}
 		} else if (key == "-species") {
 			std::string tmpparam = param;
@@ -169,18 +171,26 @@ int main(int argc, char* argv[]) {
 				GENOME_MAPPER_GLOBALS::ID::LENGTH = GENOME_MAPPER_GLOBALS::TAX[tmpparam]->LENGTH;
 			}
 			else {
-				std::cout << "Error: Species not in list. For a full list of suppoerted species please go to https://github.com/cschlaffner/PoGo \n";
+				std::cerr << "ERROR: Species/Taxonomy: " << tmpparam << " is not supported. For a full list of supported species please go to https://github.com/cschlaffner/PoGo \n";
 				return 1;
 			}
+		}else if( key == "-chr"){
+			unsigned int par = atoi(param.c_str());
+			if(par == 1){
+				chrincluded = true;
+			}else if(par != 0 && par != 1){
+				std::cerr << "ERROR: The Chromosome prefix is not valid " << par << ". Export chr prefix Allowed (0, 1  default: 0)\n";
+			}
+
 		} else {
-			std::cout << "Error: Could not assign parameter: " + key + "!\n"; //just in case of modifications of the param list
+			std::cerr << "ERROR: Could not assign parameter: " + key + "!\n"; //just in case of modifications of the param list
 			return 1;
 		}
 	}
 
 	//files cannot be merged if there is only one input file
 	if (merge && peptide_input_file_paths.size() == 1) {
-		std::cout << "cannot merge output files for one input file, default (-merge false) assumed" << std::endl;
+		std::cerr << "cannot merge output files for one input file, default (-merge false) assumed" << std::endl;
 		merge = false;
 	}
 
@@ -211,97 +221,115 @@ int main(int argc, char* argv[]) {
 		std::cout << peptide_input_file_paths.at(i) << std::endl;
 		std::string curr_input_file_path = peptide_input_file_paths.at(i);
 
+        std::string final_peptide_path_results = curr_input_file_path;
+		if(isInLastPosition(curr_input_file_path, ".txt")){
+			final_peptide_path_results = removeExtensionOutput(final_peptide_path_results, ".txt");
+		}else if(isInLastPosition(curr_input_file_path, ".tsv")){
+            final_peptide_path_results = removeExtensionOutput(final_peptide_path_results, ".tsv");
+        }
+
 		std::vector<std::string> tokens;
 		tokenize(curr_input_file_path, tokens, ".");
 
-		std::string path6 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_unmapped.txt";
+		std::string path6 = final_peptide_path_results+ "_unmapped.txt";
 
 		ResultParser::read(curr_input_file_path, coordinate_wrapper, mapped_peptides, path6, kmer_map);
 		std::cout << "Results done! (" << peptide_input_file_paths.at(i) << ")" << std::endl
 			<< "writing output files" << std::endl;
 
-		if (merge == false) {
+		if (!merge) {
 			//the gtf overwrites the input gtf if they are in the same folder
-			std::string path4 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_out.gtf";
-			std::string path5 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_all.bed";
-			std::string path7 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + ".gct";
-			std::string path8 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_ptm.bed";
-			std::string path81 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_no-ptm.bed";
+
+			std::string path4  = final_peptide_path_results + "_out.gtf";
+			std::string path5  = final_peptide_path_results + ".bed";
+			std::string path7  = final_peptide_path_results + ".gct";
+			std::string path8  = final_peptide_path_results + "_ptm.bed";
+			std::string path81 = final_peptide_path_results +"_no-ptm.bed";
 			std::string path9 = "";
 			std::string path10 = "";
 			std::string path11 = "";
 			std::string path12 = "";
 			std::string path121 = "";
+
 			if (assem == patchhaploscaff) {
-				path9 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_patch_hapl_scaff_out.gtf";
-				path10 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_patch_hapl_scaff_all.bed";
-				path11 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_patch_hapl_scaff.gct";
-				path12 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_patch_hapl_scaff_ptm.bed";
-				path121 = curr_input_file_path.substr(0, curr_input_file_path.length() - 4) + "_patch_hapl_scaff_no-ptm.bed";
+				path9   =  final_peptide_path_results  + "_patch_hapl_scaff_out.gtf";
+				path10  = final_peptide_path_results + "_patch_hapl_scaff.bed";
+				path11  = final_peptide_path_results + "_patch_hapl_scaff.gct";
+				path12  = final_peptide_path_results + "_patch_hapl_scaff_ptm.bed";
+				path121 = final_peptide_path_results + "_patch_hapl_scaff_no-ptm.bed";
 			}
-			if (gtfout == true) {
+			if (gtfout) {
 				mapped_peptides.to_gtf(path4, source);
 				mapped_peptides.to_gtf(path9, source, assem);
 			}
-			if (bedout == true) {
-				mapped_peptides.to_bed(path5);
-				mapped_peptides.to_bed(path10, assem);
+			if (bedout) {
+				mapped_peptides.to_bed(path5, primary, chrincluded);
+				mapped_peptides.to_bed(path10, assem, chrincluded);
 			}
-			if (gctout == true) {
-				mapped_peptides.to_gct(path7);
+			if (gctout) {
+				mapped_peptides.to_gct(path7, primary, chrincluded);
 				mapped_peptides.to_gct(path11, assem);
 			}
-			if (ptmbedout == true) {
+			if (ptmbedout) {
 				mapped_peptides.to_ptmbed(path8,path81);
 				mapped_peptides.to_ptmbed(path12, path121, assem);
 			}
 			mapped_peptides.remove_all_peptides();
 		}
 	}
-	if (merge == true) {
+	if (merge) {
 		std::vector<std::string> tokens;
 		tokenize(peptide_input_file_paths.at(0), tokens, ".");
 
-		std::string path4 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_merged.gtf";
-		std::string path5 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_merged_all.bed";
-		std::string path7 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_merged.gct";
-		std::string path8 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_merged_ptm.bed";
-		std::string path81 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_merged_no-ptm.bed";
+        std::string final_peptide_path_results = peptide_input_file_paths.at(0);
+        if(isInLastPosition(final_peptide_path_results, ".txt")){
+            final_peptide_path_results = removeExtensionOutput(final_peptide_path_results, ".txt");
+        }else if(isInLastPosition(final_peptide_path_results, ".tsv")){
+            final_peptide_path_results = removeExtensionOutput(final_peptide_path_results, ".tsv");
+        }
+
+		std::string path4 = final_peptide_path_results  + "_merged.gtf";
+		std::string path5 = final_peptide_path_results  + "_merged.bed";
+		std::string path7 = final_peptide_path_results  + "_merged.gct";
+		std::string path8 = final_peptide_path_results  + "_merged_ptm.bed";
+		std::string path81 = final_peptide_path_results + "_merged_no-ptm.bed";
 		std::string path9 = "";
 		std::string path10 = "";
 		std::string path11 = "";
 		std::string path12 = "";
 		std::string path121 = "";
+
 		if (assem == patchhaploscaff) {
-			path9 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_patch_hapl_scaff_merged.gtf";
-			path10 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_patch_hapl_scaff_merged_all.bed";
-			path11 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_patch_hapl_scaff_merged.gct";
-			path12 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_patch_hapl_scaff_merged_ptm.bed";
-			path121 = peptide_input_file_paths.at(0).substr(0, peptide_input_file_paths.at(0).length() - 4) + "_patch_hapl_scaff_merged_no-ptm.bed";
+
+			path9   = final_peptide_path_results   + "_patch_hapl_scaff_merged.gtf";
+			path10  = final_peptide_path_results  + "_patch_hapl_scaff_merged.bed";
+			path11  = final_peptide_path_results  + "_patch_hapl_scaff_merged.gct";
+			path12  = final_peptide_path_results  + "_patch_hapl_scaff_merged_ptm.bed";
+			path121 = final_peptide_path_results + "_patch_hapl_scaff_merged_no-ptm.bed";
 		}
 
-		if (gtfout == true) {
+		if (gtfout) {
 			mapped_peptides.to_gtf(path4, source);
 			mapped_peptides.to_gtf(path9, source, assem);
 		}
-		if (bedout == true) {
+		if (bedout) {
 			mapped_peptides.to_bed(path5);
 			mapped_peptides.to_bed(path10, assem);
 		}
-		if (gctout == true) {
+		if (gctout) {
 			mapped_peptides.to_gct(path7);
 			mapped_peptides.to_gct(path11, assem);
 		}
-		if (ptmbedout == true) {
+		if (ptmbedout) {
 			mapped_peptides.to_ptmbed(path8, path81);
 			mapped_peptides.to_ptmbed(path12, path121, assem);
 		}
 	}
 	//if there is a problem with the reading of crucial files the program will end prematurely.
 	} 
-	catch (FastaParser__file_not_found_exception) {	std::cout << "FASTA file could not be opened." << std::endl; }
-	catch (GTFParser__file_not_found_exception) { std::cout << "GTF file could not be opened." << std::endl; }
-	catch (ResultParser__output_file_exception) { std::cout << "An error occured when trying to write a file" << std::endl; }
+	catch (FastaParser__file_not_found_exception) {std::cerr << "FASTA file could not be opened." << std::endl; }
+	catch (GTFParser__file_not_found_exception)   { std::cerr << "GTF file could not be opened." << std::endl; }
+	catch (ResultParser__output_file_exception)   { std::cerr << "An error obscured when trying to write a file" << std::endl; }
 	
 
 	std::cout << "done, cleaning up..." << std::endl;

@@ -27,7 +27,7 @@ public:
 	//otherwise returns false.	
 	bool operator<(const GeneEntry& rhs) const;
 	//converts a gene into a gtf line and prints it to the given outputstream.
-	std::ostream& to_gtf(const std::string& source, std::ostream& os = std::cout);
+	std::ostream& to_gtf(const std::string& source, std::ostream& os = std::cout, bool chrincluded = true);
 
 	//check if gene entry maps to chromosomes (e.g. chr1, chrX, 10, etc.)
 	bool is_primary();

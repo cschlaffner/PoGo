@@ -32,17 +32,19 @@ bool compare_genome_coordinate_sets_ascending(const std::vector<GenomeCoordinate
 
 //to_string functions for Genomic coordinates.
 //as simple string
-std::string coordinates_to_string(const GenomeCoordinates& coords);
+std::string coordinates_to_string(const GenomeCoordinates& coords, bool chrincluded = true);
 //as a shortend version.
-std::string coordinates_to_short_string(const GenomeCoordinates& coords, unsigned int offset = 0);
+std::string coordinates_to_short_string(const GenomeCoordinates& coords, unsigned int offset = 0, bool chrincluded = true);
 //as a line in a gtffile
-std::string coordinates_to_gtf_string(const GenomeCoordinates& coords, const std::string& type, bool frameinclude, const std::string& source);
+std::string coordinates_to_gtf_string(const GenomeCoordinates& coords, const std::string& type, bool frameinclude, const std::string& source, bool chrincluded = true);
 //as a line in a bed file
-std::string coordinates_to_bed_string(const GenomeCoordinates& coords, const std::string& name, unsigned int score = 1000);
+std::string coordinates_to_bed_string(const GenomeCoordinates& coords, const std::string& name, unsigned int score = 1000, bool chrincluded = true);
 //as a short bed string
-std::string coordinates_to_short_bed_string(const GenomeCoordinates& coords, const std::string& name, unsigned int score = 1000);
+std::string coordinates_to_short_bed_string(const GenomeCoordinates& coords, const std::string& name, unsigned int score = 1000,bool chrincluded = true);
 //as a line in a gct file
-std::string coordinates_to_gct_string(std::vector<GenomeCoordinates> const& coords);
+std::string coordinates_to_gct_string(std::vector<GenomeCoordinates> const& coords, bool chrincluded = true);
+
+
 //given a tokenized string this function will generate the resulting genomic coordinates.
 GenomeCoordinates extract_coordinates_from_gtf_line(std::vector<std::string> const& tokens);
 //this compare_function returns true if lhs.start < rhs.start and false otherwise.
@@ -55,6 +57,9 @@ bool compare_coordinates_ascending(const GenomeCoordinates& lhs, const GenomeCoo
 bool compare_coordinates_ascending_whole(const GenomeCoordinates& lhs, const GenomeCoordinates& rhs);
 
 bool isInLastPosition(std::string nameFile, std::string extension);
+
+
+std::string removeExtensionOutput(std::string nameFile, std::string extension);
 
 //general conveniance to_string method.
 template <typename T> std::string to_string(T value) {

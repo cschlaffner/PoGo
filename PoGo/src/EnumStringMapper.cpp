@@ -359,7 +359,10 @@ Chromosome EnumStringMapper::string_to_chromosome(const std::string& string) {
 		}
 	}
 	int chrom_num = atoi(substr.c_str());
-	if (chrom_num == 2) {
+	if (chrom_num == 1) {
+		chrom_num = 1;
+	} 
+	else if (chrom_num == 2) {
 		chrom_num = 4;
 	}
 	else if (chrom_num == 3 || chrom_num == 4) {

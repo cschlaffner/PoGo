@@ -205,4 +205,4 @@ Runtime and required memory (RAM) for PoGo execution across different settings f
 Test examples, requirement specifications and time estimations are available here: ftp://ftp.sanger.ac.uk/pub/teams/17/software/PoGo/PoGo_Testprocedures.zip.
 
 ## Contact
-Christoph Schlaffner (christoph.schlaffner@sanger.ac.uk)
+Christoph Schlaffner (christoph.schlaffner@childrens.harvard.edu)

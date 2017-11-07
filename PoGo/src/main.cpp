@@ -216,6 +216,18 @@ int main(int argc, char* argv[]) {
 		assembly assem = GTFParser::get_instance()->read(gtf_file_path, coordinate_wrapper, mapped_peptides);
 		std::cout << "GTF done!\nComputing genomic coordinates for: " << std::endl;
 
+		// Creating a post-fix for file name specifying mode of mapping using mismatches
+		std::string filename_mm_postfix = "";
+		if (GENOME_MAPPER_GLOBALS::PEPTIDE_MAPPER::ALLOWED_MISMATCHES > 0) {
+			std::stringstream ss;
+			ss << GENOME_MAPPER_GLOBALS::PEPTIDE_MAPPER::ALLOWED_MISMATCHES << "MM";
+
+			if (GENOME_MAPPER_GLOBALS::PEPTIDE_MAPPER::ONE_IN_FIVE_MODE == true) {
+				ss << "-(1in5)";
+			}
+
+			filename_mm_postfix = ss.str();
+		}
 	
 	for (size_t i(0); i < peptide_input_file_paths.size(); ++i) {
 		std::cout << peptide_input_file_paths.at(i) << std::endl;
@@ -240,11 +252,11 @@ int main(int argc, char* argv[]) {
 		if (!merge) {
 			//the gtf overwrites the input gtf if they are in the same folder
 
-			std::string path4  = final_peptide_path_results + "_out.gtf";
-			std::string path5  = final_peptide_path_results + ".bed";
-			std::string path7  = final_peptide_path_results + ".gct";
-			std::string path8  = final_peptide_path_results + "_ptm.bed";
-			std::string path81 = final_peptide_path_results +"_no-ptm.bed";
+			std::string path4  = final_peptide_path_results + "_" + filename_mm_postfix + "_out.gtf";
+			std::string path5  = final_peptide_path_results + "_" + filename_mm_postfix + ".bed";
+			std::string path7  = final_peptide_path_results + "_" + filename_mm_postfix + ".gct";
+			std::string path8  = final_peptide_path_results + "_" + filename_mm_postfix + "_ptm.bed";
+			std::string path81 = final_peptide_path_results + "_" + filename_mm_postfix + "_no-ptm.bed";
 			std::string path9 = "";
 			std::string path10 = "";
 			std::string path11 = "";
@@ -252,11 +264,11 @@ int main(int argc, char* argv[]) {
 			std::string path121 = "";
 
 			if (assem == patchhaploscaff) {
-				path9   =  final_peptide_path_results  + "_patch_hapl_scaff_out.gtf";
-				path10  = final_peptide_path_results + "_patch_hapl_scaff.bed";
-				path11  = final_peptide_path_results + "_patch_hapl_scaff.gct";
-				path12  = final_peptide_path_results + "_patch_hapl_scaff_ptm.bed";
-				path121 = final_peptide_path_results + "_patch_hapl_scaff_no-ptm.bed";
+				path9   =  final_peptide_path_results + "_" + filename_mm_postfix + "_patch_hapl_scaff_out.gtf";
+				path10  = final_peptide_path_results + "_" + filename_mm_postfix + "_patch_hapl_scaff.bed";
+				path11  = final_peptide_path_results + "_" + filename_mm_postfix + "_patch_hapl_scaff.gct";
+				path12  = final_peptide_path_results + "_" + filename_mm_postfix + "_patch_hapl_scaff_ptm.bed";
+				path121 = final_peptide_path_results + "_" + filename_mm_postfix + "_patch_hapl_scaff_no-ptm.bed";
 			}
 			if (gtfout) {
 				mapped_peptides.to_gtf(path4, source);
@@ -288,11 +300,11 @@ int main(int argc, char* argv[]) {
             final_peptide_path_results = removeExtensionOutput(final_peptide_path_results, ".tsv");
         }
 
-		std::string path4 = final_peptide_path_results  + "_merged.gtf";
-		std::string path5 = final_peptide_path_results  + "_merged.bed";
-		std::string path7 = final_peptide_path_results  + "_merged.gct";
-		std::string path8 = final_peptide_path_results  + "_merged_ptm.bed";
-		std::string path81 = final_peptide_path_results + "_merged_no-ptm.bed";
+		std::string path4 = final_peptide_path_results + "_" + filename_mm_postfix + "_merged.gtf";
+		std::string path5 = final_peptide_path_results + "_" + filename_mm_postfix + "_merged.bed";
+		std::string path7 = final_peptide_path_results + "_" + filename_mm_postfix + "_merged.gct";
+		std::string path8 = final_peptide_path_results + "_" + filename_mm_postfix + "_merged_ptm.bed";
+		std::string path81 = final_peptide_path_results + "_" + filename_mm_postfix + "_merged_no-ptm.bed";
 		std::string path9 = "";
 		std::string path10 = "";
 		std::string path11 = "";
@@ -301,11 +313,11 @@ int main(int argc, char* argv[]) {
 
 		if (assem == patchhaploscaff) {
 
-			path9   = final_peptide_path_results   + "_patch_hapl_scaff_merged.gtf";
-			path10  = final_peptide_path_results  + "_patch_hapl_scaff_merged.bed";
-			path11  = final_peptide_path_results  + "_patch_hapl_scaff_merged.gct";
-			path12  = final_peptide_path_results  + "_patch_hapl_scaff_merged_ptm.bed";
-			path121 = final_peptide_path_results + "_patch_hapl_scaff_merged_no-ptm.bed";
+			path9   = final_peptide_path_results + "_" + filename_mm_postfix + "_patch_hapl_scaff_merged.gtf";
+			path10  = final_peptide_path_results + "_" + filename_mm_postfix + "_patch_hapl_scaff_merged.bed";
+			path11  = final_peptide_path_results + "_" + filename_mm_postfix + "_patch_hapl_scaff_merged.gct";
+			path12  = final_peptide_path_results + "_" + filename_mm_postfix + "_patch_hapl_scaff_merged_ptm.bed";
+			path121 = final_peptide_path_results + "_" + filename_mm_postfix + "_patch_hapl_scaff_merged_no-ptm.bed";
 		}
 
 		if (gtfout) {

@@ -173,6 +173,8 @@ void MappedPeptides::remove_all_peptides() {
 	}
 	m_tissuemap.clear();
 	m_count_peptides = 0;
+	m_count_peptides_phs = 0;
+	m_tissueindex = 0;
 }
 
 std::string MappedPeptides::tissuemap_to_sorted_string(const std::string& sep) {

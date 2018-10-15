@@ -34,6 +34,7 @@ TAXONOMY_IDENTIFIERS orangutan = { "ENSPPYG", "ENSPPYT", "ENSPPYE", 18};
 TAXONOMY_IDENTIFIERS rat = { "ENSRNOG", "ENSRNOT", "ENSRNOE", 18};
 TAXONOMY_IDENTIFIERS pig = { "ENSSSCG", "ENSSSCT", "ENSSSCE", 18};
 TAXONOMY_IDENTIFIERS zebrafinch = { "ENSTGUG", "ENSTGUT", "ENSTGUE", 18};
+TAXONOMY_IDENTIFIERS zebrafish = { "ENSDARG", "ENSDART", "ENSDARE", 18};
 TAXONOMY_IDENTIFIERS tetraodon = { "ENSTNIG", "ENSTNIT", "ENSTNIE", 18};
 
 
@@ -110,6 +111,9 @@ std::map<std::string, TAXONOMY_IDENTIFIERS*> GENOME_MAPPER_GLOBALS::TAX = {
 	{ "taeniopygia guttata", &zebrafinch },
 	{ "zebra finch", &zebrafinch },
 	{ "59729", &zebrafinch },
+	{ "danio rerio", &zebrafish },
+	{ "zebrafish", &zebrafish },
+	{ "7955", &zebrafish },
 	{ "tetraodon nigroviridid", &tetraodon },
 	{ "tetraodon", &tetraodon },
 	{ "99883", &tetraodon }

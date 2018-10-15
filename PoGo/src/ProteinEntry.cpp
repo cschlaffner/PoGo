@@ -44,7 +44,7 @@ std::string ProteinEntry::extract_gene_id_fasta(std::string str) {
 	size_t start = str.find(GENOME_MAPPER_GLOBALS::ID::GENE_ID);
 	std::string value("");
 	if (start != std::string::npos) {
-		if ((start + GENOME_MAPPER_GLOBALS::ID::LENGTH) < str.length()) {
+		if ((start + GENOME_MAPPER_GLOBALS::ID::LENGTH - 1) < str.length()) {
 			value = str.substr(start, GENOME_MAPPER_GLOBALS::ID::LENGTH);
 		}
 	} 

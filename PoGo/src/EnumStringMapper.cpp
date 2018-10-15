@@ -79,9 +79,24 @@ std::string EnumStringMapper::enum_to_string(const Chromosome& chr) {
 	case chr38: return "38";
 	case chr39: return "39";
 	case chr40: return "40";
-	case chrX: return "chrX";
-	case chrY: return "chrY";
-	case chrXY: return "chrXY";
+	case chrI: return "I";
+	case chrII: return "II";
+	case chrIII: return "III";
+	case chrIV: return "IV";
+	case chrV: return "V";
+	case chrVI: return "VI";
+	case chrVII: return "VII";
+	case chrVIII: return "VIII";
+	case chrIX: return "IX";
+	case chrX: return "X";
+	case chrXI: return "XI";
+	case chrXII: return "XII";
+	case chrXIII: return "XIII";
+	case chrXIV: return "XIV";
+	case chrXV: return "XV";
+	case chrXVI: return "XVI";
+	case chrY: return "Y";
+	case chrXY: return "XY";
 	case chrX1: return "X1";
 	case chrX2: return "X2";
 	case chrX3: return "X3";
@@ -164,7 +179,22 @@ std::string EnumStringMapper::enum_to_chr_string(const Chromosome& chr) {
 		case chr38: return "chr38";
 		case chr39: return "chr39";
 		case chr40: return "chr40";
+		case chrI: return "chrI";
+		case chrII: return "chrII";
+		case chrIII: return "chrIII";
+		case chrIV: return "chrIV";
+		case chrV: return "chrV";
+		case chrVI: return "chrVI";
+		case chrVII: return "chrVII";
+		case chrVIII: return "chrVIII";
+		case chrIX: return "chrIX";
 		case chrX: return "chrX";
+		case chrXI: return "chrXI";
+		case chrXII: return "chrXII";
+		case chrXIII: return "chrXIII";
+		case chrXIV: return "chrXIV";
+		case chrXV: return "chrXV";
+		case chrXVI: return "chrXVI";
 		case chrY: return "chrY";
 		case chrXY: return "chrXY";
 		case chrX1: return "chrX1";
@@ -231,8 +261,53 @@ Chromosome EnumStringMapper::string_to_chromosome(const std::string& string) {
 		substr = string;
 	}
 
+	if (substr.compare("I") == 0) {
+		return chrI;
+	}
+	if (substr.compare("II") == 0) {
+		return chrII;
+	}
+	if (substr.compare("III") == 0) {
+		return chrIII;
+	}
+	if (substr.compare("IV") == 0) {
+		return chrIV;
+	}
+	if (substr.compare("V") == 0) {
+		return chrV;
+	}
+	if (substr.compare("VI") == 0) {
+		return chrVI;
+	}
+	if (substr.compare("VII") == 0) {
+		return chrVII;
+	}
+	if (substr.compare("VIII") == 0) {
+		return chrVIII;
+	}
+	if (substr.compare("IX") == 0) {
+		return chrIX;
+	}
 	if (substr.compare("X") == 0) {
 		return chrX;
+	}
+	if (substr.compare("XI") == 0) {
+		return chrXI;
+	}
+	if (substr.compare("XII") == 0) {
+		return chrXII;
+	}
+	if (substr.compare("XIII") == 0) {
+		return chrXIII;
+	}
+	if (substr.compare("XIV") == 0) {
+		return chrXIV;
+	}
+	if (substr.compare("XV") == 0) {
+		return chrXV;
+	}
+	if (substr.compare("XVI") == 0) {
+		return chrXVI;
 	}
 	if (substr.compare("W") == 0) {
 		return chrW;

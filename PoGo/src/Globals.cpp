@@ -9,6 +9,11 @@ std::string GENOME_MAPPER_GLOBALS::ID::GENE_ID("ENSG");
 std::string GENOME_MAPPER_GLOBALS::ID::TRANSCRIPT_ID("ENST");
 std::string GENOME_MAPPER_GLOBALS::ID::EXON_ID("ENSE");
 int GENOME_MAPPER_GLOBALS::ID::LENGTH(GENE_ID.size() + 11);
+std::string GENOME_MAPPER_GLOBALS::ID::GTF_GENE_ID("gene_id \"");
+std::string GENOME_MAPPER_GLOBALS::ID::GTF_TRANSCRIPT_ID("transcript_id \"");
+std::string GENOME_MAPPER_GLOBALS::ID::GTF_EXON_ID("exon_id \"");
+std::string GENOME_MAPPER_GLOBALS::ID::FASTA_GENE_ID("gene:");
+std::string GENOME_MAPPER_GLOBALS::ID::FASTA_TRANSCRIPT_ID("transcript:");
 
 TAXONOMY_IDENTIFIERS cow = { "ENSBTAG", "ENSBTAT", "ENSBTAE", 18};
 TAXONOMY_IDENTIFIERS marmoset = { "ENSCJAG", "ENSCJAT", "ENSCJAE", 18};
@@ -36,6 +41,7 @@ TAXONOMY_IDENTIFIERS pig = { "ENSSSCG", "ENSSSCT", "ENSSSCE", 18};
 TAXONOMY_IDENTIFIERS zebrafinch = { "ENSTGUG", "ENSTGUT", "ENSTGUE", 18};
 TAXONOMY_IDENTIFIERS zebrafish = { "ENSDARG", "ENSDART", "ENSDARE", 18};
 TAXONOMY_IDENTIFIERS tetraodon = { "ENSTNIG", "ENSTNIT", "ENSTNIE", 18};
+TAXONOMY_IDENTIFIERS yeast = { "Y", "Y", "Y", 8 };
 
 
 std::map<std::string, TAXONOMY_IDENTIFIERS*> GENOME_MAPPER_GLOBALS::TAX = {
@@ -116,5 +122,8 @@ std::map<std::string, TAXONOMY_IDENTIFIERS*> GENOME_MAPPER_GLOBALS::TAX = {
 	{ "7955", &zebrafish },
 	{ "tetraodon nigroviridid", &tetraodon },
 	{ "tetraodon", &tetraodon },
-	{ "99883", &tetraodon }
+	{ "99883", &tetraodon },
+	{ "saccharomyces cerevisiae", &yeast},
+	{ "yeast", &yeast },
+	{ "4932", &yeast }
 };

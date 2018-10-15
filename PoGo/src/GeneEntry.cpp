@@ -57,34 +57,36 @@ bool GeneEntry::is_patchhaploscaff() {
 }
 
 std::string GeneEntry::extract_gene_id(std::string gtfGeneLine) {
-	std::size_t start = gtfGeneLine.find(GENOME_MAPPER_GLOBALS::ID::GENE_ID);
+	std::size_t index = gtfGeneLine.find(GENOME_MAPPER_GLOBALS::ID::GTF_GENE_ID) + GENOME_MAPPER_GLOBALS::ID::GTF_GENE_ID.length();
 	std::string value = "";
-
-	if (start != std::string::npos) {
-		if ((start + GENOME_MAPPER_GLOBALS::ID::LENGTH) < gtfGeneLine.length()) {
-			value = gtfGeneLine.substr(start, GENOME_MAPPER_GLOBALS::ID::LENGTH);
+	if (index != std::string::npos) {
+		while (gtfGeneLine[index] != '\"') {
+			value = value + gtfGeneLine[index];
+			index += 1;
 		}
 	}
 	return value;
 }
 
 std::string GeneEntry::extract_transcript_id(std::string gtfGeneLine) {
-	std::size_t index = gtfGeneLine.find(GENOME_MAPPER_GLOBALS::ID::TRANSCRIPT_ID);
+	std::size_t index = gtfGeneLine.find(GENOME_MAPPER_GLOBALS::ID::GTF_TRANSCRIPT_ID) + GENOME_MAPPER_GLOBALS::ID::GTF_TRANSCRIPT_ID.length();
 	std::string value = "";
 	if (index != std::string::npos) {
-		if ((index + GENOME_MAPPER_GLOBALS::ID::LENGTH) < gtfGeneLine.length()) {
-			value = gtfGeneLine.substr(index, GENOME_MAPPER_GLOBALS::ID::LENGTH);
+		while (gtfGeneLine[index] != '\"') {
+			value = value + gtfGeneLine[index];
+			index += 1;
 		}
 	}
 	return value;
 }
 
 std::string GeneEntry::extract_exon_id(std::string gtfGeneLine) {
-	std::size_t index = gtfGeneLine.find(GENOME_MAPPER_GLOBALS::ID::EXON_ID);
+	std::size_t index = gtfGeneLine.find(GENOME_MAPPER_GLOBALS::ID::GTF_EXON_ID) + GENOME_MAPPER_GLOBALS::ID::GTF_EXON_ID.length();
 	std::string value = "";
 	if (index != std::string::npos) {
-		if ((index + GENOME_MAPPER_GLOBALS::ID::LENGTH) < gtfGeneLine.length()) {
-			value = gtfGeneLine.substr(index, GENOME_MAPPER_GLOBALS::ID::LENGTH);
+		if (gtfGeneLine[index] != '\"') {
+			value = value + gtfGeneLine[index];
+			index += 1;
 		}
 	}
 	return value;

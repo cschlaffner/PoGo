@@ -32,7 +32,7 @@ std::string ProteinEntry::extract_transcript_id_fasta(std::string str) {
 	std::string value("");
 
 	if (index != std::string::npos) {
-		while (str[index] != ' ') {
+		while (str[index] != '.' && str[index] != ' ') {
 			value = value + str[index];
 			index += 1;
 		}
@@ -45,11 +45,11 @@ std::string ProteinEntry::extract_gene_id_fasta(std::string str) {
 	size_t index = str.find(GENOME_MAPPER_GLOBALS::ID::FASTA_GENE_ID) + GENOME_MAPPER_GLOBALS::ID::FASTA_GENE_ID.length();
 	std::string value("");
 	if (index != std::string::npos) {
-		while (str[index] != ' ') {
+		while (str[index] != '.' && str[index] != ' ') {
 			value = value + str[index];
 			index += 1;
 		}
-	} 
+	}
 	return value;
 }
 

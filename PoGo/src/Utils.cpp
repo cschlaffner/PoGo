@@ -135,8 +135,8 @@ CoordinateMapType::value_type get_coordinates(Coordinates const& proteinCoords, 
 }
 
 bool same_coordinates(const GenomeCoordinates& lhs, const GenomeCoordinates& rhs) {
-	return ((lhs.chr != scaffold && lhs.chr == rhs.chr)
-		|| (lhs.chr == scaffold && lhs.chrscaf == rhs.chrscaf))
+	return ((!lhs.chr.isScaffold() && lhs.chr.getValue() == rhs.chr.getValue())
+		|| (lhs.chr.isScaffold() && lhs.chrscaf == rhs.chrscaf))
 		&& (lhs.start == rhs.start)
 		&& (lhs.end == rhs.end)
 		&& (lhs.frame == rhs.frame)
@@ -149,9 +149,9 @@ bool compare_coordinates_ascending(const GenomeCoordinates& lhs, const GenomeCoo
 
 std::string coordinates_to_string(const GenomeCoordinates& coords, bool chrincluded) {
 	std::stringstream ss;
-	if (coords.chr == scaffold && !chrincluded) {
+	if (coords.chr.isScaffold() && !chrincluded) {
 		ss << coords.chrscaf;
-	}else if(coords.chr == scaffold && chrincluded){
+	}else if(coords.chr.isScaffold() && chrincluded){
 		ss << "scaffold" << coords.chrscaf;
 	} else if(!chrincluded){
 		ss << EnumStringMapper::enum_to_string(coords.chr);
@@ -164,9 +164,9 @@ std::string coordinates_to_string(const GenomeCoordinates& coords, bool chrinclu
 
 std::string coordinates_to_short_string(const GenomeCoordinates& coords, unsigned int offset, bool chrincluded) {
 	std::stringstream ss;
-	if (coords.chr == scaffold && !chrincluded) {
+	if (coords.chr.isScaffold() && !chrincluded) {
 		ss << coords.chrscaf;
-	}else if(coords.chr == scaffold && chrincluded){
+	}else if(coords.chr.isScaffold() && chrincluded){
 		ss << "scaffold" << coords.chrscaf;
 	} else if(!chrincluded){
 		ss << EnumStringMapper::enum_to_string(coords.chr);
@@ -179,9 +179,9 @@ std::string coordinates_to_short_string(const GenomeCoordinates& coords, unsigne
 
 std::string coordinates_to_gtf_string(const GenomeCoordinates& coords, const std::string& type, bool frameinclude, const std::string& source, bool chrincluded) {
 	std::stringstream ss;
-	if (coords.chr == scaffold && !chrincluded) {
+	if (coords.chr.isScaffold() && !chrincluded) {
 		ss << coords.chrscaf;
-	}else if(coords.chr == scaffold && chrincluded){
+	}else if(coords.chr.isScaffold() && chrincluded){
 		ss << "scaffold" << coords.chrscaf;
 	} else if(!chrincluded){
 		ss << EnumStringMapper::enum_to_string(coords.chr);
@@ -199,9 +199,9 @@ std::string coordinates_to_gtf_string(const GenomeCoordinates& coords, const std
 
 std::string coordinates_to_bed_string(const GenomeCoordinates& coords, const std::string& name, unsigned int score, bool chrincluded) {
 	std::stringstream ss;
-	if (coords.chr == scaffold && !chrincluded) {
+	if (coords.chr.isScaffold() && !chrincluded) {
 		ss << coords.chrscaf;
-	}else if(coords.chr == scaffold && chrincluded){
+	}else if(coords.chr.isScaffold() && chrincluded){
 		ss << "scaffold" << coords.chrscaf;
 	} else if(!chrincluded){
 		ss << EnumStringMapper::enum_to_string(coords.chr);
@@ -214,9 +214,9 @@ std::string coordinates_to_bed_string(const GenomeCoordinates& coords, const std
 
 std::string coordinates_to_short_bed_string(const GenomeCoordinates& coords, const std::string& name, unsigned int score, bool chrincluded) {
 	std::stringstream ss;
-	if (coords.chr == scaffold && !chrincluded) {
+	if (coords.chr.isScaffold() && !chrincluded) {
 		ss << coords.chrscaf;
-	}else if(coords.chr == scaffold && chrincluded){
+	}else if(coords.chr.isScaffold() && chrincluded){
 		ss << "scaffold" << coords.chrscaf;
 	} else if(!chrincluded){
 		ss << EnumStringMapper::enum_to_string(coords.chr);
@@ -242,7 +242,7 @@ std::string coordinates_to_gct_string(std::vector<GenomeCoordinates> const& coor
 GenomeCoordinates extract_coordinates_from_gtf_line(std::vector<std::string> const&tokens) {
 	GenomeCoordinates coord;
 	coord.chr = EnumStringMapper::string_to_chromosome(tokens.at(0));
-	if (coord.chr == scaffold) {
+	if (coord.chr.isScaffold()) {
 		coord.chrscaf = tokens.at(0);
 	} else {
 		coord.chrscaf = "";

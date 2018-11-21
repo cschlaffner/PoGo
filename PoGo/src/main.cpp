@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
 	param_list.push_back(std::pair<std::string, std::string>("-source", "Please give a source name which will be used in the second column in the output gtf file (default: PoGo)"));
 	param_list.push_back(std::pair<std::string, std::string>("-mm", "Allowed mismatches (0, 1 or 2; default: 0)"));
 	param_list.push_back(std::pair<std::string, std::string>("-mmmode", "Mismatch mode (true or false): if true mismatching with two mismaches will only allow 1 mismatch every kmersize (default: 5) positions. (default: false)"));
-	param_list.push_back(std::pair<std::string, std::string>("-species", "Please give species using common or scientific name (default human). For a full list of supported species please go to https://github.com/cschlaffner/PoGo"));
+	param_list.push_back(std::pair<std::string, std::string>("-genome", "Filepath for file containing genome sequence in FASTA format used to extract chromosome names and order and differenciate between assembly and scaffolds. If not set chromosome and scaffold names and order is extracted from GTF input."));
 	param_list.push_back(std::pair<std::string, std::string>("-chr", "Export chr prefix Allowed (0, 1  default: 0)"));
 	std::vector<std::pair<std::string, std::string>> param_list_back_sorted = param_list;
 
@@ -46,6 +46,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	std::string fasta_file_path("");
+	std::string fasta_genome_file_path("");
 	std::string gtf_file_path("");
 	std::vector<std::string> peptide_input_file_paths;
 	bool merge = false;
@@ -111,7 +112,18 @@ int main(int argc, char* argv[]) {
 			} else {
 				std::cout << "merge could not be set to true. default (false) assumed" << std::endl;
 			}
-		} else if (key == "-format") {
+		}
+		else if (key == "-genome") {
+			if ((param.find(".fa", param.size() - 3, 3) == std::string::npos) && (param.find(".fasta", param.size() - 6, 6) == std::string::npos)) {
+				fasta_genome_file_path = param;
+			}
+			else {
+				std::cout << "Please provide valid input for -genome. The input filename has to end with .fa or .fasta" << std::endl;
+				fasta_genome_file_path = "";
+				std::cout << "-genome parameter removed from execution." << std::endl;
+			}
+		}
+		else if (key == "-format") {
 			gtfout = false;
 			gctout = false;
 			ptmbedout = false;
@@ -161,20 +173,7 @@ int main(int argc, char* argv[]) {
 			} else {
 				std::cerr << "-mmmode: invalid input. default (F) assumed" << std::endl;
 			}
-		} else if (key == "-species") {
-			std::string tmpparam = param;
-			std::transform(tmpparam.begin(), tmpparam.end(), tmpparam.begin(), ::tolower);
-			if (GENOME_MAPPER_GLOBALS::TAX.count(tmpparam) > 0) {
-				GENOME_MAPPER_GLOBALS::ID::GENE_ID = GENOME_MAPPER_GLOBALS::TAX[tmpparam]->GENE_ID;
-				GENOME_MAPPER_GLOBALS::ID::TRANSCRIPT_ID = GENOME_MAPPER_GLOBALS::TAX[tmpparam]->TRANSCRIPT_ID;
-				GENOME_MAPPER_GLOBALS::ID::EXON_ID = GENOME_MAPPER_GLOBALS::TAX[tmpparam]->EXON_ID;
-				GENOME_MAPPER_GLOBALS::ID::LENGTH = GENOME_MAPPER_GLOBALS::TAX[tmpparam]->LENGTH;
-			}
-			else {
-				std::cerr << "ERROR: Species/Taxonomy: " << tmpparam << " is not supported. For a full list of supported species please go to https://github.com/cschlaffner/PoGo \n";
-				return 1;
-			}
-		}else if( key == "-chr"){
+		} else if( key == "-chr"){
 			unsigned int par = atoi(param.c_str());
 			if(par == 1){
 				chrincluded = true;
@@ -197,10 +196,17 @@ int main(int argc, char* argv[]) {
 
 	std::string plural_string((GENOME_MAPPER_GLOBALS::PEPTIDE_MAPPER::ALLOWED_MISMATCHES == 1) ? " mismatch" : " mismatches");
 
-	std::cout << "Start: allowing " << GENOME_MAPPER_GLOBALS::PEPTIDE_MAPPER::ALLOWED_MISMATCHES << plural_string << std::endl
-		<< "reading FASTA: " << fasta_file_path << std::endl;
+	std::cout << "Start: allowing " << GENOME_MAPPER_GLOBALS::PEPTIDE_MAPPER::ALLOWED_MISMATCHES << plural_string << std::endl;
+		
 
 	try {
+
+		if (fasta_genome_file_path != "") {
+			std::cout << "reading genome FASTA: " << fasta_file_path << std::endl;
+			GenomeFastaParser::readGenomeFASTA(fasta_genome_file_path);
+		}
+
+		std::cout << "reading FASTA: " << fasta_file_path << std::endl;
 		CoordinateWrapper coordinate_wrapper;
 		coordinate_wrapper.read_fasta_file(fasta_file_path);
 
@@ -216,7 +222,6 @@ int main(int argc, char* argv[]) {
 		assembly assem = GTFParser::get_instance()->read(gtf_file_path, coordinate_wrapper, mapped_peptides);
 		std::cout << "GTF done!\nComputing genomic coordinates for: " << std::endl;
 
-		// Creating a post-fix for file name specifying mode of mapping using mismatches
 		std::string filename_mm_postfix = "";
 		if (GENOME_MAPPER_GLOBALS::PEPTIDE_MAPPER::ALLOWED_MISMATCHES > 0) {
 			std::stringstream ss;
@@ -287,6 +292,7 @@ int main(int argc, char* argv[]) {
 				mapped_peptides.to_ptmbed(path12, path121, assem);
 			}
 			mapped_peptides.remove_all_peptides();
+			coordinate_wrapper.renew();
 		}
 	}
 	if (merge) {

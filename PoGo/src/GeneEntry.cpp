@@ -3,9 +3,11 @@
 //PUBLIC
 //ctr & dtr
 GeneEntry::GeneEntry(void) {}
+
 GeneEntry::GeneEntry(std::string const& gtfgeneline) {
 	init(gtfgeneline);
 }
+
 GeneEntry::~GeneEntry(void) {}
 
 std::string GeneEntry::get_id() const {
@@ -25,10 +27,10 @@ std::string GeneEntry::get_name() const {
 }
 
 bool GeneEntry::operator<(const GeneEntry& rhs) const {
-	if (to_string(int(m_coord.chr)) < to_string(int(rhs.m_coord.chr))) {
+	if (to_string(m_coord.chr.getValue()) < to_string(rhs.m_coord.chr.getValue())) {
 		return true;
 	}
-	if (m_coord.chr == rhs.m_coord.chr) {
+	if (m_coord.chr.getValue() == rhs.m_coord.chr.getValue()) {
 		if (m_coord.start == rhs.m_coord.start) {
 			return m_coord.end < rhs.m_coord.end;
 		}
@@ -49,18 +51,18 @@ std::ostream& GeneEntry::to_gtf(const std::string& source, std::ostream& os, boo
 }
 
 bool GeneEntry::is_primary() {
-	return m_coord.chr != chrNA && m_coord.chr != scaffold&& m_coord.chr != chrXY;
+	return !m_coord.chr.isNA() && !m_coord.chr.isScaffold();
 }
 
 bool GeneEntry::is_patchhaploscaff() {
-	return m_coord.chr == scaffold && m_coord.chrscaf != "";
+	return m_coord.chr.isScaffold() && m_coord.chrscaf != "";
 }
 
 std::string GeneEntry::extract_gene_id(std::string gtfGeneLine) {
 	std::size_t index = gtfGeneLine.find(GENOME_MAPPER_GLOBALS::ID::GTF_GENE_ID) + GENOME_MAPPER_GLOBALS::ID::GTF_GENE_ID.length();
 	std::string value = "";
 	if (index != std::string::npos) {
-		while (gtfGeneLine[index] != '\"') {
+		while (gtfGeneLine[index] != '\"' && gtfGeneLine[index] != '.') {
 			value = value + gtfGeneLine[index];
 			index += 1;
 		}
@@ -72,7 +74,7 @@ std::string GeneEntry::extract_transcript_id(std::string gtfGeneLine) {
 	std::size_t index = gtfGeneLine.find(GENOME_MAPPER_GLOBALS::ID::GTF_TRANSCRIPT_ID) + GENOME_MAPPER_GLOBALS::ID::GTF_TRANSCRIPT_ID.length();
 	std::string value = "";
 	if (index != std::string::npos) {
-		while (gtfGeneLine[index] != '\"') {
+		while (gtfGeneLine[index] != '\"' && gtfGeneLine[index] != '.') {
 			value = value + gtfGeneLine[index];
 			index += 1;
 		}
@@ -84,7 +86,7 @@ std::string GeneEntry::extract_exon_id(std::string gtfGeneLine) {
 	std::size_t index = gtfGeneLine.find(GENOME_MAPPER_GLOBALS::ID::GTF_EXON_ID) + GENOME_MAPPER_GLOBALS::ID::GTF_EXON_ID.length();
 	std::string value = "";
 	if (index != std::string::npos) {
-		if (gtfGeneLine[index] != '\"') {
+		if (gtfGeneLine[index] != '\"' && gtfGeneLine[index] != '.') {
 			value = value + gtfGeneLine[index];
 			index += 1;
 		}

@@ -11,6 +11,12 @@ int CoordinateWrapper::size() const {
 	return m_map.size();
 }
 
+void CoordinateWrapper::renew() {
+	m_existing_peptides->clear();
+	delete(m_existing_peptides);
+	m_existing_peptides = new ExistingPeptides();
+}
+
 ProteinEntry& CoordinateWrapper::lookup_entry(std::string transcriptId) {
 	return m_map[transcriptId];
 }

@@ -4,19 +4,6 @@
 #include <vector>
 #include <map>
 
-
-struct TAXONOMY_IDENTIFIERS {
-	std::string	GENE_ID;
-	std::string	TRANSCRIPT_ID;
-	std::string	EXON_ID;
-	int			LENGTH;
-	std::string GTF_GENE_ID;
-	std::string GTF_TRANSCRIPT_ID;
-	std::string GTF_EXON_ID;
-	std::string FASTA_GENE_ID;
-	std::string FASTA_TRANSCRIPT_ID;
-};
-
 //this struct and the contained structs hold global variables. some of these can be modified with parameters (e.g. -mm) 
 //others can only be modified in the Globals.cpp file, and the executable has to be recompiled after that.
 struct GENOME_MAPPER_GLOBALS {
@@ -42,31 +29,20 @@ struct GENOME_MAPPER_GLOBALS {
 		//allowed in every 5 amino acids. (this only works if KmerLength == 5)
 		//can be toggled with the -mmmode switch.
 		static bool					ONE_IN_FIVE_MODE;
+
+		//toggles whether chromosomes and scaffolds are extracted from genome FASTA file and
+		//used in output for order of chromosomes and separation of assembly and scaffolds.
+		//if genome fasta file is provided through parameter -genome CHR_FROM_GENOME_FASTA==true
+		//otherwise chromosome order is extracted from GTF and no separation of assembly and scaffold enabled.
+		static bool					CHR_FROM_GENOME_FASTA;
 	};
 
 	//this struct holds information on the used gene and transcript ids.
 	struct ID {
-		//the gene id is the prefix (e. g. ENSG or ENSMUSG) used for the gene identifier.
-		//the executable has to be recompiled after changing this.
-		static std::string		GENE_ID;
-		
-		//the transcript id is the prefix (e. g. ENST or ENSMUST) used for the transcript identifier.
-		//the executable has to be recompiled after changing this.
-		static std::string		TRANSCRIPT_ID;
-
-		//the exon id is the prefix (e. g. ENSE or ENSMUSE) used for the exon identifier.
-		//the executable has to be recompiled after changing this.
-		static std::string		EXON_ID;
-		
-		//LENGTH holds the combined length of the prefix (see above) and the number. 
-		//(a default length of 11 is assumed for the number making for example ensembl numbers 15 characters long. (ENSG+11))
-		//the executable has to be recompiled after changing this.
-		static int				LENGTH;
-		
 		//the gene id is the string pattern that preceedes the gene ID in the GTF file.
 		//the executable has to be recompiled after changing this.
 		static std::string		GTF_GENE_ID;
-		
+
 		//the transcript id is the string pattern that preceedes the transcript ID in the GTF file.
 		//the executable has to be recompiled after changing this.
 		static std::string		GTF_TRANSCRIPT_ID;
@@ -74,18 +50,16 @@ struct GENOME_MAPPER_GLOBALS {
 		//the exon id is the string pattern that preceedes the exon ID in the GTF file.
 		//the executable has to be recompiled after changing this.
 		static std::string		GTF_EXON_ID;
-		
+
 		//the gene id is the string pattern that preceedes the gene ID in the FASTA file.
 		//the executable has to be recompiled after changing this.
 		static std::string		FASTA_GENE_ID;
-		
+
 		//the transcript id is the string pattern that preceedes the transcript ID in the FASTA file.
 		//the executable has to be recompiled after changing this.
 		static std::string		FASTA_TRANSCRIPT_ID;
-		
-	};
 
-	static std::map<std::string, TAXONOMY_IDENTIFIERS*> TAX;
+	};
 };
 
 #endif

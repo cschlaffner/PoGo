@@ -38,6 +38,10 @@ bool GTFParser::is_cds(std::vector<std::string> const& tokens) {
 	return tokens.at(2).compare("CDS") == 0;
 }
 
+bool GTFParser::is_exon(std::vector<std::string> const& tokens) {
+	return tokens.at(2).compare("exon") == 0;
+}
+
 bool GTFParser::is_next_transcript(std::vector<std::string> const& tokens) {
 	return tokens.at(2).compare("transcript") == 0;
 }
@@ -50,7 +54,7 @@ assembly GTFParser::read(const std::string& file, CoordinateWrapper& coordwrappe
 	if (!open(file)) {
 		throw GTFParser__file_not_found_exception();
 	}
-
+	std::string exonId("");
 	ProteinEntry* p_protein_entry = nullptr;
 	CoordinateMapType coordinates_map = CoordinateMapType();
 	Coordinates protein_coordinates = Coordinates();
@@ -86,10 +90,18 @@ assembly GTFParser::read(const std::string& file, CoordinateWrapper& coordwrappe
 				prev_proteint_coordinates.start = 0;
 				prev_proteint_coordinates.end = 0;
 				coordinates_map = CoordinateMapType();
-			} else if (is_cds(tokens)) {
+			}
+			else if (is_exon(tokens)) {
+				exonId = GeneEntry::extract_exon_id(m_line);
+			}
+			else if (is_cds(tokens)) {
 				GenomeCoordinates genCoord = extract_coordinates_from_gtf_line(tokens);
 				genCoord.transcriptid = GeneEntry::extract_transcript_id(m_line);
-				genCoord.exonid = GeneEntry::extract_exon_id(m_line);
+				std::string tmp_exonId = GeneEntry::extract_exon_id(m_line);
+				if (tmp_exonId == "") {
+					tmp_exonId = exonId;
+				}
+				genCoord.exonid = tmp_exonId;
 				protein_coordinates = Coordinates();
 				// get nterm from prev exon
 				if (genCoord.frame != unknown) {

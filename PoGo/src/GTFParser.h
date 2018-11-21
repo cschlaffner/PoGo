@@ -35,6 +35,8 @@ private:
 	bool static is_first_strand(std::vector<std::string> const& tokens);
 	//returns true if position 2 in the GTF says "CDS"
 	bool static is_cds(std::vector<std::string> const& tokens);
+	//returns true if position 2 in the GTF says "exon"
+	bool static is_exon(std::vector<std::string> const& tokens);
 	//returns true if position 2 in the GTF says "transcript"
 	bool static is_next_transcript(std::vector<std::string> const& tokens);
 	//returns true if position 2 in the GTF says "gene"

@@ -27,6 +27,16 @@ public:
 		return m_existing_peptides[peptideString];
 	}
 
+	void clear() {
+		for (existing_peptides_map_t::iterator it = m_existing_peptides.begin(); it != m_existing_peptides.end(); ++it) {
+			for (size_t i = 0; i < it->second.size(); ++i) {
+				delete (it->second.at(i));
+			}
+			it->second.clear();
+		}
+		m_existing_peptides.clear();
+	}
+
 private:
 	typedef std::map<std::string, std::vector<PeptideEntry*>> existing_peptides_map_t;
 	//this map holds the existing pepides.

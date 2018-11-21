@@ -22,6 +22,8 @@ public:
 	void add(ProteinEntry entry);
 	//returns the number of ProteinEntry elements currently in the CorrdinateWrapper.
 	int size() const;
+
+	void renew();
 	
 	//reads and parses a fasta file and adds all of them to the CoordinateWrapper.
 	void read_fasta_file(std::string file);

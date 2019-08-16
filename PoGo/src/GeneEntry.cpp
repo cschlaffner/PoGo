@@ -58,11 +58,11 @@ bool GeneEntry::is_patchhaploscaff() {
 	return m_coord.chr.isScaffold() && m_coord.chrscaf != "";
 }
 
-std::string GeneEntry::extract_gene_id(std::string gtfGeneLine) {
+std::string GeneEntry::extract_gene_id(std::string gtfGeneLine, bool versionincl) {
 	std::size_t index = gtfGeneLine.find(GENOME_MAPPER_GLOBALS::ID::GTF_GENE_ID) + GENOME_MAPPER_GLOBALS::ID::GTF_GENE_ID.length();
 	std::string value = "";
 	if (index != std::string::npos) {
-		while (gtfGeneLine[index] != '\"' && gtfGeneLine[index] != '.') {
+		while (gtfGeneLine[index] != '\"' && (versionincl || gtfGeneLine[index] != '.')) {
 			value = value + gtfGeneLine[index];
 			index += 1;
 		}
@@ -70,11 +70,11 @@ std::string GeneEntry::extract_gene_id(std::string gtfGeneLine) {
 	return value;
 }
 
-std::string GeneEntry::extract_transcript_id(std::string gtfGeneLine) {
+std::string GeneEntry::extract_transcript_id(std::string gtfGeneLine, bool versionincl) {
 	std::size_t index = gtfGeneLine.find(GENOME_MAPPER_GLOBALS::ID::GTF_TRANSCRIPT_ID) + GENOME_MAPPER_GLOBALS::ID::GTF_TRANSCRIPT_ID.length();
 	std::string value = "";
 	if (index != std::string::npos) {
-		while (gtfGeneLine[index] != '\"' && gtfGeneLine[index] != '.') {
+		while (gtfGeneLine[index] != '\"' && (versionincl || gtfGeneLine[index] != '.')) {
 			value = value + gtfGeneLine[index];
 			index += 1;
 		}
@@ -82,11 +82,11 @@ std::string GeneEntry::extract_transcript_id(std::string gtfGeneLine) {
 	return value;
 }
 
-std::string GeneEntry::extract_exon_id(std::string gtfGeneLine) {
+std::string GeneEntry::extract_exon_id(std::string gtfGeneLine, bool versionincl) {
 	std::size_t index = gtfGeneLine.find(GENOME_MAPPER_GLOBALS::ID::GTF_EXON_ID) + GENOME_MAPPER_GLOBALS::ID::GTF_EXON_ID.length();
 	std::string value = "";
 	if (index != std::string::npos) {
-		if (gtfGeneLine[index] != '\"' && gtfGeneLine[index] != '.') {
+		while (gtfGeneLine[index] != '\"' && (versionincl || gtfGeneLine[index] != '.')) {
 			value = value + gtfGeneLine[index];
 			index += 1;
 		}
@@ -99,7 +99,7 @@ void GeneEntry::init(const std::string& gtfgeneline) {
 	std::vector<std::string> tokens;
 	tokenize(gtfgeneline, tokens, "\t");
 
-	init(extract_gene_id(gtfgeneline), extract_coordinates_from_gtf_line(tokens), extract_type(tokens), extract_status(tokens), extract_gene_name(tokens), extract_tags(tokens));
+	init(extract_gene_id(gtfgeneline, GENOME_MAPPER_GLOBALS::ID::ID_VERSION_INCLUDE), extract_coordinates_from_gtf_line(tokens), extract_type(tokens), extract_status(tokens), extract_gene_name(tokens), extract_tags(tokens));
 }
 
 void GeneEntry::init(std::string ID, GenomeCoordinates coordinates, std::string type, std::string status, std::string gene_name, std::vector<std::string> tags) {

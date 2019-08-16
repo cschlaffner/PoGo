@@ -51,9 +51,9 @@ private:
 	//QOL: delegates to void init(std::string fastaHeader, std::string AAsequence);
 	void init(FastaEntry const&fastaEntry);
 	//gets the transcriptId from a fasta header
-	static std::string extract_transcript_id_fasta(std::string str);
+	static std::string extract_transcript_id_fasta(std::string str, bool versionincl);
 	//gets the gene id from a fasta header
-	static std::string extract_gene_id_fasta(std::string str);
+	static std::string extract_gene_id_fasta(std::string str, bool versionincl);
 };
 
 #endif

@@ -78,9 +78,9 @@ assembly GTFParser::read(const std::string& file, CoordinateWrapper& coordwrappe
 				if (p_protein_entry != nullptr) {
 					p_protein_entry->set_coordinate_map(coordinates_map);
 				}
-				p_protein_entry = &coordwrapper.lookup_entry(GeneEntry::extract_transcript_id(m_line));
+				p_protein_entry = &coordwrapper.lookup_entry(GeneEntry::extract_transcript_id(m_line, GENOME_MAPPER_GLOBALS::ID::ID_VERSION_INCLUDE));
 				if (p_protein_entry == nullptr) {
-					std::cout << "ERROR: No entry for with transcript ID: " << GeneEntry::extract_transcript_id(m_line) << "\n";
+					std::cout << "ERROR: No entry for with transcript ID: " << GeneEntry::extract_transcript_id(m_line, GENOME_MAPPER_GLOBALS::ID::ID_VERSION_INCLUDE) << "\n";
 					continue;
 				}
 				protein_coordinates = Coordinates();
@@ -92,12 +92,12 @@ assembly GTFParser::read(const std::string& file, CoordinateWrapper& coordwrappe
 				coordinates_map = CoordinateMapType();
 			}
 			else if (is_exon(tokens)) {
-				exonId = GeneEntry::extract_exon_id(m_line);
+				exonId = GeneEntry::extract_exon_id(m_line, GENOME_MAPPER_GLOBALS::ID::ID_VERSION_INCLUDE);
 			}
 			else if (is_cds(tokens)) {
 				GenomeCoordinates genCoord = extract_coordinates_from_gtf_line(tokens);
-				genCoord.transcriptid = GeneEntry::extract_transcript_id(m_line);
-				std::string tmp_exonId = GeneEntry::extract_exon_id(m_line);
+				genCoord.transcriptid = GeneEntry::extract_transcript_id(m_line, GENOME_MAPPER_GLOBALS::ID::ID_VERSION_INCLUDE);
+				std::string tmp_exonId = GeneEntry::extract_exon_id(m_line, GENOME_MAPPER_GLOBALS::ID::ID_VERSION_INCLUDE);
 				if (tmp_exonId == "") {
 					tmp_exonId = exonId;
 				}

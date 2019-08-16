@@ -19,33 +19,31 @@ ProteinEntry::~ProteinEntry(void) {}
 void ProteinEntry::init(std::string fastaHeader, std::string AAsequence) {
 	if (fastaHeader.substr(0, 1) == ">") {
 		m_fasta_header = fastaHeader;
-		m_transcript_id = extract_transcript_id_fasta(fastaHeader);
-		m_gene_id = extract_gene_id_fasta(fastaHeader);
+		m_transcript_id = extract_transcript_id_fasta(fastaHeader, GENOME_MAPPER_GLOBALS::ID::ID_VERSION_INCLUDE);
+		m_gene_id = extract_gene_id_fasta(fastaHeader, GENOME_MAPPER_GLOBALS::ID::ID_VERSION_INCLUDE);
 		m_aa_sequence = AAsequence;
 		m_coordinates_map = CoordinateMapType();
 		m_cds_annotation_correct = 0;
 	}
 }
 
-std::string ProteinEntry::extract_transcript_id_fasta(std::string str) {
+std::string ProteinEntry::extract_transcript_id_fasta(std::string str, bool versionincl) {
 	size_t index = str.find(GENOME_MAPPER_GLOBALS::ID::FASTA_TRANSCRIPT_ID) + GENOME_MAPPER_GLOBALS::ID::FASTA_TRANSCRIPT_ID.length();
 	std::string value("");
-
 	if (index != std::string::npos) {
-		while (str[index] != '.' && str[index] != ' ') {
+		while ((versionincl || str[index] != '.') && str[index] != ' ' && index<str.size()) {
 			value = value + str[index];
 			index += 1;
 		}
 	}
-
 	return value;
 }
 
-std::string ProteinEntry::extract_gene_id_fasta(std::string str) {
+std::string ProteinEntry::extract_gene_id_fasta(std::string str, bool versionincl) {
 	size_t index = str.find(GENOME_MAPPER_GLOBALS::ID::FASTA_GENE_ID) + GENOME_MAPPER_GLOBALS::ID::FASTA_GENE_ID.length();
 	std::string value("");
 	if (index != std::string::npos) {
-		while (str[index] != '.' && str[index] != ' ') {
+		while ((versionincl || str[index] != '.') && str[index] != ' ' && index<str.size()) {
 			value = value + str[index];
 			index += 1;
 		}

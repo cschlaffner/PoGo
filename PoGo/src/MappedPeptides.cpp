@@ -23,8 +23,8 @@ assembly MappedPeptides::add_gene_from_gtf(std::string const& gtfGeneLine) {
 }
 
 void MappedPeptides::add_transcript_id_to_gene(std::string const& gtftranscriptline) {
-	std::string transcript_id = GeneEntry::extract_transcript_id(gtftranscriptline);
-	std::string gene_id = GeneEntry::extract_gene_id(gtftranscriptline);
+	std::string transcript_id = GeneEntry::extract_transcript_id(gtftranscriptline, GENOME_MAPPER_GLOBALS::ID::ID_VERSION_INCLUDE);
+	std::string gene_id = GeneEntry::extract_gene_id(gtftranscriptline, GENOME_MAPPER_GLOBALS::ID::ID_VERSION_INCLUDE);
 	if (m_mapping.count(gene_id) > 0 && m_mapping_phs.count(gene_id) > 0) {
 		m_mapping[gene_id]->add_transcript_id(transcript_id);
 		m_mapping_phs[gene_id]->add_transcript_id(transcript_id);

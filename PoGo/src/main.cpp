@@ -23,6 +23,7 @@ int main(int argc, char* argv[]) {
 	param_list.push_back(std::pair<std::string, std::string>("-mmmode", "Mismatch mode (true or false): if true mismatching with two mismaches will only allow 1 mismatch every kmersize (default: 5) positions. (default: false)"));
 	param_list.push_back(std::pair<std::string, std::string>("-genome", "Filepath for file containing genome sequence in FASTA format used to extract chromosome names and order and differenciate between assembly and scaffolds. If not set chromosome and scaffold names and order is extracted from GTF input."));
 	param_list.push_back(std::pair<std::string, std::string>("-chr", "Export chr prefix Allowed (0, 1  default: 0)"));
+	param_list.push_back(std::pair<std::string, std::string>("-idv", "Allow versioning of identifiers to be included (0, 1  default: 0)"));
 	std::vector<std::pair<std::string, std::string>> param_list_back_sorted = param_list;
 
 	//sorting the parameter list alphabetically
@@ -103,6 +104,10 @@ int main(int argc, char* argv[]) {
 				peptide_input_file_paths.push_back(param);
 			} else {
 				tokenize(param, peptide_input_file_paths, ",", true);
+			}
+		} else if (key == "-idv") {
+			if (param == "1") {
+				GENOME_MAPPER_GLOBALS::ID::ID_VERSION_INCLUDE = true;
 			}
 		} else if (key == "-merge") {
 			std::string par(param);

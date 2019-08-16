@@ -11,3 +11,4 @@ std::string GENOME_MAPPER_GLOBALS::ID::GTF_TRANSCRIPT_ID("transcript_id \"");
 std::string GENOME_MAPPER_GLOBALS::ID::GTF_EXON_ID("exon_id \"");
 std::string GENOME_MAPPER_GLOBALS::ID::FASTA_GENE_ID("gene:");
 std::string GENOME_MAPPER_GLOBALS::ID::FASTA_TRANSCRIPT_ID("transcript:");
+bool GENOME_MAPPER_GLOBALS::ID::ID_VERSION_INCLUDE(false);

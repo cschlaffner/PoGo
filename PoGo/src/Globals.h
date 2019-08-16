@@ -59,6 +59,9 @@ struct GENOME_MAPPER_GLOBALS {
 		//the executable has to be recompiled after changing this.
 		static std::string		FASTA_TRANSCRIPT_ID;
 
+
+		static bool		ID_VERSION_INCLUDE;
+
 	};
 };
 

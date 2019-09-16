@@ -28,10 +28,15 @@ void ProteinEntry::init(std::string fastaHeader, std::string AAsequence) {
 }
 
 std::string ProteinEntry::extract_transcript_id_fasta(std::string str, bool versionincl) {
-	size_t index = str.find(GENOME_MAPPER_GLOBALS::ID::FASTA_TRANSCRIPT_ID) + GENOME_MAPPER_GLOBALS::ID::FASTA_TRANSCRIPT_ID.length();
+	size_t index = str.find(GENOME_MAPPER_GLOBALS::ID::FASTA_TRANSCRIPT_ID);
 	std::string value("");
 	if (index != std::string::npos) {
-		while ((versionincl || str[index] != '.') && str[index] != ' ' && index<str.size()) {
+		index = index + GENOME_MAPPER_GLOBALS::ID::FASTA_TRANSCRIPT_ID.length();
+	} else {
+		index = 1;
+	}
+	if (index != std::string::npos) {
+		while ((versionincl || str[index] != '.') && str[index] != ' ' && str[index] != '|' && index < str.size()) {
 			value = value + str[index];
 			index += 1;
 		}
@@ -40,10 +45,16 @@ std::string ProteinEntry::extract_transcript_id_fasta(std::string str, bool vers
 }
 
 std::string ProteinEntry::extract_gene_id_fasta(std::string str, bool versionincl) {
-	size_t index = str.find(GENOME_MAPPER_GLOBALS::ID::FASTA_GENE_ID) + GENOME_MAPPER_GLOBALS::ID::FASTA_GENE_ID.length();
+	size_t index = str.find(GENOME_MAPPER_GLOBALS::ID::FASTA_GENE_ID);
 	std::string value("");
 	if (index != std::string::npos) {
-		while ((versionincl || str[index] != '.') && str[index] != ' ' && index<str.size()) {
+		index = index + GENOME_MAPPER_GLOBALS::ID::FASTA_GENE_ID.length();
+	} else {
+		index = str.find_first_of("|");
+		index = index + 1;
+	}
+	if (index != std::string::npos) {
+		while ((versionincl || str[index] != '.') && str[index] != ' ' && str[index] != '|' && index < str.size()) {
 			value = value + str[index];
 			index += 1;
 		}

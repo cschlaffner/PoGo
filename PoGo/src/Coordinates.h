@@ -91,7 +91,11 @@ struct GenomeCoordinates : Coordinates {
 			return true;
 		}
 		if (lhs.chr.getValue() == rhs.chr.getValue()) {
-			return lhs.start < rhs.start && lhs.end < rhs.end && lhs.end >= rhs.start;
+			if ((lhs.strand == Strand::rev && rhs.strand == Strand::rev) || (lhs.strand == Strand::unk && rhs.strand == Strand::rev) || (lhs.strand == Strand::rev && rhs.strand == Strand::unk)) {
+				return lhs.start > rhs.start && lhs.end > rhs.end && lhs.start >= rhs.end;
+			} else {
+				return lhs.start < rhs.start && lhs.end < rhs.end && lhs.end <= rhs.start;
+			}
 		}
 		return lhs.chr.getValue() < rhs.chr.getValue();
 	}
@@ -102,10 +106,17 @@ struct GenomeCoordinates : Coordinates {
 
 	bool operator<(const GenomeCoordinates& rhs) const {
 		if (chr.isScaffold() && rhs.chr.isScaffold() && chrscaf == rhs.chrscaf) {
-			if (start == rhs.start) {
-				return end < rhs.end;
+			if ((strand == Strand::rev && rhs.strand == Strand::rev) || (strand == Strand::unk && rhs.strand == Strand::rev) || (strand == Strand::rev && rhs.strand == Strand::unk)) {
+				if (end == rhs.end) {
+					return start > rhs.start;
+				}
+				return end > rhs.end;
+			} else {
+				if (start == rhs.start) {
+					return end < rhs.end;
+				}
+				return start < rhs.start;
 			}
-			return start < rhs.start;
 		}
 		if (chr.isScaffold() && rhs.chr.isScaffold() && chrscaf != rhs.chrscaf) {
 			return chrscaf < rhs.chrscaf;
@@ -117,10 +128,17 @@ struct GenomeCoordinates : Coordinates {
 			return true;
 		}
 		if (chr.getValue() == rhs.chr.getValue()) {
-			if (start == rhs.start) {
-				return end < rhs.end;
+			if ((strand == Strand::rev && rhs.strand == Strand::rev) || (strand == Strand::unk && rhs.strand == Strand::rev) || (strand == Strand::rev && rhs.strand == Strand::unk)) {
+				if (end == rhs.end) {
+					return start > rhs.start;
+				}
+				return end > rhs.end;
+			} else {
+				if (start == rhs.start) {
+					return end < rhs.end;
+				}
+				return start < rhs.start;
 			}
-			return start < rhs.start;
 		}
 		return chr.getValue() < rhs.chr.getValue();
 	}

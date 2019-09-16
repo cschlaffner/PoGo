@@ -3,6 +3,7 @@
 
 #include <set>
 #include <vector>
+#include <list>
 #include <sstream>
 #include <algorithm>
 #include <iostream>

@@ -31,7 +31,7 @@ std::string ProteinEntry::extract_transcript_id_fasta(std::string str, bool vers
 	size_t index = str.find(GENOME_MAPPER_GLOBALS::ID::FASTA_TRANSCRIPT_ID);
 	std::string value("");
 	if (index != std::string::npos) {
-		index = index + GENOME_MAPPER_GLOBALS::ID::FASTA_TRANSCRIPT_ID.length();
+		index = index + GENOME_MAPPER_GLOBALS::ID::FASTA_TRANSCRIPT_ID.length() + 1;
 	} else {
 		index = 1;
 	}
@@ -48,7 +48,7 @@ std::string ProteinEntry::extract_gene_id_fasta(std::string str, bool versioninc
 	size_t index = str.find(GENOME_MAPPER_GLOBALS::ID::FASTA_GENE_ID);
 	std::string value("");
 	if (index != std::string::npos) {
-		index = index + GENOME_MAPPER_GLOBALS::ID::FASTA_GENE_ID.length();
+		index = index + GENOME_MAPPER_GLOBALS::ID::FASTA_GENE_ID.length() + 1;
 	} else {
 		index = str.find_first_of("|");
 		index = index + 1;

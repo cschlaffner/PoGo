@@ -1,7 +1,12 @@
 #include "FastaParser.h"
 
 FastaParser* FastaParser::m_instance = nullptr;
-FastaParser::FastaParser() {}
+
+FastaParser::FastaParser() { 
+	m_headersource = "default";
+	m_first_headercheck = true;
+}
+
 FastaParser::FastaParser(const FastaParser& other) {}
 FastaParser::~FastaParser() {}
 
@@ -31,6 +36,16 @@ FastaEntry FastaParser::next_entry() {
 		std::getline(m_is, m_line);
 	}
 	std::string header = m_line;
+	if (m_first_headercheck) {
+		std::regex re(">(ENS[A-Z]*P.*)|(-)\\|(ENS[A-Z]*T.*)|(-)\\|(ENS[A-Z]*G.*)|(-)\\|(OTT[A-Z]*G.*)|(-)\\|(OTT[A-Z]*T.*)|(-)\\|.*");
+		if (std::regex_match(header, re)==true) {
+			m_headersource = "gencode";
+			m_first_headercheck = false;
+		} else {
+			m_headersource = "other";
+			m_first_headercheck = false;
+		}
+	}
 	std::string sequence = "";
 	while (std::getline(m_is, m_line) && (m_line.compare(0, 1, ">") != 0)) {
 		sequence.append(make_iso_sequence(m_line));
@@ -38,7 +53,7 @@ FastaEntry FastaParser::next_entry() {
 	if ((m_line.compare(0, 1, ">") != 0)) {
 		m_line.clear();
 	}
-	return FastaEntry(header, sequence);
+	return FastaEntry(header, sequence, m_headersource);
 }
 
 FastaParser& FastaParser::operator=(const FastaParser& other) {

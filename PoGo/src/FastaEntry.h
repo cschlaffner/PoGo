@@ -6,7 +6,7 @@
 class FastaEntry {
 public:
 	//ctr / dtr
-	FastaEntry(std::string const& header, std::string const& AAsequence);
+	FastaEntry(std::string const& header, std::string const& AAsequence, std::string const& headersource);
 	FastaEntry();
 	~FastaEntry(void);
 	//end ctr / dtr
@@ -17,12 +17,16 @@ public:
 	std::string get_sequence() const;
 	//returns true if both header and sequence are empty
 	bool is_empty() const;
+	//returns the header source database
+	std::string get_source() const;
 
 private:
 	//holds the fasta header
 	std::string m_header;
 	//holds the fasta entry sequence.
 	std::string m_aa_sequence;
+	//holds information about fasta header source
+	std::string m_headersource;
 };
 
 #endif

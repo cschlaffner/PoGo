@@ -8,7 +8,7 @@ class ProteinEntry {
 public:
 	//ctr /dtr
 	ProteinEntry(void);
-	ProteinEntry(std::string const&fastaHeader, std::string const&AAsequence);
+	ProteinEntry(std::string const&fastaHeader, std::string const&AAsequence, std::string const&headersource);
 	explicit ProteinEntry(FastaEntry const&fastaEntry);
 	~ProteinEntry(void);
 	//ctr/dtr
@@ -38,6 +38,8 @@ private:
 	std::string m_gene_id;
 	//the AA sequence.
 	std::string m_aa_sequence;
+	//fasta header source
+	std::string m_headersource;
 
 	//the coordinateMapType is a multimap: 
 	//std::multimap <Coordinates (protein coordinates), GenomeCoordinates(corresponding genomic coordinates), Coordinates (passing this as third argument will use the Coordinates::operator() as comparator)>  
@@ -47,13 +49,13 @@ private:
 	unsigned int m_cds_annotation_correct;
 
 	//sets all crucial values. 
-	void init(std::string fastaHeader, std::string AAsequence);
+	void init(std::string fastaHeader, std::string AAsequence, std::string headersource);
 	//QOL: delegates to void init(std::string fastaHeader, std::string AAsequence);
 	void init(FastaEntry const&fastaEntry);
 	//gets the transcriptId from a fasta header
-	static std::string extract_transcript_id_fasta(std::string str, bool versionincl);
+	static std::string extract_transcript_id_fasta(std::string str, bool versionincl, std::string source);
 	//gets the gene id from a fasta header
-	static std::string extract_gene_id_fasta(std::string str, bool versionincl);
+	static std::string extract_gene_id_fasta(std::string str, bool versionincl, std::string source);
 };
 
 #endif

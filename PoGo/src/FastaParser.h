@@ -2,6 +2,7 @@
 #define FASTAPARSER_H
 
 #include <fstream>
+#include <regex>
 #include "FastaEntry.h"
 
 //this fastaparser reads fasta files. 
@@ -28,6 +29,10 @@ private:
 	std::ifstream m_is;
 	//current line.
 	std::string m_line;
+	//fasta header source
+	std::string m_headersource;
+	//fasta header source check for first header
+	bool m_first_headercheck;
 	//meyers singleton instance.
 	static FastaParser* m_instance;
 	//ctr

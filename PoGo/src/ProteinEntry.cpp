@@ -8,32 +8,43 @@ ProteinEntry::ProteinEntry(void) :
 	m_aa_sequence(),
 	m_coordinates_map(CoordinateMapType()),
 	m_cds_annotation_correct(0) {}
-ProteinEntry::ProteinEntry(std::string const&fastaHeader, std::string const&AAsequence) {
-	init(fastaHeader, AAsequence);
+ProteinEntry::ProteinEntry(std::string const&fastaHeader, std::string const& AAsequence, std::string const& headersource) {
+	init(fastaHeader, AAsequence, headersource);
 }
 ProteinEntry::ProteinEntry(FastaEntry const&fastaEntry) {
 	init(fastaEntry);
 }
 ProteinEntry::~ProteinEntry(void) {}
 
-void ProteinEntry::init(std::string fastaHeader, std::string AAsequence) {
+void ProteinEntry::init(std::string fastaHeader, std::string AAsequence, std::string headersource) {
+	m_headersource = headersource;
 	if (fastaHeader.substr(0, 1) == ">") {
 		m_fasta_header = fastaHeader;
-		m_transcript_id = extract_transcript_id_fasta(fastaHeader, GENOME_MAPPER_GLOBALS::ID::ID_VERSION_INCLUDE);
-		m_gene_id = extract_gene_id_fasta(fastaHeader, GENOME_MAPPER_GLOBALS::ID::ID_VERSION_INCLUDE);
+		m_transcript_id = extract_transcript_id_fasta(fastaHeader, GENOME_MAPPER_GLOBALS::ID::ID_VERSION_INCLUDE, m_headersource);
+		m_gene_id = extract_gene_id_fasta(fastaHeader, GENOME_MAPPER_GLOBALS::ID::ID_VERSION_INCLUDE, m_headersource);
 		m_aa_sequence = AAsequence;
 		m_coordinates_map = CoordinateMapType();
 		m_cds_annotation_correct = 0;
 	}
 }
 
-std::string ProteinEntry::extract_transcript_id_fasta(std::string str, bool versionincl) {
-	size_t index = str.find(GENOME_MAPPER_GLOBALS::ID::FASTA_TRANSCRIPT_ID);
+std::string ProteinEntry::extract_transcript_id_fasta(std::string str, bool versionincl, std::string source) {
+	size_t index = std::string::npos;
 	std::string value("");
-	if (index != std::string::npos) {
-		index = index + GENOME_MAPPER_GLOBALS::ID::FASTA_TRANSCRIPT_ID.length() + 1;
+	if (source.compare("gencode") == 0) {
+		std::regex re("ENS[A-Z]*T");
+		std::smatch m;
+		if (std::regex_search(str, m, re)) {
+			index = str.find(m[0]);
+		}
 	} else {
-		index = 1;
+		index = str.find(GENOME_MAPPER_GLOBALS::ID::FASTA_TRANSCRIPT_ID);
+		if (index != std::string::npos) {
+			index = index + GENOME_MAPPER_GLOBALS::ID::FASTA_TRANSCRIPT_ID.length() + 1;
+		}
+		else {
+			index = 1;
+		}
 	}
 	if (index != std::string::npos) {
 		while ((versionincl || str[index] != '.') && str[index] != ' ' && str[index] != '|' && index < str.size()) {
@@ -44,14 +55,24 @@ std::string ProteinEntry::extract_transcript_id_fasta(std::string str, bool vers
 	return value;
 }
 
-std::string ProteinEntry::extract_gene_id_fasta(std::string str, bool versionincl) {
-	size_t index = str.find(GENOME_MAPPER_GLOBALS::ID::FASTA_GENE_ID);
+std::string ProteinEntry::extract_gene_id_fasta(std::string str, bool versionincl, std::string source) {
+	size_t index = std::string::npos;
 	std::string value("");
-	if (index != std::string::npos) {
-		index = index + GENOME_MAPPER_GLOBALS::ID::FASTA_GENE_ID.length() + 1;
+	if (source.compare("gencode") == 0) {
+		std::regex re("ENS[A-Z]*G");
+		std::smatch m;
+		if (std::regex_search(str, m, re)) {
+			index = str.find(m[0]);
+		}
 	} else {
-		index = str.find_first_of("|");
-		index = index + 1;
+		index = str.find(GENOME_MAPPER_GLOBALS::ID::FASTA_GENE_ID);
+		if (index != std::string::npos) {
+			index = index + GENOME_MAPPER_GLOBALS::ID::FASTA_GENE_ID.length() + 1;
+		}
+		else {
+			index = str.find_first_of("|");
+			index = index + 1;
+		}
 	}
 	if (index != std::string::npos) {
 		while ((versionincl || str[index] != '.') && str[index] != ' ' && str[index] != '|' && index < str.size()) {
@@ -67,7 +88,7 @@ void ProteinEntry::set_coordinate_map(CoordinateMapType coordinatesMap) {
 }
 
 void ProteinEntry::init(FastaEntry const&fastaEntry) {
-	init(fastaEntry.get_header(), fastaEntry.get_sequence());
+	init(fastaEntry.get_header(), fastaEntry.get_sequence(), fastaEntry.get_source());
 }
 
 std::string const& ProteinEntry::get_transcript_id() const {
